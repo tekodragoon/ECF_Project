@@ -7,7 +7,7 @@
 
 {%- block widget_attributes -%}
 	{%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-1 w-full rounded p-2 bg-white
-	border-black border-2')) ~ (disabled  ? '
+	border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary')) ~ (disabled  ? '
 ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~
 	widget_errors_class|default('border-error')) }) -%}
 	{{- parent() -}}
