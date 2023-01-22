@@ -12,6 +12,10 @@
     .textH1 {
         @apply font-extrabold text-4xl text-center text-textColor
     }
+
+    .textLink {
+        @apply underline text-link
+    }
 }
 
 body,

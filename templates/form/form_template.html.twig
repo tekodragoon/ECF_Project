@@ -6,7 +6,8 @@
 {%- endblock form_row -%}
 
 {%- block widget_attributes -%}
-	{%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-1 w-full rounded p-2')) ~ (disabled ? '
+	{%- set attr = attr|merge({ class: attr.class|default(widget_class|default('mt-1 w-full rounded p-2 bg-white
+	border-black border-2')) ~ (disabled  ? '
 ' ~ widget_disabled_class|default('border-gray-300 text-gray-500')) ~ (errors|length ? ' ' ~
 	widget_errors_class|default('border-error')) }) -%}
 	{{- parent() -}}
@@ -14,7 +15,7 @@
 
 {%- block form_label -%}
 	{%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-textColor')
-	) })	-%}
+	) }) -%}
 	{{- parent() -}}
 {%- endblock form_label -%}
 
