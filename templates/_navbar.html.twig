@@ -13,9 +13,10 @@
 				<a class="text-textColor" href="#">Contact</a>
 				<a
 						class="text-textColor"
-						href="{{ path('app_register') }}">
-					Compte
+						href="{{ app.user ? path('app_login') : path('app_register') }}">
+					{{ app.user ? 'Compte' : 'Inscription' }}
 				</a>
+				<!--TODO: Change path route to account when user is connected -->
 			</div>
 		</div>
 	</div>
