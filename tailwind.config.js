@@ -5,7 +5,22 @@ module.exports = {
 		"./templates/**/*.html.twig",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				"primary": "#A66D58",
+				"secondary": "#BF9969",
+				"textColor": "#402A22",
+				"lightText": "#F7F7F7",
+				"darkBg": "#A6A198",
+				"lightBg": "#F2EFC4",
+				"black": "#060316",
+				"white": "#FAFAFA",
+				"link": "#0DAAB4",
+				"valid": "#63B56B",
+				"error": "#DA3939",
+				"warning": "#EB9B22",
+			},
+		},
 	},
 	plugins: [],
 }
