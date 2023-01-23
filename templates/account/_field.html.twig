@@ -1,6 +1,11 @@
 <div class="flex justify-start items-center mb-6">
-	<div class="flex-grow border border-2 border-secondary p-4 rounded">
-		<span class="font-bold underline underline-offset-2">{{ field_name }}</span>: {{ field_value }}
+	<div class="flex-grow border border-2 border-secondary p-3 rounded bg-darkBg">
+		<div class="flex justify-between items-center">
+			<div>
+				<span class="font-bold text-black underline underline-offset-2">{{ field_name }}</span>: {{ field_value }}
+			</div>
+			<img src="{{ asset('build/images/oval.svg') }}" alt="loading" class="htmx-indicator">
+		</div>
 	</div>
 	<button hx-get="{{ path('app_account_edit') }}" class="icon-btn">
 		<span class="material-symbols-rounded">Edit</span>
