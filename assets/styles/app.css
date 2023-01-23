@@ -13,6 +13,10 @@
         @apply font-extrabold text-4xl text-center text-textColor
     }
 
+    .textH2 {
+        @apply font-semibold text-3xl text-center text-textColor
+    }
+
     .textLink {
         @apply underline text-link
     }
