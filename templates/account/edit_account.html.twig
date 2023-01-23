@@ -1,16 +1,21 @@
-<form hx-put="/account" hx-target="this" hx-swap="outerHTML">
-	<div>
-		<label for="firstName">First Name</label>
-		<input type="text" id="firstName" name="firstName" value="Joe">
+<form hx-post="{{ path('app_account_edit') }}" hx-target="this" hx-swap="outerHTML">
+	{{ form_start(form) }}
+	{{ form_row(form.lastname, {
+		label: 'Nom'
+	}) }}
+	{{ form_row(form.firstname, {
+		label: 'Prénom'
+	}) }}
+	{{ form_row(form.email, {
+		label: 'Email'
+	}) }}
+
+	<div class="flex w-full justify-center">
+		<button type="submit" class="btn">Submit</button>
+		<button type="button" class="btn" hx-get="{{ path('app_account_show') }}">Cancel</button>
 	</div>
-	<div class="form-group">
-		<label for="lastName">Last Name</label>
-		<input type="text" id="lastName" name="lastName" value="Blow">
-	</div>
-	<div class="form-group">
-		<label for="email">Email Address</label>
-		<input type="email" id="email" name="email" value="joe@blow.com">
-	</div>
-	<button class="btn">Submit</button>
-	<button class="btn" hx-get="{{ path('app_account_show') }}">Cancel</button>
+
+	{{ form_end(form) }}
+
+
 </form>

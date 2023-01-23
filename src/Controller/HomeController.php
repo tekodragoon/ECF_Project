@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,8 +30,20 @@ class HomeController extends AbstractController
     }
 
     #[Route('/account/edit', name: 'app_account_edit')]
-    public function editAccount(): Response
+    public function editAccount(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('account/edit_account.html.twig');
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('app_account_show');
+        }
+
+        return $this->render('account/edit_account.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
