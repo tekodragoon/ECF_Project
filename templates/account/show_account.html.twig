@@ -1,0 +1,17 @@
+<div hx-target="this" hx-swap="outerHTML">
+	{% set value = app.user.email %}
+	{{ include('account/_field.html.twig', {
+		field_name: 'Nom',
+		field_value: value,
+	}) }}
+	{% set value = app.user.email %}
+	{{ include('account/_field.html.twig', {
+		field_name: 'Prénom',
+		field_value: value,
+	}) }}
+	{% set value = app.user.email %}
+	{{ include('account/_field.html.twig', {
+		field_name: 'Email',
+		field_value: value,
+	}) }}
+</div>

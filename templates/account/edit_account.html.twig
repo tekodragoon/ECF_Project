@@ -1,0 +1,16 @@
+<form hx-put="/account" hx-target="this" hx-swap="outerHTML">
+	<div>
+		<label for="firstName">First Name</label>
+		<input type="text" id="firstName" name="firstName" value="Joe">
+	</div>
+	<div class="form-group">
+		<label for="lastName">Last Name</label>
+		<input type="text" id="lastName" name="lastName" value="Blow">
+	</div>
+	<div class="form-group">
+		<label for="email">Email Address</label>
+		<input type="email" id="email" name="email" value="joe@blow.com">
+	</div>
+	<button class="btn">Submit</button>
+	<button class="btn" hx-get="{{ path('app_account_show') }}">Cancel</button>
+</form>

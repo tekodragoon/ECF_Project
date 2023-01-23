@@ -9,6 +9,12 @@
         active:px-3.5 active:py-1.5 active:m-1.5
     }
 
+    .icon-btn {
+        @apply text-primary m-1 p-3 rounded border-2 border-primary
+        hover:bg-primary hover:text-lightText
+        active:p-2.5 active:m-1.5
+    }
+
     .textH1 {
         @apply font-extrabold text-4xl text-center text-textColor
     }
