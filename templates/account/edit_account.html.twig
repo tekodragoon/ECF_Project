@@ -10,9 +10,9 @@
 		label: 'Email'
 	}) }}
 
-	<div class="flex w-full justify-center">
-		<button type="submit" class="btn">Submit</button>
-		<button type="button" class="btn" hx-get="{{ path('app_account_show') }}">Cancel</button>
+	<div class="flex w-full justify-center gap-6">
+		<button type="submit" class="btn">Modifier</button>
+		<button type="button" class="btn" hx-get="{{ path('app_account_show') }}">Annuler</button>
 	</div>
 
 	{{ form_end(form) }}
