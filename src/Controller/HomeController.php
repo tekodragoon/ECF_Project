@@ -4,10 +4,12 @@ namespace App\Controller;
 
 use App\Form\PasswordEditType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -49,10 +51,28 @@ class HomeController extends AbstractController
     }
 
     #[Route('/account/edit-password', name: 'app_account_edit_pwd')]
-    public function updatePwd(Request $request, ): Response
+    public function updatePwd(
+        Request $request,
+        EntityManagerInterface $manager,
+        UserRepository $repo,
+        UserPasswordHasherInterface $hasher): Response
     {
         $form = $this->createForm(PasswordEditType::class);
         $form->handleRequest($request);
+
+        $user = $repo->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+        dump($user);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $hasher->hashPassword(
+                    $user,
+                    $form->get('newPassword')->getData()
+                ));
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('app_account_show');
+        }
 
         return $this->render('account/edit_password.html.twig', [
             'form' => $form->createView(),
