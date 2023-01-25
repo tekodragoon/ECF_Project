@@ -46,4 +46,10 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/account/edit-password', name: 'app_account_edit_pwd')]
+    public function updatePwd(): Response
+    {
+        return $this->render('account/edit_password.html.twig');
+    }
 }

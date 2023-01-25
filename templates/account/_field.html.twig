@@ -7,7 +7,7 @@
 			<img src="{{ asset('build/images/oval.svg') }}" alt="loading" class="htmx-indicator">
 		</div>
 	</div>
-	<button hx-get="{{ path('app_account_edit') }}" class="icon-btn">
+	<button hx-get="{{ field_path ?? path('app_account_edit') }}" class="icon-btn">
 		<span class="material-symbols-rounded">Edit</span>
 	</button>
 </div>

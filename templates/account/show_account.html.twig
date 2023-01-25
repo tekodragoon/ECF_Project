@@ -14,4 +14,10 @@
 		field_name: 'Email',
 		field_value: value,
 	}) }}
+	{% set path = path('app_account_edit_pwd') %}
+	{{ include('account/_field.html.twig', {
+		field_name: 'Mot de passe',
+		field_value: '******',
+		field_path: path,
+	}) }}
 </div>
