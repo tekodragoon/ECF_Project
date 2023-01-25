@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\PasswordType;
+use App\Form\PasswordEditType;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +51,7 @@ class HomeController extends AbstractController
     #[Route('/account/edit-password', name: 'app_account_edit_pwd')]
     public function updatePwd(Request $request, ): Response
     {
-        $form = $this->createForm(PasswordType::class);
+        $form = $this->createForm(PasswordEditType::class);
         $form->handleRequest($request);
 
         return $this->render('account/edit_password.html.twig', [
