@@ -78,4 +78,10 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/account/guest-list', name: 'app_account_guests')]
+    public function showGuest():Response
+    {
+        return $this->render('account/show_guest.html.twig');
+    }
 }

@@ -11,8 +11,16 @@
 
     .icon-btn {
         @apply text-primary m-1 p-3 rounded border-2 border-primary
+            flex gap-1 justify-center items-center
         hover:bg-primary hover:text-lightText
         active:p-2.5 active:m-1.5
+    }
+
+    .btn-icon-left {
+        @apply text-primary m-1 px-4 py-2 rounded border-2 border-primary
+            flex justify-center items-center
+        hover:bg-primary hover:text-lightText
+        active:px-3.5 active:py-1.5 active:m-1.5
     }
 
     .textH1 {
@@ -44,3 +52,5 @@ button {
  }
 
 .material-symbols-rounded.title-icon { font-size: 96px}
+
+.material-symbols-rounded.button-icon { font-size: 24px}

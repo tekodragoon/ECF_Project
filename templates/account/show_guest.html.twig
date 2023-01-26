@@ -1,0 +1,13 @@
+<div hx-target="this" hx-swap="outerHTML">
+	{{ include('account/_guest-field.html.twig', {
+		index: 1,
+		firstname: '%s %s'|format(app.user.lastname, app.user.firstname),
+		adult: true,
+		allergies: app.user.allergies
+	}) }}
+	<div class="flex justify-end">
+		<button hx-get="#" class="btn-icon-left">
+			Ajouter <span class="material-symbols-rounded button-icon">Add</span>
+		</button>
+	</div>
+</div>

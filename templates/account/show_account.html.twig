@@ -20,4 +20,12 @@
 		field_value: '******',
 		field_path: path,
 	}) }}
+	{% set path = path('app_account_guests') %}
+	{% set guests = app.user.guests.count + 1 %}
+	{% set value = "%s personnes"|format(guests) %}
+	{{ include('account/_field.html.twig', {
+		field_name: 'Convives',
+		field_value: value,
+		field_path: path,
+	}) }}
 </div>
