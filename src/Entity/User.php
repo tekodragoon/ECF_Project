@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -39,6 +40,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Guest::class, orphanRemoval: true)]
     private Collection $guests;
+
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
+    private array $allergies = [];
 
     public function __construct()
     {
@@ -165,6 +169,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $guest->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAllergies(): array
+    {
+        return $this->allergies;
+    }
+
+    public function setAllergies(?array $allergies): self
+    {
+        $this->allergies = $allergies;
 
         return $this;
     }
