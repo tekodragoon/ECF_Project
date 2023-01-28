@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Guest;
+use App\Form\GuestType;
 use App\Form\PasswordEditType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -83,5 +85,18 @@ class HomeController extends AbstractController
     public function showGuest():Response
     {
         return $this->render('account/show_guest.html.twig');
+    }
+
+    #[Route('/account/edit-guest', name: 'app_account_edit_guest')]
+    public function editGuest(Request $request): Response
+    {
+        $guest = new Guest();
+        $form = $this->createForm(GuestType::class, $guest);
+
+
+
+        return $this->render('account/edit_guest.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

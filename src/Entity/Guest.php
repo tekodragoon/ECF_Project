@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GuestRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,12 +22,17 @@ class Guest
     #[ORM\Column]
     private ?bool $adult = null;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
-    private array $allergy = [];
-
     #[ORM\ManyToOne(inversedBy: 'guests')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'guest', targetEntity: Allergy::class, orphanRemoval: true)]
+    private Collection $allergies;
+
+    public function __construct()
+    {
+        $this->allergies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -56,18 +63,6 @@ class Guest
         return $this;
     }
 
-    public function getAllergy(): array
-    {
-        return $this->allergy;
-    }
-
-    public function setAllergy(?array $allergy): self
-    {
-        $this->allergy = $allergy;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -76,6 +71,36 @@ class Guest
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Allergy>
+     */
+    public function getAllergies(): Collection
+    {
+        return $this->allergies;
+    }
+
+    public function addAllergy(Allergy $allergy): self
+    {
+        if (!$this->allergies->contains($allergy)) {
+            $this->allergies->add($allergy);
+            $allergy->setGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergy(Allergy $allergy): self
+    {
+        if ($this->allergies->removeElement($allergy)) {
+            // set the owning side to null (unless already changed)
+            if ($allergy->getGuest() === $this) {
+                $allergy->setGuest(null);
+            }
+        }
 
         return $this;
     }

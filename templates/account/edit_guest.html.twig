@@ -1,0 +1,57 @@
+<form
+		hx-post="{{ path('app_account_edit_pwd') }}"
+		hx-target="this"
+		hx-swap="outerHTML">
+	{{ form_start(form) }}
+
+	{{ form_row(form.firstname) }}
+
+	{{ form_row(form.adult) }}
+
+	<div
+			id="allergies"
+			data-prototype="{{ include('account/_allergy.html.twig', {form: form.allergies.vars.prototype})|e
+				('html_attr') }}"
+			data-index="{{ form.allergies|length > 0 ? form.allergies|last.vars.name + 1 : 0 }}">
+		{% for allergy in form.allergies %}
+			<div>
+				{{ include('account/_allergy.html.twig', {form: allergy}) }}
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="flex justify-end mb-6">
+		<button type="button"
+		        class="btn btn-new"
+		        onclick="addFormElement()"
+		        data-collection="#allergies">
+			Ajouter une allergie
+		</button>
+	</div>
+
+	<div class="flex w-full justify-center gap-6">
+		<button type="submit" class="btn">Modifier</button>
+		<button type="button" class="btn" hx-get="{{ path('app_account_guests') }}">Annuler</button>
+	</div>
+
+	{{ form_end(form, {render_rest: false}) }}
+</form>
+<script>
+	const addFormElement = () => {
+		const e = document.querySelector('.btn-new');
+		const collectionHolder = document.querySelector(e.dataset.collection);
+
+		const item = document.createElement('div');
+		item.classList.add('mb-2');
+		item.innerHTML = collectionHolder
+				.dataset
+				.prototype
+				.replace(
+						/__name__/g,
+						collectionHolder.dataset.index
+				);
+		item.querySelector('.btn-remove').addEventListener('click', () => item.remove());
+		collectionHolder.appendChild(item);
+		collectionHolder.dataset.index++;
+	}
+</script>

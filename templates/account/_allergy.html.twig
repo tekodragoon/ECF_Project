@@ -1,0 +1,13 @@
+<div class="flex items-center">
+	<div class="flex-grow">
+		{{ form_row(form.name) }}
+	</div>
+	<button type="button" onclick="removeItem()" class="icon-btn btn-remove">
+		<span class="material-symbols-rounded">Delete</span>
+	</button>
+</div>
+<script>
+	const removeItem = (e) => {
+		e.currentTarget.closest('.item').remove();
+	}
+</script>
