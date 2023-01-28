@@ -41,12 +41,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Guest::class, orphanRemoval: true)]
     private Collection $guests;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
-    private array $allergies = [];
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergy::class)]
+    private Collection $allergies;
 
     public function __construct()
     {
         $this->guests = new ArrayCollection();
+        $this->allergies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,14 +174,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAllergies(): array
+    /**
+     * @return Collection<int, Allergy>
+     */
+    public function getAllergies(): Collection
     {
         return $this->allergies;
     }
 
-    public function setAllergies(?array $allergies): self
+    public function addAllergy(Allergy $allergy): self
     {
-        $this->allergies = $allergies;
+        if (!$this->allergies->contains($allergy)) {
+            $this->allergies->add($allergy);
+            $allergy->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAllergy(Allergy $allergy): self
+    {
+        if ($this->allergies->removeElement($allergy)) {
+            // set the owning side to null (unless already changed)
+            if ($allergy->getUser() === $this) {
+                $allergy->setUser(null);
+            }
+        }
 
         return $this;
     }
