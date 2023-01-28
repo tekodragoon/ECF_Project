@@ -2,17 +2,12 @@
 	<p class="w-full text-center">Convives n°{{ index }}</p>
 	<p>{{ firstname }}</p>
 	<p>{{ adult ? 'Adulte' : 'Enfant' }}</p>
+	{% set all = concatAllergies(allergies) %}
 	<p>
-		{% if allergies %}
-		{% for value in allergies %}
-			{{ value }},
-		{% endfor %}
-		{% else %}
-			Aucune allergie.
-		{% endif %}
+		{{ all }}
 	</p>
 	<div class="flex justify-end">
-		<button hx-get="{{ path('app_account_edit_guest') }}" class="icon-btn">
+		<button hx-get="{{ editPath ?? path('app_account_edit_guest') }}" class="icon-btn">
 			<span class="material-symbols-rounded">Edit</span>
 		</button>
 	</div>

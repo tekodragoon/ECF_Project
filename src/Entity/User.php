@@ -27,7 +27,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @var ?string The hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
@@ -38,10 +38,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Guest::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Guest::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $guests;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergy::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergy::class, cascade: ['persist'])]
     private Collection $allergies;
 
     public function __construct()
@@ -202,5 +202,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function isAdult(): bool
+    {
+        return true;
     }
 }

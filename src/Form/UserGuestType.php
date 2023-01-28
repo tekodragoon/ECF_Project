@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Guest;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class GuestType extends AbstractType
+class UserGuestType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,6 +20,7 @@ class GuestType extends AbstractType
             ])
             ->add('adult', ChoiceType::class, [
                 'label' => 'Adulte',
+                'disabled' => true,
                 'choices' => [
                     'Adulte' => true,
                     'Enfant' => false,
@@ -42,7 +43,7 @@ class GuestType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Guest::class,
+            'data_class' => User::class,
         ]);
     }
 }

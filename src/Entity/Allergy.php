@@ -22,6 +22,11 @@ class Allergy
     #[ORM\ManyToOne(inversedBy: 'allergies')]
     private ?User $user = null;
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

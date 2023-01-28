@@ -26,7 +26,7 @@ class Guest
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'guest', targetEntity: Allergy::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'guest', targetEntity: Allergy::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $allergies;
 
     public function __construct()

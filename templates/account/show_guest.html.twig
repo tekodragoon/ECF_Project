@@ -1,9 +1,11 @@
 <div hx-target="this" hx-swap="outerHTML">
+	{% set path = path('app_account_edit_user-guest', {id: app.user.id}) %}
 	{{ include('account/_guest-field.html.twig', {
 		index: 1,
 		firstname: '%s %s'|format(app.user.lastname, app.user.firstname),
 		adult: true,
-		allergies: app.user.allergies
+		allergies: app.user.allergies,
+		editPath: path,
 	}) }}
 	<div class="flex justify-end">
 		<button hx-get="#" class="btn-icon-left">

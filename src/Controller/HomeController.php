@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Guest;
+use App\Entity\User;
 use App\Form\GuestType;
 use App\Form\PasswordEditType;
+use App\Form\UserGuestType;
 use App\Form\UserType;
+use App\Repository\GuestRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,16 +90,35 @@ class HomeController extends AbstractController
         return $this->render('account/show_guest.html.twig');
     }
 
-    #[Route('/account/edit-guest', name: 'app_account_edit_guest')]
-    public function editGuest(Request $request): Response
+    #[Route('/account/edit-user-guest/{id}', name: 'app_account_edit_user-guest')]
+    public function editUserGuest(Request $request,User $user, UserRepository $repo): Response
     {
-        $guest = new Guest();
-        $form = $this->createForm(GuestType::class, $guest);
+        $form = $this->createForm(UserGuestType::class, $user);
+        $form->handleRequest($request);
 
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repo->save($user, true);
+            return $this->redirectToRoute('app_account_guests');
+        }
 
         return $this->render('account/edit_guest.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'path' => $this->generateUrl('app_account_edit_user-guest', [
+                'id' => $user->getId(),
+            ]),
+        ]);
+    }
+
+    #[Route('/account/edit-guest/{id}', name: 'app_account_edit_guest')]
+    public function editGuest(Request $request,Guest $guest, GuestRepository $repo): Response
+    {
+        $form = $this->createForm(GuestType::class, $guest);
+
+        return $this->render('account/edit_guest.html.twig', [
+            'form' => $form->createView(),
+            'path' => $this->generateUrl('app_account_edit_guest', [
+                'id' => $guest->getId(),
+            ]),
         ]);
     }
 }
