@@ -30,7 +30,7 @@
 	</div>
 
 	<div class="flex w-full justify-center gap-6">
-		<button type="submit" class="btn">Modifier</button>
+		<button type="submit" class="btn">{{ buttonTitle ?? 'Valider' }}</button>
 		<button type="button" class="btn" hx-get="{{ path('app_account_guests') }}">Annuler</button>
 	</div>
 

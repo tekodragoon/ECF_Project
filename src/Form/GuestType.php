@@ -24,7 +24,7 @@ class GuestType extends AbstractType
                     'Adulte' => true,
                     'Enfant' => false,
                 ],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => false,
             ])
             ->add('allergies', CollectionType::class, [

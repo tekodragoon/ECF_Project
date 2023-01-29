@@ -43,6 +43,28 @@ button {
     font-style: normal;
 }
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-image:
+            linear-gradient(45deg, transparent 50%, rgb(6, 3, 22) 50%),
+            linear-gradient(135deg, rgb(6, 3, 22) 50%, transparent 50%),
+            linear-gradient(to right, rgb(166, 161, 152), rgb(166, 161, 152));
+    background-position:
+            calc(100% - 20px) calc(1em + 2px),
+            calc(100% - 10px) calc(1em + 2px),
+            100% 0;
+    background-size:
+            10px 10px,
+            10px 10px,
+            2.5em 2.5em;
+    background-repeat: no-repeat;
+}
+
  .material-symbols-rounded {
      font-variation-settings:
              'FILL' 1,

@@ -106,6 +106,7 @@ class HomeController extends AbstractController
             'path' => $this->generateUrl('app_account_edit_user-guest', [
                 'id' => $user->getId(),
             ]),
+            'buttonTitle' => 'Modifier',
         ]);
     }
 
@@ -113,12 +114,40 @@ class HomeController extends AbstractController
     public function editGuest(Request $request,Guest $guest, GuestRepository $repo): Response
     {
         $form = $this->createForm(GuestType::class, $guest);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repo->save($guest, true);
+            return $this->redirectToRoute('app_account_guests');
+        }
 
         return $this->render('account/edit_guest.html.twig', [
             'form' => $form->createView(),
             'path' => $this->generateUrl('app_account_edit_guest', [
                 'id' => $guest->getId(),
             ]),
+            'buttonTitle' => 'Modifier',
+        ]);
+    }
+
+    #[Route('/account/add-guest/', name: 'app_account_add_guest')]
+    public function addGuest(Request $request, GuestRepository $guestRepo, UserRepository $userRepo): Response
+    {
+        $guest = new Guest();
+        $user = $userRepo->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
+        $guest->setUser($user);
+        $form = $this->createForm(GuestType::class, $guest);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $guestRepo->save($guest, true);
+            return $this->redirectToRoute('app_account_guests');
+        }
+
+        return $this->render('account/edit_guest.html.twig', [
+            'form' => $form->createView(),
+            'path' => $this->generateUrl('app_account_add_guest'),
+            'buttonTitle' => 'Ajouter',
         ]);
     }
 }
