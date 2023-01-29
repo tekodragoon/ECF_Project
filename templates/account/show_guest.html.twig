@@ -1,4 +1,4 @@
-<div hx-target="this" hx-swap="outerHTML">
+<div hx-target="this" hx-swap="outerHTML" id="show-guest">
 	{% set path = path('app_account_edit_user-guest', {id: app.user.id}) %}
 	{{ include('account/_guest-field.html.twig', {
 		index: 1,
@@ -6,6 +6,7 @@
 		adult: true,
 		allergies: app.user.allergies,
 		editPath: path,
+		allowDelete: false,
 	}) }}
 
 	{% for guest in app.user.guests %}
@@ -17,6 +18,8 @@
 			adult: guest.adult,
 			allergies: guest.allergies,
 			editPath: path,
+			allowDelete: true,
+			guestId : guest.id,
 		}) }}
 	{% endfor %}
 

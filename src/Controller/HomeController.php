@@ -150,4 +150,27 @@ class HomeController extends AbstractController
             'buttonTitle' => 'Ajouter',
         ]);
     }
+
+    #[Route('/account/remove-guest/{id}', name: 'app_account_rem_guest')]
+    public function removeGuest(Request $request,Guest $guest, GuestRepository $guestRepo): Response
+    {
+        $guestRepo->remove($guest, true);
+        return $this->redirectToRoute('app_account_guests');
+    }
+
+    #[Route('/account/confirm-delete/{id}', name: 'app_confirm_del')]
+    public function confirmDelete(Guest $guest):Response
+    {
+        return $this->render('account/_confirm-delete.html.twig',[
+            'id' => $guest->getId(),
+        ]);
+    }
+
+    #[Route('/account/delete-guest/{id}', name: 'app_del-guest')]
+    public function deleteGuest(Guest $guest):Response
+    {
+        return $this->render('account/_delete-guest.html.twig', [
+            'id' => $guest->getId(),
+        ]);
+    }
 }
