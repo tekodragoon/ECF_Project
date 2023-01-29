@@ -41,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Guest::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $guests;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergy::class, cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergy::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $allergies;
 
     public function __construct()
