@@ -15,7 +15,7 @@
 			data-index="{{ form.allergies|length > 0 ? form.allergies|last.vars.name + 1 : 0 }}">
 		{% for allergy in form.allergies %}
 			<div>
-				{{ include('account/_allergy.html.twig', {form: allergy}) }}
+				{{ include('account/_allergy.html.twig', { form: allergy }) }}
 			</div>
 		{% endfor %}
 	</div>
@@ -23,7 +23,7 @@
 	<div class="flex justify-end mb-6">
 		<button type="button"
 		        class="btn btn-new"
-		        onclick="addFormElement()"
+		        onclick="addFormElement(this)"
 		        data-collection="#allergies">
 			Ajouter une allergie
 		</button>
@@ -39,8 +39,7 @@
 	{{ form_end(form, {render_rest: false}) }}
 </form>
 <script>
-	const addFormElement = () => {
-		const e = document.querySelector('.btn-new');
+	const addFormElement = (e) => {
 		const collectionHolder = document.querySelector(e.dataset.collection);
 
 		const item = document.createElement('div');

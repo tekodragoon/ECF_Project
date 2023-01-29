@@ -1,14 +1,14 @@
-<div class="flex items-center item">
+<div class="flex items-center allergy-item">
 	<div class="flex-grow">
 		{{ form_row(form.name) }}
 	</div>
-	<button type="button" onclick="removeItem()" class="icon-btn btn-remove">
+	<button type="button" onclick="removeAllergy(this)" class="icon-btn btn-remove">
 		<span class="material-symbols-rounded">Delete</span>
 	</button>
 </div>
 <script>
-	const e = document.querySelector('.item');
-	const removeItem = () => {
-		e.remove();
+	const removeAllergy = (e) => {
+		const b = e.closest('.allergy-item');
+		b.remove();
 	}
 </script>
