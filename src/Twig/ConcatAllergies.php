@@ -29,6 +29,8 @@ class ConcatAllergies extends AbstractExtension
             $str .= $allergy;
             $str .= ', ';
         }
+        $str = substr($str, 0, -2);
+        $str .= '.';
         return $str;
     }
 }
