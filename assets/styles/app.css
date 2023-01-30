@@ -17,10 +17,17 @@
     }
 
     .btn-icon-left {
-        @apply text-primary m-1 px-4 py-2 rounded border-2 border-primary
+        @apply text-primary m-1 pl-4 pr-3 py-2 rounded border-2 border-primary
             flex justify-center items-center
         hover:bg-primary hover:text-lightText
-        active:px-3.5 active:py-1.5 active:m-1.5
+        active:pl-3.5 active:pr-2.5 active:py-1.5 active:m-1.5
+    }
+
+    .btn-icon-right {
+        @apply text-primary m-1 pl-3 pr-4 py-2 rounded border-2 border-primary
+        flex justify-center items-center
+        hover:bg-primary hover:text-lightText
+        active:pl-2.5 active:pr-3.5 active:py-1.5 active:m-1.5
     }
 
     .textH1 {

@@ -1,4 +1,7 @@
 <div hx-target="this" hx-swap="outerHTML" id="show-guest">
+	<button hx-get="{{ path('app_account_show') }}" class="btn-icon-right mb-4">
+		<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
+	</button>
 	{% set path = path('app_account_edit_user-guest', {id: app.user.id}) %}
 	{{ include('account/_guest-field.html.twig', {
 		index: 1,
