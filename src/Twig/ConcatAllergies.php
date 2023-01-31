@@ -2,7 +2,6 @@
 
 namespace App\Twig;
 
-use App\Entity\Allergy;
 use Doctrine\ORM\PersistentCollection;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
