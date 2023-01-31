@@ -30,6 +30,13 @@
         active:pl-2.5 active:pr-3.5 active:py-1.5 active:m-1.5
     }
 
+    .vertical-btn {
+        @apply text-primary m-1 p-3 rounded text-2xl
+        flex flex-col gap-1 justify-center items-center
+        hover:bg-primary hover:text-lightText
+        active:p-2.5 active:m-1.5
+    }
+
     .textH1 {
         @apply font-extrabold text-4xl text-center text-textColor
     }
@@ -90,6 +97,9 @@ select {
 
 .material-symbols-rounded.title-icon { font-size: 96px}
 .material-symbols-outlined.title-icon { font-size: 96px}
+
+.material-symbols-rounded.vertical-icon { font-size: 48px}
+.material-symbols-outlined.vertical-icon { font-size: 48px}
 
 .material-symbols-rounded.button-icon { font-size: 24px}
 .material-symbols-outlined.button-icon { font-size: 24px}
