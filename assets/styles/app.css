@@ -80,6 +80,16 @@ select {
              'opsz' 48
  }
 
+ .material-symbols-outlined {
+     font-variation-settings:
+             'FILL' 0,
+             'wght' 400,
+             'GRAD' 0,
+             'opsz' 48
+ }
+
 .material-symbols-rounded.title-icon { font-size: 96px}
+.material-symbols-outlined.title-icon { font-size: 96px}
 
 .material-symbols-rounded.button-icon { font-size: 24px}
+.material-symbols-outlined.button-icon { font-size: 24px}
