@@ -99,7 +99,24 @@ select {
 .material-symbols-outlined.title-icon { font-size: 96px}
 
 .material-symbols-rounded.vertical-icon { font-size: 48px}
-.material-symbols-outlined.vertical-icon { font-size: 48px}
+.material-symbols-outlined.vertical-icon {
+    font-size: 48px;
+    font-variation-settings:
+            'FILL' 0,
+            'wght' 600,
+            'GRAD' 0,
+            'opsz' 48
+}
 
 .material-symbols-rounded.button-icon { font-size: 24px}
 .material-symbols-outlined.button-icon { font-size: 24px}
+
+.home-vignette {
+    height: 200px;
+}
+.home-vignette img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
