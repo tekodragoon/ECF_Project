@@ -6,12 +6,14 @@ use App\Entity\Mailing;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\MailingRepository;
+use App\Security\AppAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
@@ -21,7 +23,9 @@ class RegistrationController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager,
-        MailingRepository $mailingRepository
+        MailingRepository $mailingRepository,
+        AppAuthenticator $authenticator,
+        UserAuthenticatorInterface $userAuthenticator,
     ): Response
     {
         $user = new User();
@@ -47,7 +51,7 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            return $userAuthenticator->authenticateUser($user, $authenticator, $request);
         }
 
         return $this->render('registration/register.html.twig', [
