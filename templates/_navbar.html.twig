@@ -1,4 +1,4 @@
-<nav class="bg-lightText">
+<nav class="bg-darkBg fixed inset-x-0">
 	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between">
 			<div>
@@ -7,16 +7,15 @@
 				</a>
 			</div>
 			<div class="flex px-3 py-2 gap-4">
-				<a class="text-textColor" href="#">Réservation</a>
-				<a class="text-textColor" href="#">Galerie</a>
-				<a class="text-textColor" href="#">Carte</a>
-				<a class="text-textColor" href="{{ path('app_contact') }}">Contact</a>
+				<a class="text-lightText" href="#">Réservation</a>
+				<a class="text-lightText" href="#">Galerie</a>
+				<a class="text-lightText" href="#">Carte</a>
+				<a class="text-lightText" href="{{ path('app_contact') }}">Contact</a>
 				<a
-						class="text-textColor"
+						class="text-lightText"
 						href="{{ app.user ? path('app_account') : path('app_login') }}">
 					{{ app.user ? 'Compte' : 'Connexion' }}
 				</a>
-				<!--TODO: Change path route to account when user is connected -->
 			</div>
 		</div>
 	</div>
