@@ -44,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Allergy::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $allergies;
 
+    // for register form
+    private ?bool $allowNewsletter = null;
+
     public function __construct()
     {
         $this->guests = new ArrayCollection();
@@ -208,4 +211,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return true;
     }
+
+    /**
+     * @return bool|null
+     */
+    public function getAllowNewsletter(): ?bool
+    {
+        return $this->allowNewsletter;
+    }
+
+    /**
+     * @param bool|null $allowNewsletter
+     * @return User
+     */
+    public function setAllowNewsletter(?bool $allowNewsletter): User
+    {
+        $this->allowNewsletter = $allowNewsletter;
+        return $this;
+    }
+
+
 }

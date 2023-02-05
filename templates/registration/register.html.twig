@@ -10,11 +10,11 @@
 			<h1 class="textH1">Inscrivez vous</h1>
 		</div>
 
-
 		{{ form_start(registrationForm) }}
 		{{ form_row(registrationForm.email, {
 			label: 'Votre email'
 		}) }}
+		{{ form_row(registrationForm.allowNewsletter) }}
 		{{ form_row(registrationForm.plainPassword, {
 			label: 'Votre mot de passe'
 		}) }}

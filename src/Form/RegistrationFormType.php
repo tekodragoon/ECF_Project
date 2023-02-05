@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +25,10 @@ class RegistrationFormType extends AbstractType
                     ])
                 ]
             ])
-
+            ->add('allowNewsletter', CheckboxType::class, [
+                'label' => "Cochez cette case si vous souhaitez recevoir notre newsletter.",
+                'required' => false,
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

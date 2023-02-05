@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Mailing;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\MailingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +17,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager,
+        MailingRepository $mailingRepository
+    ): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -29,6 +36,12 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            if ($user->getAllowNewsletter()) {
+                $mail = new Mailing();
+                $mail->setUsermail($user->getEmail());
+                $mailingRepository->save($mail, true);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
