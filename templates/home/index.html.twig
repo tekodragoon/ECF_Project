@@ -9,7 +9,7 @@
 
 	{{ include('_separator.html.twig') }}
 
-	<h1 class="w-fit mx-auto textH1 mb-2">Qui sommes nous ?</h1>
+	<h1 class="w-fit mx-auto textH1 mb-2">Qui sommes-nous ?</h1>
 	<div class="max-w-4xl mx-auto mb-4">
 		<p class="text-justify p-3">
 			{{ lorem(188) }}
@@ -60,7 +60,7 @@
 
 	{{ include('_separator.html.twig') }}
 
-	<div class="max-w-4xl mx-auto mb-4">
+	<div class="max-w-4xl mx-auto mb-4" id="block-actu">
 		<div class="grid justify-items-center p-2 gap-2 md:grid-cols-2">
 			<div class="w-fit">
 				<p class="textH2">Suivez nos actualités sur</p>
@@ -111,15 +111,27 @@
 				</div>
 			</div>
 			<div class="flex flex-col">
-				<label for="email">
-					Inscrivez vous à notre newsletter et restez informés des prochains évènements et promotions
-				</label>
-				<div class="flex">
-					<input class="flex-grow" type="email" name="email" id="email" placeholder="Votre email...">
-					<button type="button" class="icon-btn">
+				{{ form_start(form) }}
+				{{ form_label(form.usermail) }}
+				{% for messages in app.flashes('errors') %}
+					{% for message in messages %}
+						<div class="text-error">
+							{{ message }}
+						</div>
+					{% endfor %}
+				{% endfor %}
+				<div class="flex items-center">
+					{{ form_widget(form.usermail) }}
+					<button class="icon-btn">
 						<span class="material-symbols-outlined">Send</span>
 					</button>
 				</div>
+				{% for message in app.flashes('success') %}
+					<div class="p-2 bg-valid rounded text-black">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{{ form_end(form) }}
 			</div>
 		</div>
 	</div>

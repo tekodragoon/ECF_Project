@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Guest;
+use App\Entity\Mailing;
 use App\Entity\User;
 use App\Form\GuestType;
 use App\Form\PasswordEditType;
 use App\Form\UserGuestType;
+use App\Form\UsermailType;
 use App\Form\UserType;
 use App\Repository\GuestRepository;
+use App\Repository\MailingRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,13 +19,35 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(Request $request, MailingRepository $repo, ValidatorInterface $validator): Response
     {
-        return $this->render('home/index.html.twig');
+        $mail = new Mailing();
+        $form = $this->createForm(UsermailType::class, $mail);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $repo->save($mail, true);
+                $this->addFlash('success', 'Votre inscription à notre newsletter a bien été effectuée.');
+            } else {
+                $errors = $validator->validate($mail);
+                $messages = [];
+                foreach ($errors as $error) {
+                    $messages[] = $error->getMessage();
+                }
+                $this->addFlash('errors', $messages);
+            }
+            return $this->redirectToRoute('app_home', ['_fragment' => 'block-actu']);
+        }
+
+        return $this->render('home/index.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #[Route('/account', name: 'app_account')]
@@ -57,9 +82,9 @@ class HomeController extends AbstractController
 
     #[Route('/account/edit-password', name: 'app_account_edit_pwd')]
     public function updatePwd(
-        Request $request,
-        EntityManagerInterface $manager,
-        UserRepository $repo,
+        Request                     $request,
+        EntityManagerInterface      $manager,
+        UserRepository              $repo,
         UserPasswordHasherInterface $hasher): Response
     {
         $form = $this->createForm(PasswordEditType::class);
@@ -85,13 +110,13 @@ class HomeController extends AbstractController
     }
 
     #[Route('/account/guest-list', name: 'app_account_guests')]
-    public function showGuest():Response
+    public function showGuest(): Response
     {
         return $this->render('account/show_guest.html.twig');
     }
 
     #[Route('/account/edit-user-guest/{id}', name: 'app_account_edit_user-guest')]
-    public function editUserGuest(Request $request,User $user, UserRepository $repo): Response
+    public function editUserGuest(Request $request, User $user, UserRepository $repo): Response
     {
         $form = $this->createForm(UserGuestType::class, $user);
         $form->handleRequest($request);
@@ -111,7 +136,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/account/edit-guest/{id}', name: 'app_account_edit_guest')]
-    public function editGuest(Request $request,Guest $guest, GuestRepository $repo): Response
+    public function editGuest(Request $request, Guest $guest, GuestRepository $repo): Response
     {
         $form = $this->createForm(GuestType::class, $guest);
         $form->handleRequest($request);
@@ -152,22 +177,22 @@ class HomeController extends AbstractController
     }
 
     #[Route('/account/remove-guest/{id}', name: 'app_account_rem_guest')]
-    public function removeGuest(Request $request,Guest $guest, GuestRepository $guestRepo): Response
+    public function removeGuest(Request $request, Guest $guest, GuestRepository $guestRepo): Response
     {
         $guestRepo->remove($guest, true);
         return $this->redirectToRoute('app_account_guests');
     }
 
     #[Route('/account/confirm-delete/{id}', name: 'app_confirm_del')]
-    public function confirmDelete(Guest $guest):Response
+    public function confirmDelete(Guest $guest): Response
     {
-        return $this->render('account/_confirm-delete.html.twig',[
+        return $this->render('account/_confirm-delete.html.twig', [
             'id' => $guest->getId(),
         ]);
     }
 
     #[Route('/account/delete-guest/{id}', name: 'app_del-guest')]
-    public function deleteGuest(Guest $guest):Response
+    public function deleteGuest(Guest $guest): Response
     {
         return $this->render('account/_delete-guest.html.twig', [
             'id' => $guest->getId(),
