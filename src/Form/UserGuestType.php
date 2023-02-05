@@ -16,7 +16,8 @@ class UserGuestType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom'
+                'label' => 'Prénom',
+                'required' => false,
             ])
             ->add('adult', ChoiceType::class, [
                 'label' => 'Adulte',
