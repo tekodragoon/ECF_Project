@@ -3,5 +3,15 @@
 {% block title %}Galerie{% endblock %}
 
 {% block body %}
-<h1>Galerie</h1>
+	<div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+		<div class="w-fit mx-auto text-center mb-8">
+			<span class="material-symbols-outlined title-icon text-textColor">image</span>
+			<h1 class="textH1">Galerie</h1>
+		</div>
+		<div class="grid grid-cols-3">
+			{% for image in images %}
+				<img src="{{ asset("build/images/gallery/#{image}") }}" alt="">
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
