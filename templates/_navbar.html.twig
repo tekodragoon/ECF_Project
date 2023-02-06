@@ -11,11 +11,15 @@
 				<a class="text-lightText" href="{{ path('app_gallery') }}">Galerie</a>
 				<a class="text-lightText" href="#">Carte</a>
 				<a class="text-lightText" href="{{ path('app_contact') }}">Contact</a>
-				<a
-						class="text-lightText"
-						href="{{ app.user ? path('app_account') : path('app_login') }}">
-					{{ app.user ? 'Compte' : 'Connexion' }}
-				</a>
+				{% if is_granted('ROLE_ADMIN') %}
+					<a class="text-lightText" href="{{ path('app_management') }}">Gestion</a>
+				{% else %}
+					<a
+							class="text-lightText"
+							href="{{ app.user ? path('app_account') : path('app_login') }}">
+						{{ app.user ? 'Compte' : 'Connexion' }}
+					</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
