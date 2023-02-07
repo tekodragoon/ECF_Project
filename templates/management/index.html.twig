@@ -7,10 +7,13 @@
 		<div class="absolute z-10">
 			<a class="textLink" href="{{ path('app_logout') }}">Se déconnecter</a>
 		</div>
+
 		<div class="w-fit mx-auto text-center mb-8">
-			<span class="material-symbols-rounded title-icon text-textColor">person</span>
+			<span class="material-symbols-rounded title-icon text-textColor">settings</span>
 			<h1 class="textH1">Gestion</h1>
 		</div>
+
+		{{ include('management/section.html.twig') }}
 
 	</div>
 {% endblock %}
