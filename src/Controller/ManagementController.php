@@ -14,8 +14,6 @@ class ManagementController extends AbstractController
     #[Route('/', name: 'app_management')]
     public function index(): Response
     {
-        return $this->render('management/index.html.twig', [
-            'controller_name' => 'ManagementController',
-        ]);
+        return $this->render('management/index.html.twig');
     }
 }
