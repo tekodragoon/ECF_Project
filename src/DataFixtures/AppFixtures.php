@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\RecipeType;
@@ -129,6 +130,27 @@ class AppFixtures extends Fixture
             $recipe->setType(RecipeType::dessert);
             $manager->persist($recipe);
         }
+
+        $menu1 = new Menu();
+        $menu1->setTitle('Menu du marché');
+        $menu1->setDescription('Du lundi au vendredi uniquement.');
+        $menu1->setComposition(['Entrée et plat du jour', 'Plat et dessert du jour']);
+        $menu1->setPrice(20);
+        $manager->persist($menu1);
+
+        $menu2 = new Menu();
+        $menu2->setTitle('Menu du midi');
+        $menu2->setDescription('Uniquement le midi sur une selection de plats.');
+        $menu2->setComposition(['Entrée et plat', 'Plat et dessert']);
+        $menu2->setPrice(18);
+        $manager->persist($menu2);
+
+        $menu3 = new Menu();
+        $menu3->setTitle('Menu découverte');
+        $menu3->setDescription('Tous les soirs.');
+        $menu3->setComposition(['Entrée', 'Plat', 'Dessert']);
+        $menu3->setPrice(35);
+        $manager->persist($menu3);
 
         $manager->flush();
     }
