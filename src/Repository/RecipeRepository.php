@@ -63,4 +63,14 @@ class RecipeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function findByType(\App\RecipeType $type)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.type = :val')
+            ->setParameter('val', $type->value)
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
