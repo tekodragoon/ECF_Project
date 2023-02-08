@@ -10,14 +10,14 @@
 			<h1 class="textH1">Carte</h1>
 		</div>
 
-		<div class="grid grid-cols-1 border border-2 border-secondary p-4 rounded-md md:grid-cols-3">
+		<div class="grid grid-cols-1 border border-2 border-secondary p-4 mb-10 rounded-md md:grid-cols-3">
 			{% for menu in menus %}
 				{% set rightBorder = loop.last ? '' : 'md:border-r-2 md:border-r-secondary' %}
 				{% set bottomBorder = loop.last ? 'border-b-0' : 'border-b-2' %}
 				<div
 						class="grid grid-rows-2 gap-4 p-4 {{ bottomBorder }} border-b-secondary
 						md:border-b-0
-{{ rightBorder }}">
+						{{ rightBorder }}">
 					<div class="text-center">
 						<p class="textH2">{{ menu.title }}</p>
 						<p>{{ menu.description }}</p>
@@ -42,6 +42,35 @@
 				</div>
 			{% endfor %}
 		</div>
+
+		<div class="mb-6">
+			{{ include('menu/_recipeTitle.html.twig', {title: 'Entrées'}) }}
+			{% for entree in entrees %}
+				{{ include('menu/_recipe.html.twig', {
+					name: entree.name,
+					price: entree.price,
+					description: entree.description
+				}) }}
+			{% endfor %}
+			{{ include('menu/_recipeTitle.html.twig', {title: 'Plats'}) }}
+			{% for recipe in main %}
+				{{ include('menu/_recipe.html.twig', {
+					name: recipe.name,
+					price: recipe.price,
+					description: recipe.description
+				}) }}
+			{% endfor %}
+			{{ include('menu/_recipeTitle.html.twig', {title: 'Desserts'}) }}
+			{% for dessert in desserts %}
+				{{ include('menu/_recipe.html.twig', {
+					name: dessert.name,
+					price: dessert.price,
+					description: dessert.description
+				}) }}
+			{% endfor %}
+		</div>
+
+		{{ include('_link.html.twig') }}
 
 	</div>
 {% endblock %}

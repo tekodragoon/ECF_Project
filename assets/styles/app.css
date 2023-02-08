@@ -45,6 +45,10 @@
         @apply font-semibold text-3xl text-center text-textColor
     }
 
+    .textH3 {
+        @apply font-medium text-2xl text-center text-textColor
+    }
+
     .textLink {
         @apply underline text-link
     }
