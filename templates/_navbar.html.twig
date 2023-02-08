@@ -9,7 +9,7 @@
 			<div class="flex px-3 py-2 gap-4">
 				<a class="text-lightText" href="#">Réservation</a>
 				<a class="text-lightText" href="{{ path('app_gallery') }}">Galerie</a>
-				<a class="text-lightText" href="#">Carte</a>
+				<a class="text-lightText" href="{{ path('app_menu') }}">Carte</a>
 				<a class="text-lightText" href="{{ path('app_contact') }}">Contact</a>
 				{% if is_granted('ROLE_ADMIN') %}
 					<a class="text-lightText" href="{{ path('app_management') }}">Gestion</a>
