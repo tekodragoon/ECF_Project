@@ -3,14 +3,45 @@
 {% block title %}Carte{% endblock %}
 
 {% block body %}
-    <div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+	<div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
 
-        <div class="w-fit mx-auto text-center mb-8">
-            <span class="material-symbols-outlined title-icon text-textColor">card_membership</span>
-            <h1 class="textH1">Carte</h1>
-        </div>
+		<div class="w-fit mx-auto text-center mb-8">
+			<span class="material-symbols-outlined title-icon text-textColor">card_membership</span>
+			<h1 class="textH1">Carte</h1>
+		</div>
 
+		<div class="grid grid-cols-1 border border-2 border-secondary p-4 rounded-md md:grid-cols-3">
+			{% for menu in menus %}
+				{% set rightBorder = loop.last ? '' : 'md:border-r-2 md:border-r-secondary' %}
+				{% set bottomBorder = loop.last ? 'border-b-0' : 'border-b-2' %}
+				<div
+						class="grid grid-rows-2 gap-4 p-4 {{ bottomBorder }} border-b-secondary
+						md:border-b-0
+{{ rightBorder }}">
+					<div class="text-center">
+						<p class="textH2">{{ menu.title }}</p>
+						<p>{{ menu.description }}</p>
+					</div>
+					<div class="flex justify-between md:flex-col">
+						<div class="text-center">
+							{% if menu.composition|length == 2 %}
+								<p>{{ menu.composition[0] }}</p>
+								<p>ou</p>
+								<p>{{ menu.composition[1] }}</p>
+							{% else %}
+								{% for comp in menu.composition %}
+									{% set after = loop.index0 == menu.composition|length - 2 ? ' et ' : loop.last ? '.' : ', ' %}
+									{{ '%s%s'|format(comp, after) }}
+								{% endfor %}
+							{% endif %}
+						</div>
+						<div class="flex justify-end items-center">
+							{{ menu.price }}€
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
 
-
-    </div>
+	</div>
 {% endblock %}
