@@ -21,11 +21,14 @@ class MenuType extends AbstractType
             ->add('description', TextType::class, [
                 'label' => 'Description',
             ])
-            ->add('composition', CollectionType::class, [
-                'entry_type' => TextType::class,
+            ->add('compositions', CollectionType::class, [
+                'entry_type' => CompositionType::class,
+                'by_reference' => false,
                 'entry_options' => [
-                    'label' => 'Composition'
-                ]
+                    'label' => false
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('price', NumberType::class, [
                 'label' => 'Prix'
