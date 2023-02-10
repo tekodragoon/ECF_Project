@@ -16,9 +16,10 @@ class LoremTwig extends AbstractExtension
     }
 
     /**
+     * @param int $words
      * @return string
      */
-    public function lorem($words = 3):string
+    public function lorem(int $words = 3):string
     {
         $list = Lorem::words($words, false);
         return join(' ', $list);
