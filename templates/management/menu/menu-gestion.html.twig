@@ -1,0 +1,44 @@
+<div hx-target="this" hx-swap="outerHTML">
+	<div class="flex items-center h-12 mb-4">
+		<button hx-get="{{ path('app_management_show') }}" class="btn-icon-right">
+			<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
+		</button>
+	</div>
+	{% for menu in menus %}
+		<div class="mb-4">
+			<div class="text-textColor border border-2 border-secondary rounded p-2">
+				<div class="mb-1">
+					<div class="w-28 inline-block underline underline-offset-2">Nom du menu:</div>
+					<span class="mr-2">{{ menu.title }}</span>
+				</div>
+				<hr class="h-px my-1 bg-secondary border-0">
+				<div class="mb-1">
+					<div class="w-28 inline-block underline underline-offset-2">Description:</div>
+					<span class="mr-2">{{ menu.description }}</span>
+				</div>
+				<hr class="h-px my-1 bg-secondary border-0">
+				<div class="mb-1">
+					<div class="w-28 inline-block underline underline-offset-2">Prix:</div>
+					<span class="mr-2">{{ menu.price }}€</span>
+				</div>
+				<hr class="h-px my-1 bg-secondary border-0">
+				<div>
+					<span class="w-28 inline-block underline underline-offset-2">Composition:</span>
+					{% for comp in menu.composition %}
+						<span>{{ comp }}</span>{{ loop.last ? '.' : ', ' }}
+					{% endfor %}
+				</div>
+			</div>
+			<div class="flex justify-end items-center">
+				<div hx-target="this" hx-swap="outerHTML" class="flex items-center">
+					<button class="icon-btn">
+						<span class="material-symbols-rounded">Delete</span>
+					</button>
+				</div>
+				<button class="icon-btn">
+					<span class="material-symbols-rounded">Edit</span>
+				</button>
+			</div>
+		</div>
+	{% endfor %}
+</div>
