@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Composition;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\User;
@@ -134,21 +135,39 @@ class AppFixtures extends Fixture
         $menu1 = new Menu();
         $menu1->setTitle('Menu du marché');
         $menu1->setDescription('Du lundi au vendredi uniquement.');
-        $menu1->setComposition(['Entrée et plat du jour', 'Plat et dessert du jour']);
+        $menu1comp1 = new Composition();
+        $menu1comp1->setName('Entrée et plat du jour');
+        $menu1comp2 = new Composition();
+        $menu1comp2->setName('Plat et dessert du jour');
+        $menu1->addComposition($menu1comp1);
+        $menu1->addComposition($menu1comp2);
         $menu1->setPrice(20);
         $manager->persist($menu1);
 
         $menu2 = new Menu();
         $menu2->setTitle('Menu du midi');
         $menu2->setDescription('Uniquement le midi sur une selection de plats.');
-        $menu2->setComposition(['Entrée et plat', 'Plat et dessert']);
+        $menu2comp1 = new Composition();
+        $menu2comp1->setName('Entrée et plat');
+        $menu2comp2 = new Composition();
+        $menu2comp2->setName('Plat et dessert');
+        $menu2->addComposition($menu2comp1);
+        $menu2->addComposition($menu2comp2);
         $menu2->setPrice(18);
         $manager->persist($menu2);
 
         $menu3 = new Menu();
         $menu3->setTitle('Menu découverte');
         $menu3->setDescription('Tous les soirs.');
-        $menu3->setComposition(['Entrée', 'Plat', 'Dessert']);
+        $menu3comp1 = new Composition();
+        $menu3comp1->setName('Entrée');
+        $menu3comp2 = new Composition();
+        $menu3comp2->setName('Plat');
+        $menu3comp3 = new Composition();
+        $menu3comp3->setName('Dessert');
+        $menu3->addComposition($menu3comp1);
+        $menu3->addComposition($menu3comp2);
+        $menu3->addComposition($menu3comp3);
         $menu3->setPrice(35);
         $manager->persist($menu3);
 
