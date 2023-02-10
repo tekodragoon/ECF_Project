@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Menu;
 use App\Form\MenuType;
 use App\Repository\MenuRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +34,25 @@ class ManagementController extends AbstractController
 
         return $this->render('management/menu/menu-gestion.html.twig', [
             'menus' => $menus,
+        ]);
+    }
+
+    #[Route('/edit-menu/{id}', name: 'app_management_edit_menu')]
+    public function editMenu(Request $request, Menu $menu, MenuRepository $menuRepository): Response
+    {
+        $form = $this->createForm(MenuType::class, $menu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $menuRepository->save($menu, true);
+            return $this->redirectToRoute('app_management_menu');
+        }
+
+        return $this->render('management/menu/edit-menu.html.twig', [
+            'form' => $form->createView(),
+            'path' => $this->generateUrl('app_management_edit_menu', [
+                'id' => $menu->getId(),
+            ])
         ]);
     }
 }

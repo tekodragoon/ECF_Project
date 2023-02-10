@@ -24,9 +24,8 @@
 				<hr class="h-px my-1 bg-secondary border-0">
 				<div>
 					<span class="w-28 inline-block underline underline-offset-2">Composition:</span>
-					{% for comp in menu.composition %}
-						<span>{{ comp }}</span>{{ loop.last ? '.' : ', ' }}
-					{% endfor %}
+					{% set comps = concatCompositions(menu.compositions) %}
+					<span>{{ comps }}</span>
 				</div>
 			</div>
 			<div class="flex justify-end items-center">
@@ -36,7 +35,8 @@
 					</button>
 				</div>
 				<button class="icon-btn">
-					<span class="material-symbols-rounded">Edit</span>
+					<span class="material-symbols-rounded"
+					      hx-get="{{ path('app_management_edit_menu', {id: menu.id}) }}">Edit</span>
 				</button>
 			</div>
 		</div>

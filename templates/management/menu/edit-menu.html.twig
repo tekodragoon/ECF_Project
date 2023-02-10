@@ -4,18 +4,20 @@
 		hx-swap="outerHTML">
 	{{ form_start(form) }}
 
-	{{ form_row(form.firstname) }}
+	{{ form_row(form.title) }}
 
-	{{ form_row(form.adult) }}
+	{{ form_row(form.description) }}
+
+	{{ form_row(form.price) }}
 
 	<div
-			id="allergies"
-			data-prototype="{{ include('account/_allergy.html.twig', {form: form.allergies.vars.prototype})|e
+			id="compositions"
+			data-prototype="{{ include('management/menu/_composition.html.twig', {form: form.compositions.vars.prototype})|e
 				('html_attr') }}"
-			data-index="{{ form.allergies|length > 0 ? form.allergies|last.vars.name + 1 : 0 }}">
-		{% for allergy in form.allergies %}
+			data-index="{{ form.compositions|length > 0 ? form.compositions|last.vars.name + 1 : 0 }}">
+		{% for composition in form.compositions %}
 			<div>
-				{{ include('account/_allergy.html.twig', { form: allergy }) }}
+				{{ include('management/menu/_composition.html.twig', { form: composition}) }}
 			</div>
 		{% endfor %}
 	</div>
@@ -24,19 +26,20 @@
 		<button type="button"
 		        class="btn btn-new"
 		        onclick="addFormElement(this)"
-		        data-collection="#allergies">
-			Ajouter une allergie
+		        data-collection="#compositions">
+			Ajouter un élément
 		</button>
 	</div>
 
 	<div class="flex w-full justify-center gap-6">
 		<button type="submit" class="btn">{{ buttonTitle ?? 'Valider' }}</button>
-		<button type="button" class="btn" hx-get="{{ path('app_management_show') }}">Annuler</button>
+		<button type="button" class="btn" hx-get="{{ path('app_management_menu') }}">Annuler</button>
 	</div>
 
 	{{ form_widget(form._token) }}
 
 	{{ form_end(form, {render_rest: false}) }}
+
 </form>
 <script>
 	const addFormElement = (e) => {
