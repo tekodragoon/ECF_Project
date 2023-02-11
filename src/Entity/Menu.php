@@ -25,12 +25,12 @@ class Menu
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'menu', targetEntity: Composition::class, cascade: ['persist'], orphanRemoval: true)]
-    private Collection $compositions;
+    #[ORM\OneToMany(mappedBy: 'menu', targetEntity: Formula::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $formulas;
 
     public function __construct()
     {
-        $this->compositions = new ArrayCollection();
+        $this->formulas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,29 +75,29 @@ class Menu
     }
 
     /**
-     * @return Collection<int, Composition>
+     * @return Collection<int, Formula>
      */
-    public function getCompositions(): Collection
+    public function getFormulas(): Collection
     {
-        return $this->compositions;
+        return $this->formulas;
     }
 
-    public function addComposition(Composition $composition): self
+    public function addFormula(Formula $formula): self
     {
-        if (!$this->compositions->contains($composition)) {
-            $this->compositions->add($composition);
-            $composition->setMenu($this);
+        if (!$this->formulas->contains($formula)) {
+            $this->formulas->add($formula);
+            $formula->setMenu($this);
         }
 
         return $this;
     }
 
-    public function removeComposition(Composition $composition): self
+    public function removeFormula(Formula $formula): self
     {
-        if ($this->compositions->removeElement($composition)) {
+        if ($this->formulas->removeElement($formula)) {
             // set the owning side to null (unless already changed)
-            if ($composition->getMenu() === $this) {
-                $composition->setMenu(null);
+            if ($formula->getMenu() === $this) {
+                $formula->setMenu(null);
             }
         }
 

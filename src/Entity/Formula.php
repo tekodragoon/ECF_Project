@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CompositionRepository;
+use App\Repository\FormulaRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CompositionRepository::class)]
-class Composition
+#[ORM\Entity(repositoryClass: FormulaRepository::class)]
+class Formula
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

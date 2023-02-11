@@ -1,0 +1,14 @@
+<div class="flex items-center formula-item">
+	<div class="flex-grow">
+		{{ form_row(form.name) }}
+	</div>
+	<button type="button" onclick="removeFormula(this)" class="icon-btn btn-remove">
+		<span class="material-symbols-rounded">Delete</span>
+	</button>
+</div>
+<script>
+	const removeFormula = (e) => {
+		const b = e.closest('.formula-item');
+		b.remove();
+	}
+</script>

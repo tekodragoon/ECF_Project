@@ -11,13 +11,13 @@
 	{{ form_row(form.price) }}
 
 	<div
-			id="compositions"
-			data-prototype="{{ include('management/menu/_composition.html.twig', {form: form.compositions.vars.prototype})|e
+			id="formulas"
+			data-prototype="{{ include('management/menu/_formula.html.twig', {form: form.formulas.vars.prototype})|e
 				('html_attr') }}"
-			data-index="{{ form.compositions|length > 0 ? form.compositions|last.vars.name + 1 : 0 }}">
-		{% for composition in form.compositions %}
+			data-index="{{ form.formulas|length > 0 ? form.formulas|last.vars.name + 1 : 0 }}">
+		{% for formula in form.formulas %}
 			<div>
-				{{ include('management/menu/_composition.html.twig', { form: composition}) }}
+				{{ include('management/menu/_formula.html.twig', { form: formula}) }}
 			</div>
 		{% endfor %}
 	</div>
@@ -26,8 +26,8 @@
 		<button type="button"
 		        class="btn btn-new"
 		        onclick="addFormElement(this)"
-		        data-collection="#compositions">
-			Ajouter un élément
+		        data-collection="#formulas">
+			Ajouter une formule
 		</button>
 	</div>
 

@@ -21,8 +21,8 @@ class MenuType extends AbstractType
             ->add('description', TextType::class, [
                 'label' => 'Description',
             ])
-            ->add('compositions', CollectionType::class, [
-                'entry_type' => CompositionType::class,
+            ->add('formulas', CollectionType::class, [
+                'entry_type' => FormulaType::class,
                 'by_reference' => false,
                 'entry_options' => [
                     'label' => false

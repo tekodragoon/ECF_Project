@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Composition;
+use App\Entity\Formula;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Composition>
+ * @extends ServiceEntityRepository<Formula>
  *
- * @method Composition|null find($id, $lockMode = null, $lockVersion = null)
- * @method Composition|null findOneBy(array $criteria, array $orderBy = null)
- * @method Composition[]    findAll()
- * @method Composition[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Formula|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Formula|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Formula[]    findAll()
+ * @method Formula[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CompositionRepository extends ServiceEntityRepository
+class FormulaRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Composition::class);
+        parent::__construct($registry, Formula::class);
     }
 
-    public function save(Composition $entity, bool $flush = false): void
+    public function save(Formula $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class CompositionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Composition $entity, bool $flush = false): void
+    public function remove(Formula $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class CompositionRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Composition[] Returns an array of Composition objects
+//     * @return Formula[] Returns an array of Formula objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class CompositionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Composition
+//    public function findOneBySomeField($value): ?Formula
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

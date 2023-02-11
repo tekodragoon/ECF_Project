@@ -55,4 +55,23 @@ class ManagementController extends AbstractController
             ])
         ]);
     }
+
+    #[Route('/add-menu', name: 'app_management_add_menu')]
+    public function addMenu(Request $request, MenuRepository $menuRepository): Response
+    {
+        $menu = new Menu();
+        $form = $this->createForm(MenuType::class, $menu);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $menuRepository->save($menu, true);
+            return $this->redirectToRoute('app_management_menu');
+        }
+
+        return $this->render('management/menu/edit-menu.html.twig', [
+            'form' => $form->createView(),
+            'path' => $this->generateUrl('app_management_add_menu'),
+            'buttonTitle' => 'Ajouter',
+        ]);
+    }
 }

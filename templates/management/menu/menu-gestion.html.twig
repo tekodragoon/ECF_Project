@@ -1,9 +1,11 @@
 <div hx-target="this" hx-swap="outerHTML">
+
 	<div class="flex items-center h-12 mb-4">
 		<button hx-get="{{ path('app_management_show') }}" class="btn-icon-right">
 			<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
 		</button>
 	</div>
+
 	{% for menu in menus %}
 		<div class="mb-4">
 			<div class="text-textColor border border-2 border-secondary rounded p-2">
@@ -23,9 +25,9 @@
 				</div>
 				<hr class="h-px my-1 bg-secondary border-0">
 				<div>
-					<span class="w-28 inline-block underline underline-offset-2">Composition:</span>
-					{% set comps = concatCompositions(menu.compositions) %}
-					<span>{{ comps }}</span>
+					<span class="w-28 inline-block underline underline-offset-2">Formules:</span>
+					{% set forms = concatFormulas(menu.formulas) %}
+					<span>{{ forms }}</span>
 				</div>
 			</div>
 			<div class="flex justify-end items-center">
@@ -41,4 +43,10 @@
 			</div>
 		</div>
 	{% endfor %}
+
+	<div class="flex justify-end">
+		<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
+			Ajouter <span class="material-symbols-rounded button-icon">Add</span>
+		</button>
+	</div>
 </div>
