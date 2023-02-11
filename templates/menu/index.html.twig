@@ -24,14 +24,14 @@
 					</div>
 					<div class="flex justify-between md:flex-col">
 						<div class="text-center">
-							{% if menu.composition|length == 2 %}
-								<p>{{ menu.composition[0] }}</p>
+							{% if menu.formulas|length == 2 %}
+								<p>{{ menu.formulas[0] }}</p>
 								<p>ou</p>
-								<p>{{ menu.composition[1] }}</p>
+								<p>{{ menu.formulas[1] }}</p>
 							{% else %}
-								{% for comp in menu.composition %}
-									{% set after = loop.index0 == menu.composition|length - 2 ? ' et ' : loop.last ? '.' : ', ' %}
-									{{ '%s%s'|format(comp, after) }}
+								{% for form in menu.formulas %}
+									{% set after = loop.index0 == menu.formulas|length - 2 ? ' et ' : loop.last ? '.' : ', ' %}
+									{{ '%s%s'|format(form, after) }}
 								{% endfor %}
 							{% endif %}
 						</div>
