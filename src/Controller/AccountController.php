@@ -42,6 +42,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
+            $this->addFlash('success', 'Modifications enregistrées.');
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -61,7 +62,6 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         $user = $repo->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
-        dump($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
@@ -71,6 +71,7 @@ class AccountController extends AbstractController
                 ));
             $manager->persist($user);
             $manager->flush();
+            $this->addFlash('success', 'Votre mot de passe a bien été changé.');
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -93,6 +94,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repo->save($user, true);
+            $this->addFlash('success', 'Modifications enregistrées.');
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -113,6 +115,8 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repo->save($guest, true);
+            $this->addFlash('success',
+                'Les modifications concernant ' . $guest->getFirstname() . ' ont bien été enregistrées.');
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -136,6 +140,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $guestRepo->save($guest, true);
+            $this->addFlash('success', $guest->getFirstname() . ' a bien été rajouté.');
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -149,7 +154,9 @@ class AccountController extends AbstractController
     #[Route('/remove-guest/{id}', name: 'app_account_rem_guest')]
     public function removeGuest(Request $request, Guest $guest, GuestRepository $guestRepo): Response
     {
+        $name = $guest->getFirstname();
         $guestRepo->remove($guest, true);
+        $this->addFlash('success', $name . ' a bien été supprimé.');
         return $this->redirectToRoute('app_account_guests');
     }
 

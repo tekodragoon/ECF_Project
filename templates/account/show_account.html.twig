@@ -1,4 +1,6 @@
 <div hx-target="this" hx-swap="outerHTML">
+	{{ include('_flash-message.html.twig') }}
+
 	{# TODO: Changer le design pour aligner les champs texte #}
 	{% set value = app.user.lastname ?? 'Non renseigné' %}
 	{{ include('account/_field.html.twig', {
