@@ -87,11 +87,7 @@
 					</div>
 				</div>
 				<div class="flex justify-end items-center">
-					<div hx-target="this" hx-swap="outerHTML" class="flex items-center">
-						<button class="icon-btn">
-							<span class="material-symbols-rounded">Delete</span>
-						</button>
-					</div>
+					{{ include('management/menu/_delete-menu.html.twig', {id: menu.id}) }}
 					<button class="icon-btn">
 					<span class="material-symbols-rounded"
 					      hx-get="{{ path('app_management_edit_menu', {id: menu.id}) }}">Edit</span>

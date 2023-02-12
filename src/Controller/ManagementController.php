@@ -108,4 +108,30 @@ class ManagementController extends AbstractController
             'buttonTitle' => 'Ajouter',
         ]);
     }
+
+    // Show confirm template for deleting menu
+    #[Route('/confirm-delete-menu/{id}', name: 'app_management_confirm_del_menu')]
+    public function confirmDeleteMenu(Menu $menu): Response
+    {
+        return $this->render('management/menu/_confirm-del-menu.html.twig', [
+            'id' => $menu->getId(),
+        ]);
+    }
+
+    // Show delete button menu
+    #[Route('/delete-menu/{id}', name: 'app_management_delete_menu')]
+    public function deleteGuest(Menu $menu): Response
+    {
+        return $this->render('management/menu/_delete-menu.html.twig', [
+            'id' => $menu->getId(),
+        ]);
+    }
+
+    // Remove menu and redirect to menu gestion
+    #[Route('/remove-menu/{id}', name: 'app_management_rem_menu')]
+    public function removeGuest(Request $request, Menu $menu, MenuRepository $menuRepo): Response
+    {
+        $menuRepo->remove($menu, true);
+        return $this->redirectToRoute('app_management_menu');
+    }
 }
