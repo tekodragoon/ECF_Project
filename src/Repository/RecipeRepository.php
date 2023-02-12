@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Recipe;
+use App\RecipeType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -64,7 +65,7 @@ class RecipeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findByType(\App\RecipeType $type)
+    public function findByType(RecipeType $type)
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.type = :val')
