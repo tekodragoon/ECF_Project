@@ -24,8 +24,9 @@ class Recipe
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $price = null;
 
-    #[ORM\Column(type: "recipeType" ,length: 255)]
-    private ?RecipeType $type = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?RecipeCategory $category = null;
 
     public function getId(): ?int
     {
@@ -68,21 +69,15 @@ class Recipe
         return $this;
     }
 
-    /**
-     * @return RecipeType|null
-     */
-    public function getType(): ?RecipeType
+    public function getCategory(): ?RecipeCategory
     {
-        return $this->type;
+        return $this->category;
     }
 
-    /**
-     * @param RecipeType|null $type
-     * @return Recipe
-     */
-    public function setType(?RecipeType $type): Recipe
+    public function setCategory(?RecipeCategory $category): self
     {
-        $this->type = $type;
+        $this->category = $category;
+
         return $this;
     }
 }

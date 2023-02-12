@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Formula;
 use App\Entity\Menu;
 use App\Entity\Recipe;
+use App\Entity\RecipeCategory;
 use App\Entity\User;
 use App\RecipeType;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -39,6 +40,21 @@ class AppFixtures extends Fixture
 
         // Create exercice recipes (Creating base menu)
 
+        $cat1 = new RecipeCategory();
+        $cat1->setName('Entrées');
+        $cat1->setListOrder(1);
+        $manager->persist($cat1);
+
+        $cat2 = new RecipeCategory();
+        $cat2->setName('Plats');
+        $cat2->setListOrder(2);
+        $manager->persist($cat2);
+
+        $cat3 = new RecipeCategory();
+        $cat3->setName('Dessert');
+        $cat3->setListOrder(3);
+        $manager->persist($cat3);
+
         $entreeName = [
             'Betteraves rôties',
             'Maquereau à la flamme',
@@ -66,7 +82,7 @@ class AppFixtures extends Fixture
             $recipe->setName($entreeName[$i]);
             $recipe->setDescription($entreeDesc[$i]);
             $recipe->setPrice($entreePrice[$i]);
-            $recipe->setType(RecipeType::entree);
+            $recipe->setCategory($cat1);
             $manager->persist($recipe);
         }
 
@@ -97,7 +113,7 @@ class AppFixtures extends Fixture
             $recipe->setName($mainName[$i]);
             $recipe->setDescription($mainDesc[$i]);
             $recipe->setPrice($mainPrice[$i]);
-            $recipe->setType(RecipeType::main);
+            $recipe->setCategory($cat2);
             $manager->persist($recipe);
         }
 
@@ -128,7 +144,7 @@ class AppFixtures extends Fixture
             $recipe->setName($dessertName[$i]);
             $recipe->setDescription($dessertDesc[$i]);
             $recipe->setPrice($dessertPrice[$i]);
-            $recipe->setType(RecipeType::dessert);
+            $recipe->setCategory($cat3);
             $manager->persist($recipe);
         }
 
