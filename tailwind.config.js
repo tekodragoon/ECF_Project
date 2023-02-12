@@ -17,7 +17,7 @@ module.exports = {
 				"white": "#FAFAFA",
 				"link": "#0DAAB4",
 				"valid": "#63B56B",
-				"error": "#DA3939",
+				"error": "#C13232",
 				"warning": "#EB9B22",
 			},
 		},
