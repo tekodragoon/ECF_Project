@@ -1,52 +1,110 @@
-<div hx-target="this" hx-swap="outerHTML">
+<div hx-target="this" hx-swap="outerHTML" id="menu-gestion">
 
 	<div class="flex items-center h-12 mb-4">
-		<button hx-get="{{ path('app_management_show') }}" class="btn-icon-right">
+		<button hx-get="{{ path('app_management_action') }}" class="btn-icon-right">
 			<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
 		</button>
 	</div>
 
-	{% for menu in menus %}
-		<div class="mb-4">
-			<div class="text-textColor border border-2 border-secondary rounded p-2">
-				<div class="mb-1">
-					<div class="w-28 inline-block underline underline-offset-2">Nom du menu:</div>
-					<span class="mr-2">{{ menu.title }}</span>
-				</div>
-				<hr class="h-px my-1 bg-secondary border-0">
-				<div class="mb-1">
-					<div class="w-28 inline-block underline underline-offset-2">Description:</div>
-					<span class="mr-2">{{ menu.description }}</span>
-				</div>
-				<hr class="h-px my-1 bg-secondary border-0">
-				<div class="mb-1">
-					<div class="w-28 inline-block underline underline-offset-2">Prix:</div>
-					<span class="mr-2">{{ menu.price }}€</span>
-				</div>
-				<hr class="h-px my-1 bg-secondary border-0">
-				<div>
-					<span class="w-28 inline-block underline underline-offset-2">Formules:</span>
-					{% set forms = concatFormulas(menu.formulas) %}
-					<span>{{ forms }}</span>
-				</div>
+	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+
+		<div class="textH2 mb-4">Liste des menus</div>
+
+		{% for message in app.flashes('success') %}
+			<div class="bg-valid text-black rounded
+		w-full md:w-4/6 mx-auto p-4 text-center mb-10
+		ring-2 ring-green-500 ring-offset-4">
+				{{ message }}
 			</div>
-			<div class="flex justify-end items-center">
-				<div hx-target="this" hx-swap="outerHTML" class="flex items-center">
-					<button class="icon-btn">
-						<span class="material-symbols-rounded">Delete</span>
-					</button>
+		{% endfor %}
+		{% for message in app.flashes('error') %}
+			<div class="bg-error text-black rounded
+		w-full md:w-4/6 mx-auto p-4 text-center mb-10
+		ring-2 ring-red-500 ring-offset-4">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<form
+				hx-post="{{ path('app_management_menu') }}"
+				hx-target="#menu-gestion"
+				hx-swap="outerHTML">
+
+			{{ form_start(form) }}
+
+			{% for menu in form.activeMenus %}
+				<div class="flex items-center gap-4">
+					<div class="w-1/2">
+						{{ menu.vars.value.name }}
+					</div>
+					<div class="hidden">
+						{{ form_widget(menu.name) }}
+					</div>
+					{{ form_widget(menu.active) }}
+					{{ form_label(menu.active) }}
 				</div>
-				<button class="icon-btn">
-					<span class="material-symbols-rounded"
-					      hx-get="{{ path('app_management_edit_menu', {id: menu.id}) }}">Edit</span>
+			{% endfor %}
+
+			{{ form_widget(form._token) }}
+
+			<div class="flex justify-end">
+				<button type="submit" class="btn-icon-left">
+					Sauvegarder <span class="material-symbols-outlined button-icon">Save</span>
 				</button>
 			</div>
-		</div>
-	{% endfor %}
 
-	<div class="flex justify-end">
-		<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
-			Ajouter <span class="material-symbols-rounded button-icon">Add</span>
-		</button>
+			{{ form_end(form, {render_rest: false}) }}
+		</form>
+
 	</div>
+
+	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+
+		<div class="textH2 mb-4">Édition des menus</div>
+
+		{% for menu in menus %}
+			<div class="mb-4">
+				<div class="text-textColor border border-2 border-secondary rounded p-2">
+					<div class="mb-1">
+						<div class="w-28 inline-block underline underline-offset-2">Nom du menu:</div>
+						<span class="mr-2">{{ menu.title }}</span>
+					</div>
+					<hr class="h-px my-1 bg-secondary border-0">
+					<div class="mb-1">
+						<div class="w-28 inline-block underline underline-offset-2">Description:</div>
+						<span class="mr-2">{{ menu.description }}</span>
+					</div>
+					<hr class="h-px my-1 bg-secondary border-0">
+					<div class="mb-1">
+						<div class="w-28 inline-block underline underline-offset-2">Prix:</div>
+						<span class="mr-2">{{ menu.price }}€</span>
+					</div>
+					<hr class="h-px my-1 bg-secondary border-0">
+					<div>
+						<span class="w-28 inline-block underline underline-offset-2">Formules:</span>
+						{% set forms = concatFormulas(menu.formulas) %}
+						<span>{{ forms }}</span>
+					</div>
+				</div>
+				<div class="flex justify-end items-center">
+					<div hx-target="this" hx-swap="outerHTML" class="flex items-center">
+						<button class="icon-btn">
+							<span class="material-symbols-rounded">Delete</span>
+						</button>
+					</div>
+					<button class="icon-btn">
+					<span class="material-symbols-rounded"
+					      hx-get="{{ path('app_management_edit_menu', {id: menu.id}) }}">Edit</span>
+					</button>
+				</div>
+			</div>
+		{% endfor %}
+
+		<div class="flex justify-end">
+			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
+				Ajouter un menu <span class="material-symbols-rounded button-icon">Add</span>
+			</button>
+		</div>
+	</div>
+
 </div>

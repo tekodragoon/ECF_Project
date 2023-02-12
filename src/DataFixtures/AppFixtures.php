@@ -142,6 +142,7 @@ class AppFixtures extends Fixture
         $menu1->addFormula($menu1form1);
         $menu1->addFormula($menu1form2);
         $menu1->setPrice(20);
+        $menu1->setActive(true);
         $manager->persist($menu1);
 
         $menu2 = new Menu();
@@ -154,6 +155,7 @@ class AppFixtures extends Fixture
         $menu2->addFormula($menu2form1);
         $menu2->addFormula($menu2form2);
         $menu2->setPrice(18);
+        $menu2->setActive(true);
         $manager->persist($menu2);
 
         $menu3 = new Menu();
@@ -169,6 +171,7 @@ class AppFixtures extends Fixture
         $menu3->addFormula($menu3form2);
         $menu3->addFormula($menu3form3);
         $menu3->setPrice(35);
+        $menu3->setActive(true);
         $manager->persist($menu3);
 
         $manager->flush();

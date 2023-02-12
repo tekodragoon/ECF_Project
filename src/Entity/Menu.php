@@ -28,9 +28,13 @@ class Menu
     #[ORM\OneToMany(mappedBy: 'menu', targetEntity: Formula::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $formulas;
 
+    #[ORM\Column]
+    private bool $active;
+
     public function __construct()
     {
         $this->formulas = new ArrayCollection();
+        $this->active = false;
     }
 
     public function getId(): ?int
@@ -100,6 +104,18 @@ class Menu
                 $formula->setMenu(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Menu;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +38,34 @@ class MenuRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findById($id): ?Menu
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.id = :val')
+            ->setParameter('val', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @param bool $active
+     * @return array
+     */
+    public function findActiveMenu(bool $active): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.active = :val')
+            ->setParameter('val', $active)
+            ->leftJoin('m.formulas', 'f')
+            ->addSelect('f')
+            ->orderBy('m.id', 'ASC')
+            ->getQuery()
+            ->getArrayResult();
     }
 
 //    /**

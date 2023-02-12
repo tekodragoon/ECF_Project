@@ -14,7 +14,7 @@ class MenuController extends AbstractController
     #[Route('/menu', name: 'app_menu')]
     public function index(MenuRepository $menuRepository, RecipeRepository $recipeRepository): Response
     {
-        $menus = $menuRepository->findAll();
+        $menus = $menuRepository->findActiveMenu(true);
         $entrees = $recipeRepository->findByType(RecipeType::entree);
         $main = $recipeRepository->findByType(RecipeType::main);
         $desserts = $recipeRepository->findByType(RecipeType::dessert);

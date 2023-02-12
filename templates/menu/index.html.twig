@@ -10,7 +10,8 @@
 			<h1 class="textH1">Carte</h1>
 		</div>
 
-		<div class="grid grid-cols-1 border border-2 border-secondary p-4 mb-10 rounded-md md:grid-cols-3">
+		{% set nbCols = 'md:grid-cols-%d'|format(menus|length) %}
+		<div class="grid grid-cols-1 border border-2 border-secondary p-4 mb-10 rounded-md {{ nbCols }}">
 			{% for menu in menus %}
 				{% set rightBorder = loop.last ? '' : 'md:border-r-2 md:border-r-secondary' %}
 				{% set bottomBorder = loop.last ? 'border-b-0' : 'border-b-2' %}
@@ -25,13 +26,13 @@
 					<div class="flex justify-between md:flex-col">
 						<div class="text-center">
 							{% if menu.formulas|length == 2 %}
-								<p>{{ menu.formulas[0] }}</p>
+								<p>{{ menu.formulas[0].name }}</p>
 								<p>ou</p>
-								<p>{{ menu.formulas[1] }}</p>
+								<p>{{ menu.formulas[1].name }}</p>
 							{% else %}
 								{% for form in menu.formulas %}
 									{% set after = loop.index0 == menu.formulas|length - 2 ? ' et ' : loop.last ? '.' : ', ' %}
-									{{ '%s%s'|format(form, after) }}
+									{{ '%s%s'|format(form.name, after) }}
 								{% endfor %}
 							{% endif %}
 						</div>
