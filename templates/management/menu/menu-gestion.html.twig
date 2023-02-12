@@ -1,4 +1,5 @@
 <div hx-target="this" hx-swap="outerHTML" id="menu-gestion">
+	{{ include('_flash-message.html.twig') }}
 
 	<div class="flex items-center h-12 mb-4">
 		<button hx-get="{{ path('app_management_action') }}" class="btn-icon-right">
@@ -9,21 +10,6 @@
 	<div class="border border-2 border-secondary p-2 mb-6 rounded">
 
 		<div class="textH2 mb-4">Liste des menus</div>
-
-		{% for message in app.flashes('success') %}
-			<div class="bg-valid text-black rounded
-		w-full md:w-4/6 mx-auto p-4 text-center mb-10
-		ring-2 ring-green-500 ring-offset-4">
-				{{ message }}
-			</div>
-		{% endfor %}
-		{% for message in app.flashes('error') %}
-			<div class="bg-error text-black rounded
-		w-full md:w-4/6 mx-auto p-4 text-center mb-10
-		ring-2 ring-red-500 ring-offset-4">
-				{{ message }}
-			</div>
-		{% endfor %}
 
 		<form
 				hx-post="{{ path('app_management_menu') }}"

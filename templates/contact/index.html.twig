@@ -3,34 +3,27 @@
 {% block title %}Contact{% endblock %}
 
 {% block body %}
+
+	{{ include('_flash-message.html.twig') }}
+
 	<div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+
 		<div class="w-fit mx-auto text-center mb-8">
 			<span class="material-symbols-outlined title-icon text-textColor">mail</span>
 			<h1 class="textH1">Nous contacter</h1>
 		</div>
 
-		{% for message in app.flashes('success') %}
-			<div class="bg-valid text-black rounded
-		w-full md:w-4/6 mx-auto p-4 text-center mb-10
-		ring-2 ring-green-500 ring-offset-4">
-				{{ message }}
-			</div>
-		{% endfor %}
-		{% for message in app.flashes('error') %}
-			<div class="bg-error text-black rounded
-		w-full md:w-4/6 mx-auto p-4 text-center mb-10
-		ring-2 ring-red-500 ring-offset-4">
-				{{ message }}
-			</div>
-		{% endfor %}
-
 		{{ form_start(form) }}
 		{{ form_widget(form) }}
+
 		<div class="flex justify-end">
 			<button class="btn-icon-right">
 				Envoyer <span class="material-symbols-outlined">navigate_next</span>
 			</button>
 		</div>
+
 		{{ form_end(form) }}
+
 	</div>
+
 {% endblock %}

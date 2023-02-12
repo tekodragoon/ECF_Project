@@ -53,14 +53,14 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($menuGroup->getActivesCount() <= 3) {
-                $this->addFlash('success', 'Modifications enregistrées');
+                $this->addFlash('success', 'Modifications enregistrées.');
                 foreach ($menuGroup->activeMenus as $menuItem) {
                     $menu = $menuRepository->findById($menuItem->getMenuId());
                     $menu->setActive($menuItem->isActive());
                     $menuRepository->save($menu, true);
                 }
             } else {
-                $this->addFlash('error', 'Trop de menus actifs. Sélectionnez-en au maximum 3');
+                $this->addFlash('error', 'Il y a trop de menus actifs. Sélectionnez-en au maximum 3.');
             }
             return $this->redirectToRoute('app_management_menu');
         }
@@ -79,6 +79,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
+            $this->addFlash('success', 'Modifications enregistrées.');
             return $this->redirectToRoute('app_management_menu');
         }
 
@@ -131,7 +132,9 @@ class ManagementController extends AbstractController
     #[Route('/remove-menu/{id}', name: 'app_management_rem_menu')]
     public function removeGuest(Request $request, Menu $menu, MenuRepository $menuRepo): Response
     {
+        $name = $menu->getTitle();
         $menuRepo->remove($menu, true);
+        $this->addFlash('success', 'Le menu '. $name . ' a bien été supprimé.');
         return $this->redirectToRoute('app_management_menu');
     }
 }
