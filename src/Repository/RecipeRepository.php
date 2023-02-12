@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Recipe;
+use App\Entity\RecipeCategory;
 use App\RecipeType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +41,16 @@ class RecipeRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByCategory(RecipeCategory $category)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.category = :val')
+            ->setParameter('val', $category)
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */
@@ -64,14 +75,4 @@ class RecipeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
-    public function findByType(RecipeType $type)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.type = :val')
-            ->setParameter('val', $type->value)
-            ->orderBy('r.id', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
 }

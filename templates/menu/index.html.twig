@@ -45,29 +45,15 @@
 		</div>
 
 		<div class="mb-6">
-			{{ include('menu/_recipeTitle.html.twig', {title: 'Entrées'}) }}
-			{% for entree in entrees %}
-				{{ include('menu/_recipe.html.twig', {
-					name: entree.name,
-					price: entree.price,
-					description: entree.description
-				}) }}
-			{% endfor %}
-			{{ include('menu/_recipeTitle.html.twig', {title: 'Plats'}) }}
-			{% for recipe in main %}
-				{{ include('menu/_recipe.html.twig', {
-					name: recipe.name,
-					price: recipe.price,
-					description: recipe.description
-				}) }}
-			{% endfor %}
-			{{ include('menu/_recipeTitle.html.twig', {title: 'Desserts'}) }}
-			{% for dessert in desserts %}
-				{{ include('menu/_recipe.html.twig', {
-					name: dessert.name,
-					price: dessert.price,
-					description: dessert.description
-				}) }}
+			{% for recipeList in recipeLists %}
+				{{ include('menu/_recipeTitle.html.twig', {title: recipeList.category}) }}
+				{% for recipe in recipeList.recipes %}
+					{{ include('menu/_recipe.html.twig', {
+						name: recipe.name,
+						price: recipe.price,
+						description: recipe.description
+					}) }}
+				{% endfor %}
 			{% endfor %}
 		</div>
 
