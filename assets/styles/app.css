@@ -124,3 +124,23 @@ select {
     border-radius: 5px;
     object-fit: cover;
 }
+
+.flash {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: show 4000ms ease-in-out;
+}
+
+@keyframes show {
+    0% {
+        top: -100px;
+    }
+    6% {
+        top: 100px;
+    }
+    94% {
+        top: 100px;
+    }
+}
