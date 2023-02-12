@@ -1,0 +1,11 @@
+<div hx-target="this" hx-swap="outerHTML" id="recipe-gestion">
+	{{ include('_flash-message.html.twig') }}
+
+	<div class="flex items-center h-12 mb-4">
+		<button hx-get="{{ path('app_management_action') }}" class="btn-icon-right">
+			<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
+		</button>
+	</div>
+
+
+</div>

@@ -31,6 +31,11 @@ class ManagementController extends AbstractController
         return $this->render('management/section.html.twig');
     }
 
+    // ------------------------------------------------------------------------- SECTION MENU
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+
     /**
      * @throws NonUniqueResultException
      */
@@ -136,5 +141,16 @@ class ManagementController extends AbstractController
         $menuRepo->remove($menu, true);
         $this->addFlash('success', 'Le menu '. $name . ' a bien été supprimé.');
         return $this->redirectToRoute('app_management_menu');
+    }
+
+    // ------------------------------------------------------------------------- SECTION RECETTE
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+
+    #[Route('/manage-recipe', name: 'app_management_recipe')]
+    public function recipe():Response
+    {
+        return $this->render('management/recipe/recipe-gestion.html.twig');
     }
 }
