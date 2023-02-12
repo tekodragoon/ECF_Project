@@ -1,11 +1,8 @@
 <div hx-target="this" hx-swap="outerHTML" id="show-guest">
 	{{ include('_flash-message.html.twig') }}
 
-	<div class="flex items-center h-12 mb-4">
-		<button hx-get="{{ path('app_account_show') }}" class="btn-icon-right">
-			<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
-		</button>
-	</div>
+	{{ include('_back-button.html.twig', {path: path('app_account_show')}) }}
+
 	{% set path = path('app_account_edit_user-guest', {id: app.user.id}) %}
 	{{ include('account/_guest-field.html.twig', {
 		index: 1,
