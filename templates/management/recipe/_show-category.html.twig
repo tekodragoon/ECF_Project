@@ -1,0 +1,15 @@
+<div
+		hx-target="this"
+		hx-swap="outerHTML"
+		id="{{ 'cat-%d'|format(id) }}"
+		class="grid grid-cols-4 items-center">
+
+	<div class="col-span-3 border border-2 border-black p-3 rounded">
+		{{ name }}
+	</div>
+
+	<button class="w-fit icon-btn" hx-get="{{ path('app_management_edit_category', {id: id}) }}">
+		<span class="material-symbols-rounded">Edit</span>
+	</button>
+
+</div>

@@ -1,0 +1,20 @@
+<form
+		hx-post="{{ path('app_management_edit_category', {id: id}) }}"
+		hx-target="this"
+		hx-swap="outerHTML"
+		class="grid grid-cols-4">
+
+	{{ form_start(form) }}
+
+	<div class="col-span-3">
+		{{ form_widget(form.name) }}
+	</div>
+
+	<button class="w-fit icon-btn">
+		<span class="material-symbols-rounded">Save</span>
+	</button>
+
+	{{ form_row(form._token) }}
+	{{ form_end(form, {render_rest: false}) }}
+
+</form>

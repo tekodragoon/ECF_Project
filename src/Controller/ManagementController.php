@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Menu;
+use App\Entity\RecipeCategory;
 use App\Form\ActiveMenuGroupType;
+use App\Form\CategoryType;
 use App\Form\MenuType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
 use App\Repository\MenuRepository;
+use App\Repository\RecipeCategoryRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,7 +42,7 @@ class ManagementController extends AbstractController
     /**
      * @throws NonUniqueResultException
      */
-    #[Route('/manage-menu', name:'app_management_menu')]
+    #[Route('/manage-menu', name: 'app_management_menu')]
     public function menu(Request $request, MenuRepository $menuRepository): Response
     {
         $menus = $menuRepository->findAll();
@@ -135,11 +138,11 @@ class ManagementController extends AbstractController
 
     // Remove menu and redirect to menu gestion
     #[Route('/remove-menu/{id}', name: 'app_management_rem_menu')]
-    public function removeGuest(Request $request, Menu $menu, MenuRepository $menuRepo): Response
+    public function removeGuest(Menu $menu, MenuRepository $menuRepo): Response
     {
         $name = $menu->getTitle();
         $menuRepo->remove($menu, true);
-        $this->addFlash('success', 'Le menu '. $name . ' a bien été supprimé.');
+        $this->addFlash('success', 'Le menu ' . $name . ' a bien été supprimé.');
         return $this->redirectToRoute('app_management_menu');
     }
 
@@ -149,8 +152,40 @@ class ManagementController extends AbstractController
     // -------------------------------------------------------------------------
 
     #[Route('/manage-recipe', name: 'app_management_recipe')]
-    public function recipe():Response
+    public function recipe(RecipeCategoryRepository $categoryRepository): Response
     {
-        return $this->render('management/recipe/recipe-gestion.html.twig');
+        $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
+
+        return $this->render('management/recipe/recipe-gestion.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
+
+    #[Route('/edit-category/{id}', name: 'app_management_edit_category')]
+    public function editCategory(Request $request, RecipeCategory $category, RecipeCategoryRepository $categoryRepository): Response
+    {
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->save($category, true);
+            return $this->redirectToRoute('app_management_show_category', [
+                'id' => $category->getId(),
+            ]);
+        }
+
+        return $this->render('management/recipe/_edit-category.html.twig', [
+            'form' => $form->createView(),
+            'id' => $category->getId(),
+        ]);
+    }
+
+    #[Route('/show-category/{id}', name: 'app_management_show_category')]
+    public function showCategory(RecipeCategory $category): Response
+    {
+        return $this->render('management/recipe/_show-category.html.twig', [
+            'id' => $category->getId(),
+            'name' => $category->getName(),
+        ]);
     }
 }
