@@ -208,4 +208,45 @@ class ManagementController extends AbstractController
             'next' => $category->getListOrder(),
         ]);
     }
+
+    // Show confirm template for deleting category
+    #[Route('/confirm-delete-category/{id}', name: 'app_management_confirm_del_category')]
+    public function confirmDeleteCategory(RecipeCategory $category): Response
+    {
+        return $this->render('management/recipe/_confirm-delete-category.html.twig', [
+            'id' => $category->getId(),
+        ]);
+    }
+
+    // Show delete button category
+    #[Route('/manage-category/{id}', name: 'app_management_manage_category')]
+    public function manageCategory(RecipeCategory $category): Response
+    {
+        return $this->render('management/recipe/_manage-category.html.twig', [
+            'id' => $category->getId(),
+        ]);
+    }
+
+    // Remove category and redirect to recipe gestion
+    #[Route('/remove-category/{id}', name: 'app_management_rem_category')]
+    public function removeCategory(RecipeCategory $category, RecipeCategoryRepository $categoryRepository): Response
+    {
+        $name = $category->getName();
+        $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
+
+        $index = $category->getListOrder();
+        $categoryRepository->remove($category, true);
+
+        foreach ($categories as $category) {
+            if ($category->getListOrder() > $index) {
+                $i = $category->getListOrder() - 1;
+                $category->setListOrder($i);
+                $categoryRepository->save($category, true);
+            }
+        }
+
+        $this->addFlash('success', 'La catégorie ' . $name . ' a bien été supprimé.');
+
+        return $this->redirectToRoute('app_management_recipe');
+    }
 }
