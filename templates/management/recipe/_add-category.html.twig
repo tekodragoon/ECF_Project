@@ -1,0 +1,33 @@
+<form
+		hx-post="{{ path('app_management_add_category') }}"
+		hx-target="#recipe-gestion"
+		class="grid grid-cols-8 items-center gap-4 mb-2">
+
+	{{ form_start(form) }}
+
+	<div class="col-span-1 textH3 p-3">
+		{{ next }}
+	</div>
+
+	<div class="col-span-7">
+		<div class="grid grid-cols-4 items-center">
+			<div class="col-span-3">
+				{{ form_widget(form.name) }}
+			</div>
+			<div class="flex items-center">
+				<button
+						class="w-fit icon-btn"
+						hx-get="{{ path('app_management_recipe') }}">
+					<span class="material-symbols-outlined">Cancel</span>
+				</button>
+				<button class="w-fit icon-btn">
+					<span class="material-symbols-rounded">Save</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	{{ form_row(form._token) }}
+	{{ form_end(form, {render_rest: false}) }}
+
+</form>

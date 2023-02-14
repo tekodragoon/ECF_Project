@@ -188,4 +188,24 @@ class ManagementController extends AbstractController
             'name' => $category->getName(),
         ]);
     }
+
+    #[Route('/add-category', name: 'app_management_add_category')]
+    public function addCategory(Request $request, RecipeCategoryRepository $categoryRepository):Response
+    {
+        $category = new RecipeCategory();
+        $categories = $categoryRepository->findAll();
+        $category->setListOrder(count($categories) + 1);
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $categoryRepository->save($category, true);
+            return $this->redirectToRoute('app_management_recipe');
+        }
+
+        return $this->render('management/recipe/_add-category.html.twig', [
+            'form' => $form->createView(),
+            'next' => $category->getListOrder(),
+        ]);
+    }
 }

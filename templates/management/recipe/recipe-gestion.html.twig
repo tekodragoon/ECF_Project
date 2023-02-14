@@ -21,6 +21,14 @@
 			</div>
 		{% endfor %}
 
+		<div class="col-span-8" id="add-category"></div>
+
+		<div class="flex justify-end items-center">
+			<button hx-target="#add-category" hx-get="{{ path('app_management_add_category') }}" class="btn-icon-left">
+				Ajouter une catégorie <span class="material-symbols-rounded button-icon">Add</span>
+			</button>
+		</div>
+
 	</div>
 
 </div>
