@@ -52,6 +52,22 @@
     .textLink {
         @apply underline text-link
     }
+
+    .drag-ul {
+        @apply m-0 p-0
+    }
+
+    .drag-li {
+        @apply w-1/2 mx-auto p-3 mb-2 rounded
+        border border-2 border-black
+        text-textColor bg-white
+        list-none cursor-move
+        flex justify-between items-center
+    }
+
+    .drag-over {
+        @apply bg-valid text-white
+    }
 }
 
 body,
@@ -143,4 +159,19 @@ select {
     94% {
         top: 100px;
     }
+}
+
+/* FOR list order */
+
+
+
+.drag-li.drag-sort-active {
+    background: transparent;
+    color: transparent;
+    border: 1px solid #4ca1af;
+}
+
+.drag-span.drag-sort-active {
+    background: transparent;
+    color: transparent;
 }

@@ -249,4 +249,14 @@ class ManagementController extends AbstractController
 
         return $this->redirectToRoute('app_management_recipe');
     }
+
+    #[Route('/category-order', name: 'app_management_reorder_category')]
+    public function reorderCategory(RecipeCategoryRepository $categoryRepository): Response
+    {
+        $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
+
+        return $this->render('management/recipe/category-order.html.twig', [
+            'categories' => $categories,
+        ]);
+    }
 }
