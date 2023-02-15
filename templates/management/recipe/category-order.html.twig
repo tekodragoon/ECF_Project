@@ -1,4 +1,4 @@
-<div class="border border-2 border-secondary p-2 mb-6 rounded">
+<div id="reorder-block">
 
 	<div class="hidden">
 		{% for category in categories %}
@@ -6,83 +6,92 @@
 		{% endfor %}
 	</div>
 
-	<ul class="drag-ul">
+	{{ include('_back-button.html.twig', {
+		path: path('app_management_recipe'),
+		target: '#reorder-block'
+	}) }}
 
-	</ul>
+	<div class="border border-2 border-secondary p-2 mb-6 rounded">
 
-</div>
+		<div class="textH2 mb-4">Ordre des catégories</div>
 
-<script defer>
-	const categories = document.querySelectorAll('.cat');
-	const items = [];
+		<ul class="drag-ul"></ul>
 
-	categories.forEach((category, index) => {
-		let item = {
-			index: index,
-			title: category.innerText,
-		}
-		items.push(item);
-	})
+	</div>
 
-	const displayItems = () => {
-		const parent = document.querySelector('.drag-ul');
-		parent.innerHTML = '';
-		items.forEach(item => {
+	<script defer>
+		const categories = document.querySelectorAll('.cat');
+		const items = [];
 
-			const li = document.createElement('li');
-			li.classList.add('drag-li');
-			li.setAttribute('draggable', 'true');
-
-			const text = document.createElement('div');
-			text.innerText = item.title;
-
-			const dragHandle = document.createElement("span");
-			dragHandle.innerText = "menu";
-			dragHandle.classList.add('material-symbols-outlined');
-
-			li.addEventListener('dragstart', (ev) => {
-				ev.dataTransfer.setData('index', item.index);
-				li.style.opacity = '0.4';
-			})
-
-			li.addEventListener('dragenter', () => {
-				li.classList.add('drag-over');
-			})
-
-			li.addEventListener('dragleave', () => {
-				li.classList.remove('drag-over');
-			})
-
-			li.addEventListener('drop', (ev) => {
-				const dragIndex = ev.dataTransfer.getData('index');
-				const dropIndex = item.index;
-				swap(dragIndex, dropIndex);
-				li.setAttribute('draggable', 'false');
-			})
-
-			li.addEventListener('dragover', (ev) => {
-				ev.preventDefault();
-			})
-
-			li.appendChild(text);
-			li.appendChild(dragHandle);
-			parent.appendChild(li);
+		categories.forEach((category, index) => {
+			let item = {
+				index: index,
+				title: category.innerText,
+			}
+			items.push(item);
 		})
-	}
 
-	const swap = (dragIndex, dropIndex) => {
-		const dragged = items[dragIndex];
-		const drop = items[dropIndex];
+		const displayItems = () => {
+			const parent = document.querySelector('.drag-ul');
+			parent.innerHTML = '';
+			items.forEach(item => {
 
-		items[dragIndex] = drop;
-		items[dropIndex] = dragged;
+				const li = document.createElement('li');
+				li.classList.add('drag-li');
+				li.setAttribute('draggable', 'true');
 
-		dragged.index = dropIndex;
-		drop.index = dragIndex;
+				const text = document.createElement('div');
+				text.innerText = item.title;
+
+				const dragHandle = document.createElement("span");
+				dragHandle.innerText = "menu";
+				dragHandle.classList.add('material-symbols-outlined');
+
+				li.addEventListener('dragstart', (ev) => {
+					ev.dataTransfer.setData('index', item.index);
+					li.style.opacity = '0.4';
+				})
+
+				li.addEventListener('dragenter', () => {
+					li.classList.add('drag-over');
+				})
+
+				li.addEventListener('dragleave', () => {
+					li.classList.remove('drag-over');
+				})
+
+				li.addEventListener('drop', (ev) => {
+					const dragIndex = ev.dataTransfer.getData('index');
+					const dropIndex = item.index;
+					swap(dragIndex, dropIndex);
+					li.setAttribute('draggable', 'false');
+				})
+
+				li.addEventListener('dragover', (ev) => {
+					ev.preventDefault();
+				})
+
+				li.appendChild(text);
+				li.appendChild(dragHandle);
+				parent.appendChild(li);
+			})
+		}
+
+		const swap = (dragIndex, dropIndex) => {
+			const dragged = items[dragIndex];
+			const drop = items[dropIndex];
+
+			items[dragIndex] = drop;
+			items[dropIndex] = dragged;
+
+			dragged.index = dropIndex;
+			drop.index = dragIndex;
+
+			displayItems();
+		}
 
 		displayItems();
-	}
 
-	displayItems();
+	</script>
 
-</script>
+</div>
