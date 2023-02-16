@@ -17,7 +17,7 @@ class RecipeCategory
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::SMALLINT, unique: true)]
+    #[ORM\Column(type: Types::SMALLINT)]
     private ?int $listOrder = null;
 
     public function getId(): ?int

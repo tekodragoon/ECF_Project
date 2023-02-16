@@ -1,14 +1,5 @@
 <div class="flex items-center h-12 mb-4">
-	{% if target is defined %}
-	<button
-			hx-get="{{ path }}"
-			hx-target="{{ target }}"
-			class="btn-icon-right">
-		<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
-	</button>
-	{% else %}
 	<button hx-get="{{ path }}" class="btn-icon-right">
 		<span class="material-symbols-rounded button-icon">navigate_before</span>Retour
 	</button>
-	{% endif %}
 </div>

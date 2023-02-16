@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Menu;
 use App\Entity\RecipeCategory;
 use App\Form\ActiveMenuGroupType;
+use App\Form\CategoryOrderGroupType;
 use App\Form\CategoryType;
 use App\Form\MenuType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
+use App\Model\CategoryGroup;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -251,12 +253,29 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/category-order', name: 'app_management_reorder_category')]
-    public function reorderCategory(RecipeCategoryRepository $categoryRepository): Response
+    public function reorderCategory(Request $request, RecipeCategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
+        $categoryGroup = new CategoryGroup();
+
+        foreach ($categories as $category) {
+            $categoryGroup->addCategory($category);
+        }
+
+        $form = $this->createForm(CategoryOrderGroupType::class, $categoryGroup);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($categoryGroup->categories as $category) {
+                $categoryRepository->save($category, true);
+            }
+            $this->addFlash('success', 'L\'ordre des catégories a bien été enregistré.');
+            return $this->redirectToRoute('app_management_recipe');
+        }
 
         return $this->render('management/recipe/category-order.html.twig', [
             'categories' => $categories,
+            'form' => $form->createView(),
         ]);
     }
 }
