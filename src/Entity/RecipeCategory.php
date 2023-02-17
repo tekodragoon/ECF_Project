@@ -20,6 +20,11 @@ class RecipeCategory
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $listOrder = null;
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

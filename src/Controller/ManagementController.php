@@ -8,13 +8,18 @@ use App\Form\ActiveMenuGroupType;
 use App\Form\CategoryOrderGroupType;
 use App\Form\CategoryType;
 use App\Form\MenuType;
+use App\Form\RecipeType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
 use App\Model\CategoryGroup;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
+use App\Repository\RecipeRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -154,11 +159,30 @@ class ManagementController extends AbstractController
     // -------------------------------------------------------------------------
 
     #[Route('/manage-recipe', name: 'app_management_recipe')]
-    public function recipe(RecipeCategoryRepository $categoryRepository): Response
+    public function recipe(Request $request, RecipeRepository $recipeRepository): Response
+    {
+        $recipes = $recipeRepository->findAll();
+        $recipe = $recipeRepository->find(1);
+
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipeRepository->save($recipe, true);
+             return $this->redirectToRoute('app_management_action');
+        }
+
+        return $this->render('management/recipe/recipe-gestion.html.twig', [
+            'recipeForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/manage-category', name: 'app_management_recipe-category')]
+    public function recipeCategory(RecipeCategoryRepository $categoryRepository):Response
     {
         $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
 
-        return $this->render('management/recipe/recipe-gestion.html.twig', [
+        return $this->render('management/recipe/category-gestion.html.twig', [
             'categories' => $categories,
         ]);
     }
@@ -202,7 +226,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
-            return $this->redirectToRoute('app_management_recipe');
+            return $this->redirectToRoute('app_management_recipe-category');
         }
 
         return $this->render('management/recipe/_add-category.html.twig', [
@@ -249,7 +273,7 @@ class ManagementController extends AbstractController
 
         $this->addFlash('success', 'La catégorie ' . $name . ' a bien été supprimé.');
 
-        return $this->redirectToRoute('app_management_recipe');
+        return $this->redirectToRoute('app_management_recipe-category');
     }
 
     #[Route('/category-order', name: 'app_management_reorder_category')]
@@ -270,7 +294,7 @@ class ManagementController extends AbstractController
                 $categoryRepository->save($category, true);
             }
             $this->addFlash('success', 'L\'ordre des catégories a bien été enregistré.');
-            return $this->redirectToRoute('app_management_recipe');
+            return $this->redirectToRoute('app_management_recipe-category');
         }
 
         return $this->render('management/recipe/category-order.html.twig', [

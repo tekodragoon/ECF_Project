@@ -1,0 +1,34 @@
+<div hx-target="this" hx-swap="outerHTML" id="recipe-gestion">
+	{{ include('_flash-message.html.twig') }}
+
+	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
+
+	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+
+		<div class="textH2 mb-4">Liste des catégories</div>
+
+		{% for category in categories %}
+			<div class="grid grid-cols-8 items-center gap-4 mb-2">
+				<span class="col-span-1 textH3 p-3">
+					{{ category.listOrder }}
+				</span>
+				<div class="col-span-7">
+					{{ include('management/recipe/_show-category.html.twig', {
+						id: category.id,
+						name: category.name,
+					}) }}
+				</div>
+			</div>
+		{% endfor %}
+
+		<div class="col-span-8" id="add-category"></div>
+
+		<div class="flex justify-end items-center">
+			<button hx-target="#add-category" hx-get="{{ path('app_management_add_category') }}" class="btn-icon-left">
+				Ajouter une catégorie <span class="material-symbols-rounded button-icon">Add</span>
+			</button>
+		</div>
+
+	</div>
+
+</div>
