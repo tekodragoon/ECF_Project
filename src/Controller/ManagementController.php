@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Menu;
+use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
 use App\Form\ActiveMenuGroupType;
 use App\Form\CategoryOrderGroupType;
@@ -153,29 +154,42 @@ class ManagementController extends AbstractController
         return $this->redirectToRoute('app_management_menu');
     }
 
-    // ------------------------------------------------------------------------- SECTION RECETTE
+    // ------------------------------------------------------------------------- SECTION RECIPE
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
 
     #[Route('/manage-recipe', name: 'app_management_recipe')]
-    public function recipe(Request $request, RecipeRepository $recipeRepository): Response
+    public function recipe(RecipeRepository $recipeRepository): Response
     {
-        $recipes = $recipeRepository->findAll();
-        $recipe = $recipeRepository->find(1);
+        $recipes = $recipeRepository->findAllByCategory();
 
+        return $this->render('management/recipe/recipe-gestion.html.twig', [
+            'recipes' => $recipes,
+        ]);
+    }
+
+    #[Route('/edit-recipe/{id}', name: 'app_management_edit-recipe')]
+    public function editRecipe(Request $request, Recipe $recipe, RecipeRepository $repository):Response
+    {
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $recipeRepository->save($recipe, true);
-             return $this->redirectToRoute('app_management_action');
+            $repository->save($recipe, true);
+            return $this->redirectToRoute('app_management_recipe');
         }
 
-        return $this->render('management/recipe/recipe-gestion.html.twig', [
-            'recipeForm' => $form->createView(),
+        return $this->render('management/recipe/_edit-recipe.html.twig', [
+            'form' => $form->createView(),
+            'id' => $recipe->getId(),
         ]);
     }
+
+    // ------------------------------------------------------------------------- SECTION CATEGORY
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
 
     #[Route('/manage-category', name: 'app_management_recipe-category')]
     public function recipeCategory(RecipeCategoryRepository $categoryRepository):Response

@@ -51,6 +51,15 @@ class RecipeRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllByCategory()
+    {
+        return $this->createQueryBuilder('r')
+            ->leftJoin('r.category', 'c')
+            ->orderBy('c.listOrder', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Recipe[] Returns an array of Recipe objects
 //     */

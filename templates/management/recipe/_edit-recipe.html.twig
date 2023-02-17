@@ -1,0 +1,25 @@
+<form
+		hx-post="{{ path('app_management_edit-recipe', {id: id}) }}"
+		hx-target="this"
+		hx-swap="outerHTML">
+
+	{{ form_start(form) }}
+
+	{{ form_row(form.name) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.price) }}
+	{{ form_row(form.category) }}
+
+	<div class="flex justify-center items-center">
+		<button class="btn" hx-get="{{ path('app_management_recipe') }}">
+			Annuler
+		</button>
+		<button class="btn">
+			Sauvegarder
+		</button>
+	</div>
+
+	{{ form_row(form._token) }}
+	{{ form_end(form, {render_rest: false}) }}
+
+</form>
