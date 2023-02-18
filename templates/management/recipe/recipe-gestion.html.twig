@@ -13,7 +13,7 @@
 			{% if oldCategory != recipe.category %}
 				{% set margin = oldCategory == '' ? 'mb-2' : 'my-2' %}
 				<div class="flex justify-between items-center p-3 {{ margin }} rounded bg-primary text-white
-				category-container">
+				no-expand">
 					{{ recipe.category }}
 					<button class="expand">
 						<span class="material-symbols-outlined">expand_less</span>
@@ -25,7 +25,7 @@
 				<div class="col-span-3 border border-2 border-black p-3 rounded">
 					{{ recipe.name }}
 				</div>
-				<div class="w-fit flex">
+				<div class="flex justify-evenly">
 					<button class="icon-btn" hx-get="{{ path('app_management_edit-recipe', {id: recipe.id}) }}">
 						<span class="material-symbols-rounded">Edit</span>
 					</button>
@@ -35,6 +35,12 @@
 				</div>
 			</div>
 		{% endfor %}
+
+		<div class="flex justify-end items-center mt-2 no-expand">
+			<button hx-get="{{ path('app_management_add-recipe') }}" class="btn-icon-left">
+				Ajouter une recette <span class="material-symbols-rounded button-icon">Add</span>
+			</button>
+		</div>
 	</div>
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}

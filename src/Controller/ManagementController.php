@@ -180,9 +180,29 @@ class ManagementController extends AbstractController
             return $this->redirectToRoute('app_management_recipe');
         }
 
-        return $this->render('management/recipe/_edit-recipe.html.twig', [
+        return $this->render('management/recipe/edit-recipe.html.twig', [
+            'path' => $this->generateUrl('app_management_edit-recipe', [
+                'id' => $recipe->getId(),
+            ]),
             'form' => $form->createView(),
-            'id' => $recipe->getId(),
+        ]);
+    }
+
+    #[Route('/add-recipe', name: 'app_management_add-recipe')]
+    public function addRecipe(Request $request, RecipeRepository $repository):Response
+    {
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $repository->save($recipe, true);
+            return $this->redirectToRoute('app_management_recipe');
+        }
+
+        return $this->render('management/recipe/edit-recipe.html.twig', [
+            'path' => $this->generateUrl('app_management_add-recipe'),
+            'form' => $form->createView(),
         ]);
     }
 

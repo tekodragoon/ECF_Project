@@ -1,12 +1,13 @@
 const expanders = document.querySelectorAll('.expand');
 
-console.log('found ' + expanders.length + ' expanders');
-
 expanders.forEach(expander => {
 	expander.addEventListener('click', () => {
+		// find google font icon and switch it
 		const span = expander.firstElementChild;
 		span.innerText = toggleExpand(span.innerText);
-		const recipesToToggle = findRecipeSibling(expander.parentElement, 'category-container');
+
+		// find all next sibling element to hide/show
+		const recipesToToggle = findRecipeSibling(expander.parentElement, 'no-expand');
 		recipesToToggle.forEach(r => {
 			r.classList.toggle('hidden');
 		})
@@ -21,7 +22,7 @@ const toggleExpand = (s) => {
 const findRecipeSibling = (element, condition) => {
 	let siblings = [];
 	let sibling = element.nextElementSibling;
-
+	// iterate until it find nothing or condition class stop
 	while (sibling) {
 		siblings.push(sibling);
 		sibling = sibling.nextElementSibling;
