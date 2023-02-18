@@ -65,15 +65,20 @@ class ManagementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($menuGroup->getActivesCount() <= 3) {
-                $this->addFlash('success', 'Modifications enregistrées.');
+            if ($menuGroup->getActivesCount() <= 3 && $menuGroup->getActivesCount() > 0) {
                 foreach ($menuGroup->activeMenus as $menuItem) {
                     $menu = $menuRepository->findById($menuItem->getMenuId());
                     $menu->setActive($menuItem->isActive());
                     $menuRepository->save($menu, true);
                 }
+                $this->addFlash('success', 'Modifications enregistrées.');
             } else {
-                $this->addFlash('error', 'Il y a trop de menus actifs. Sélectionnez-en au maximum 3.');
+                if ($menuGroup->getActivesCount() > 3) {
+                    $this->addFlash('error', 'Il y a trop de menus actifs. Sélectionnez-en au maximum 3.');
+                }
+                if ($menuGroup->getActivesCount() == 0) {
+                    $this->addFlash('error', 'Aucun menus actifs. Sélectionnez-en au minimum 1.');
+                }
             }
             return $this->redirectToRoute('app_management_menu');
         }
@@ -93,6 +98,7 @@ class ManagementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
             $this->addFlash('success', 'Modifications enregistrées.');
+
             return $this->redirectToRoute('app_management_menu');
         }
 
@@ -113,6 +119,8 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
+            $this->addFlash('success', $menu->getTitle() . ' a été créer.');
+
             return $this->redirectToRoute('app_management_menu');
         }
 
@@ -148,6 +156,7 @@ class ManagementController extends AbstractController
         $name = $menu->getTitle();
         $menuRepo->remove($menu, true);
         $this->addFlash('success', 'Le menu ' . $name . ' a bien été supprimé.');
+
         return $this->redirectToRoute('app_management_menu');
     }
 
@@ -167,13 +176,15 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/edit-recipe/{id}', name: 'app_management_edit-recipe')]
-    public function editRecipe(Request $request, Recipe $recipe, RecipeRepository $repository):Response
+    public function editRecipe(Request $request, Recipe $recipe, RecipeRepository $repository): Response
     {
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
+            $this->addFlash('success', $recipe->getName() . ' mis à jour.');
+
             return $this->redirectToRoute('app_management_recipe');
         }
 
@@ -186,14 +197,16 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/add-recipe', name: 'app_management_add-recipe')]
-    public function addRecipe(Request $request, RecipeRepository $repository):Response
+    public function addRecipe(Request $request, RecipeRepository $repository): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
+            $this->addFlash('success', $recipe->getName() . ' a été ajoutée.');
+
             return $this->redirectToRoute('app_management_recipe');
         }
 
@@ -238,7 +251,7 @@ class ManagementController extends AbstractController
     // -------------------------------------------------------------------------
 
     #[Route('/manage-category', name: 'app_management_recipe-category')]
-    public function recipeCategory(RecipeCategoryRepository $categoryRepository):Response
+    public function recipeCategory(RecipeCategoryRepository $categoryRepository): Response
     {
         $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
 
@@ -255,6 +268,8 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
+            $this->addFlash('success', 'Catégorie mise à jour.');
+
             return $this->redirectToRoute('app_management_show_category', [
                 'id' => $category->getId(),
             ]);
@@ -276,7 +291,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/add-category', name: 'app_management_add_category')]
-    public function addCategory(Request $request, RecipeCategoryRepository $categoryRepository):Response
+    public function addCategory(Request $request, RecipeCategoryRepository $categoryRepository): Response
     {
         $category = new RecipeCategory();
         $categories = $categoryRepository->findAll();
@@ -286,6 +301,8 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
+            $this->addFlash('success', $category->getName() . ' a été ajouté.');
+
             return $this->redirectToRoute('app_management_recipe-category');
         }
 
@@ -354,6 +371,7 @@ class ManagementController extends AbstractController
                 $categoryRepository->save($category, true);
             }
             $this->addFlash('success', 'L\'ordre des catégories a bien été enregistré.');
+
             return $this->redirectToRoute('app_management_recipe-category');
         }
 
