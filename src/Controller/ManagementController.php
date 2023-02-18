@@ -18,9 +18,6 @@ use App\Repository\RecipeCategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -204,6 +201,35 @@ class ManagementController extends AbstractController
             'path' => $this->generateUrl('app_management_add-recipe'),
             'form' => $form->createView(),
         ]);
+    }
+
+    // Show confirm template for deleting recipe
+    #[Route('/confirm-delete-recipe/{id}', name: 'app_management_confirm_del_recipe')]
+    public function confirmDeleteRecipe(Recipe $recipe): Response
+    {
+        return $this->render('management/recipe/_confirm-delete-recipe.html.twig', [
+            'id' => $recipe->getId(),
+        ]);
+    }
+
+    // Show manage recipe button
+    #[Route('/manage-recipe/{id}', name: 'app_management_manage_recipe')]
+    public function manageRecipe(Recipe $recipe): Response
+    {
+        return $this->render('management/recipe/_manage-recipe.html.twig', [
+            'id' => $recipe->getId(),
+        ]);
+    }
+
+    // Remove recipe and redirect to recipe gestion
+    #[Route('/remove-recipe/{id}', name: 'app_management_rem_recipe')]
+    public function removeRecipe(Recipe $recipe, RecipeRepository $repository): Response
+    {
+        $name = $recipe->getName();
+        $repository->remove($recipe, true);
+        $this->addFlash('success', $name . ' a bien été supprimé.');
+
+        return $this->redirectToRoute('app_management_recipe');
     }
 
     // ------------------------------------------------------------------------- SECTION CATEGORY

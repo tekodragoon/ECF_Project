@@ -2,7 +2,7 @@
 {{ encore_entry_script_tags('expand') }}
 {% endblock %}
 
-<div hx-target="this" hx-swap="outerHTML">
+<div hx-target="this" hx-swap="outerHTML" id="recipe-gestion">
 	{{ include('_flash-message.html.twig') }}
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
@@ -15,7 +15,7 @@
 				<div class="flex justify-between items-center p-3 {{ margin }} rounded bg-primary text-white
 				no-expand">
 					{{ recipe.category }}
-					<button class="expand">
+					<button class="flex items-center p-1.5 bg-secondary rounded expand">
 						<span class="material-symbols-outlined">expand_less</span>
 					</button>
 				</div>
@@ -25,14 +25,7 @@
 				<div class="col-span-3 border border-2 border-black p-3 rounded">
 					{{ recipe.name }}
 				</div>
-				<div class="flex justify-evenly">
-					<button class="icon-btn" hx-get="{{ path('app_management_edit-recipe', {id: recipe.id}) }}">
-						<span class="material-symbols-rounded">Edit</span>
-					</button>
-					<button class="icon-btn">
-						<span class="material-symbols-rounded">Delete</span>
-					</button>
-				</div>
+				{{ include('management/recipe/_manage-recipe.html.twig', {id: recipe.id}) }}
 			</div>
 		{% endfor %}
 

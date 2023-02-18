@@ -1,0 +1,11 @@
+<div hx-target="this" hx-swap="outerHTML" class="flex justify-evenly items-center">
+	<button
+			class="icon-btn"
+			hx-target="#recipe-gestion"
+			hx-get="{{ path('app_management_edit-recipe', {id: id}) }}">
+		<span class="material-symbols-rounded">Edit</span>
+	</button>
+	<button class="icon-btn" hx-get="{{ path('app_management_confirm_del_recipe', {id: id}) }}">
+		<span class="material-symbols-rounded">Delete</span>
+	</button>
+</div>
