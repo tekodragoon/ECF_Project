@@ -16,12 +16,12 @@
 				no-expand">
 					{{ recipe.category }}
 					<button class="flex items-center p-1.5 bg-secondary rounded expand">
-						<span class="material-symbols-outlined">expand_less</span>
+						<span class="material-symbols-outlined">expand_more</span>
 					</button>
 				</div>
 				{% set oldCategory = recipe.category %}
 			{% endif %}
-			<div class="grid grid-cols-4 gap-2 items-center recipe-container">
+			<div class="grid grid-cols-4 gap-2 items-center recipe-container hidden">
 				<div class="col-span-3 border border-2 border-black p-3 rounded">
 					{{ recipe.name }}
 				</div>
@@ -35,7 +35,5 @@
 			</button>
 		</div>
 	</div>
-
-	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
 </div>
