@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    .card {
+        @apply bg-darkBg drop-shadow-xl p-6 mb-6 rounded-lg
+    }
+
     .btn {
         @apply bg-primary text-lightText m-1 px-4 py-2 rounded uppercase border-2 border-primary
         hover:bg-secondary hover:border-secondary
