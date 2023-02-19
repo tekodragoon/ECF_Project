@@ -7,13 +7,13 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				"primary": "#A66D58",
-				"secondary": "#81A668",
-				"textColor": "#261514",
+				"primary": "#647295",
+				"secondary": "#9F496E",
+				"darkBg": "#2B262D",
+				"lightBg": "#F2EBE5",
+				"textColor": "#110D12",
 				"lightText": "#F7F7F7",
-				"darkBg": "#15202B",
-				"lightBg": "#FCFAEA",
-				"black": "#060316",
+				"black": "#0E0B0F",
 				"white": "#FAFAFA",
 				"link": "#6E81FF",
 				"valid": "#63B56B",
