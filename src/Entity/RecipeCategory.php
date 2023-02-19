@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RecipeCategoryRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +20,32 @@ class RecipeCategory
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $listOrder = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Recipe::class)]
+    private Collection $recipes;
+
+    /**
+     * @return Collection
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    /**
+     * @param Collection $recipes
+     * @return RecipeCategory
+     */
+    public function setRecipes(Collection $recipes): RecipeCategory
+    {
+        $this->recipes = $recipes;
+        return $this;
+    }
+
+    public function allowDelete(): bool
+    {
+        return $this->recipes->isEmpty();
+    }
 
     public function __toString(): string
     {

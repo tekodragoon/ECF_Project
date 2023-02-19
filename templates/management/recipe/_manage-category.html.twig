@@ -5,11 +5,14 @@
 			hx-get="{{ path('app_management_edit_category', {id: id}) }}">
 		<span class="material-symbols-rounded">Edit</span>
 	</button>
+
 	<button
+			{% if allowDelete == false %}disabled{% endif %}
 			hx-get="{{ path('app_management_confirm_del_category', {id: id}) }}"
 			class="icon-btn">
 		<span class="material-symbols-rounded">Delete</span>
 	</button>
+
 	<button
 			hx-get="{{ path('app_management_reorder_category') }}"
 			hx-target="#category-gestion"

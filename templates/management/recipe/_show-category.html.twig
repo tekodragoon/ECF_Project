@@ -9,6 +9,9 @@
 		{{ name }}
 	</div>
 
-	{{ include('management/recipe/_manage-category.html.twig', {id: id}) }}
+	{{ include('management/recipe/_manage-category.html.twig', {
+		id: id,
+		allowDelete: allowDelete
+	}) }}
 
 </div>

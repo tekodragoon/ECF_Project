@@ -272,6 +272,7 @@ class ManagementController extends AbstractController
 
             return $this->redirectToRoute('app_management_show_category', [
                 'id' => $category->getId(),
+                'allowDelete' => $category->allowDelete(),
             ]);
         }
 
@@ -287,6 +288,7 @@ class ManagementController extends AbstractController
         return $this->render('management/recipe/_show-category.html.twig', [
             'id' => $category->getId(),
             'name' => $category->getName(),
+            'allowDelete' => $category->allowDelete(),
         ]);
     }
 
@@ -318,6 +320,7 @@ class ManagementController extends AbstractController
     {
         return $this->render('management/recipe/_confirm-delete-category.html.twig', [
             'id' => $category->getId(),
+            'allowDelete' => $category->allowDelete(),
         ]);
     }
 
@@ -327,6 +330,7 @@ class ManagementController extends AbstractController
     {
         return $this->render('management/recipe/_manage-category.html.twig', [
             'id' => $category->getId(),
+            'allowDelete' => $category->allowDelete(),
         ]);
     }
 
