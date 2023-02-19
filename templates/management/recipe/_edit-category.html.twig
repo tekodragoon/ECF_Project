@@ -1,20 +1,23 @@
 <form
 		hx-post="{{ path('app_management_edit_category', {id: id}) }}"
-		hx-target="this"
+		hx-target="#category-gestion"
 		hx-swap="outerHTML"
-		class="grid grid-cols-3">
+		class="flex gap-4 items-center">
 
 	{{ form_start(form) }}
 
-	<div class="col-span-2">
+	<div class="flex-grow">
 		{{ form_widget(form.name) }}
 	</div>
 
-	<div class="flex items-center">
-		<button class="w-fit icon-btn" hx-get="{{ path('app_management_show_category', {id: id}) }}">
+	<div class="flex">
+		<button
+				class="icon-btn btn-cancel"
+				hx-target=".{{ 'cat-%d'|format(id) }}"
+				hx-get="{{ path('app_management_show_category', {id: id}) }}">
 			<span class="material-symbols-outlined">Cancel</span>
 		</button>
-		<button class="w-fit icon-btn">
+		<button class="icon-btn btn-valid">
 			<span class="material-symbols-rounded">Save</span>
 		</button>
 	</div>

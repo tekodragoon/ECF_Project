@@ -6,22 +6,22 @@
 
 	{{ form_start(form) }}
 
-	<div class="col-span-1 textH3 p-3">
+	<div class="col-span-1 textH3 text-white p-3">
 		{{ next }}
 	</div>
 
 	<div class="col-span-7">
-		<div class="grid grid-cols-3 items-center">
-			<div class="col-span-2">
+		<div class="flex gap-4 items-center">
+			<div class="flex-grow">
 				{{ form_widget(form.name) }}
 			</div>
-			<div class="flex items-center">
+			<div class="flex">
 				<button
-						class="w-fit icon-btn"
+						class="icon-btn btn-cancel"
 						hx-get="{{ path('app_management_recipe-category') }}">
 					<span class="material-symbols-outlined">Cancel</span>
 				</button>
-				<button class="w-fit icon-btn">
+				<button class="icon-btn btn-valid">
 					<span class="material-symbols-rounded">Save</span>
 				</button>
 			</div>

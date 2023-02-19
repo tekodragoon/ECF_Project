@@ -3,21 +3,29 @@
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
-	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+	<div class="bg-darkBg drop-shadow-lg p-2 mb-6 rounded-lg">
 
-		<div class="textH2 mb-4">Liste des catégories</div>
+		<div class="textH2 text-white mb-8">Liste des catégories</div>
+		<button
+				hx-get="{{ path('app_management_reorder_category') }}"
+				hx-target="#category-gestion"
+				class="icon-btn btn-action fixed top-1 right-1">
+			<span class="material-symbols-outlined">Swap_vert</span>
+		</button>
 
 		{% for category in categories %}
 			<div class="grid grid-cols-8 items-center gap-4 mb-2">
-				<span class="col-span-1 textH3 p-3">
+				<span class="col-span-1 textH3 text-white p-3">
 					{{ category.listOrder }}
 				</span>
 				<div class="col-span-7">
-					{{ include('management/recipe/_show-category.html.twig', {
-						id: category.id,
-						name: category.name,
-						allowDelete: category.allowDelete,
-					}) }}
+					<div class="{{ 'cat-%d'|format(category.id) }}">
+						{{ include('management/recipe/_show-category.html.twig', {
+							id: category.id,
+							name: category.name,
+							allowDelete: category.allowDelete,
+						}) }}
+					</div>
 				</div>
 			</div>
 		{% endfor %}
@@ -25,7 +33,10 @@
 		<div class="col-span-8" id="add-category"></div>
 
 		<div class="flex justify-end items-center">
-			<button hx-target="#add-category" hx-get="{{ path('app_management_add_category') }}" class="btn-icon-left">
+			<button
+					hx-target="#add-category"
+					hx-get="{{ path('app_management_add_category') }}"
+					class="btn-icon-left btn-action">
 				Ajouter une catégorie <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>

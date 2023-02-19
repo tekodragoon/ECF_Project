@@ -2,10 +2,9 @@
 		hx-target="this"
 		hx-swap="outerHTML"
 		id="{{ 'cat-%d'|format(id) }}"
-		class="grid grid-cols-3 items-center">
-	{{ include('_flash-message.html.twig') }}
+		class="flex gap-4 items-center">
 
-	<div class="col-span-2 border border-2 border-black p-3 rounded">
+	<div class="flex-grow bg-white p-3 rounded">
 		{{ name }}
 	</div>
 

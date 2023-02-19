@@ -1,26 +1,29 @@
-<div hx-target="this" hx-swap="outerHTML">
+<div
+		class="bg-darkBg drop-shadow-lg p-6 mb-6 rounded-lg"
+		hx-target="this"
+		hx-swap="outerHTML">
 	<div class="flex justify-center mb-6">
-		<button class="btn w-3/4">
+		<button class="btn btn-action w-3/4">
 			Gestion de la Galerie
 		</button>
 	</div>
 	<div class="flex justify-center mb-6">
-		<button class="btn w-3/4" hx-get="{{ path('app_management_menu') }}">
+		<button class="btn btn-action w-3/4" hx-get="{{ path('app_management_menu') }}">
 			Gestion des menus
 		</button>
 	</div>
 	<div class="flex justify-center mb-6">
-		<button class="btn w-3/4" hx-get="{{ path('app_management_recipe') }}">
-			Gestion des recettes de la carte
+		<button class="btn btn-action w-3/4" hx-get="{{ path('app_management_recipe') }}">
+			Gestion des recettes
 		</button>
 	</div>
 	<div class="flex justify-center mb-6">
-		<button class="btn w-3/4" hx-get="{{ path('app_management_recipe-category') }}">
-			Gestion des catégories de plat
+		<button class="btn btn-action w-3/4" hx-get="{{ path('app_management_recipe-category') }}">
+			Gestion des catégories
 		</button>
 	</div>
 	<div class="flex justify-center">
-		<button class="btn w-3/4">
+		<button class="btn btn-action w-3/4">
 			Gestion utilisateurs
 		</button>
 	</div>

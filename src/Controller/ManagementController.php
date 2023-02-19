@@ -270,10 +270,7 @@ class ManagementController extends AbstractController
             $categoryRepository->save($category, true);
             $this->addFlash('success', 'Catégorie mise à jour.');
 
-            return $this->redirectToRoute('app_management_show_category', [
-                'id' => $category->getId(),
-                'allowDelete' => $category->allowDelete(),
-            ]);
+            return $this->redirectToRoute('app_management_recipe-category');
         }
 
         return $this->render('management/recipe/_edit-category.html.twig', [

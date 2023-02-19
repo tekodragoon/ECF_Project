@@ -65,8 +65,32 @@
         flex justify-between items-center
     }
 
+    .btn-danger {
+        @apply border-warning text-warning hover:bg-warning hover:text-white
+    }
+
+    .btn-action {
+        @apply border-link text-link hover:bg-link hover:text-white
+    }
+
+    .btn-cancel {
+        @apply border-gray-400 text-gray-400 hover:bg-transparent hover:text-gray-300 hover:border-gray-300
+    }
+
+    .btn-valid {
+        @apply border-valid text-valid hover:bg-valid hover:text-white
+    }
+
     .drag-over {
         @apply bg-valid text-white
+    }
+
+    button:disabled {
+        @apply border-gray-200 bg-gray-200 text-gray-400
+    }
+
+    button:disabled:hover {
+        @apply border-gray-200 bg-gray-200 text-gray-400
     }
 }
 
@@ -76,6 +100,8 @@ button {
     font-weight: normal;
     font-style: normal;
 }
+
+/* ----------------------------------------------------ARROW BUTTON ON SELECT*/
 
 select {
     -webkit-appearance: none;
@@ -98,6 +124,8 @@ select {
             3em 3em;
     background-repeat: no-repeat;
 }
+
+ /* ---------------------------------------------------------GOOGLE FONT ICON*/
 
  .material-symbols-rounded {
      font-variation-settings:
@@ -131,6 +159,8 @@ select {
 .material-symbols-rounded.button-icon { font-size: 24px}
 .material-symbols-outlined.button-icon { font-size: 24px}
 
+/* -------------------------------------------------------------HOME VIGNETTE*/
+
 .home-vignette {
     height: 200px;
 }
@@ -140,6 +170,8 @@ select {
     border-radius: 5px;
     object-fit: cover;
 }
+
+/* ------------------------------------------------------------FLASH MESSAGE */
 
 .flash {
     position: fixed;
@@ -161,9 +193,7 @@ select {
     }
 }
 
-/* FOR list order */
-
-
+/* ---------------------------------------------------------------LIST ORDER */
 
 .drag-li.drag-sort-active {
     background: transparent;

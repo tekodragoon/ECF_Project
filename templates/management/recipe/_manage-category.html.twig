@@ -1,6 +1,6 @@
 <div hx-target="this" hx-swap="outerHTML" class="flex items-center">
 	<button
-			class="w-fit icon-btn"
+			class="w-fit icon-btn btn-action"
 			hx-target="{{ '#cat-%d'|format(id) }}"
 			hx-get="{{ path('app_management_edit_category', {id: id}) }}">
 		<span class="material-symbols-rounded">Edit</span>
@@ -9,14 +9,8 @@
 	<button
 			{% if not allowDelete %}disabled{% endif %}
 			hx-get="{{ path('app_management_confirm_del_category', {id: id}) }}"
-			class="icon-btn">
+			class="icon-btn btn-danger">
 		<span class="material-symbols-rounded">Delete</span>
 	</button>
 
-	<button
-			hx-get="{{ path('app_management_reorder_category') }}"
-			hx-target="#category-gestion"
-			class="icon-btn">
-		<span class="material-symbols-outlined">Swap_vert</span>
-	</button>
 </div>
