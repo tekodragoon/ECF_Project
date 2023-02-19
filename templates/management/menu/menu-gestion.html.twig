@@ -48,29 +48,29 @@
 			<div class="mb-4">
 				<div class="text-white border-2 border-secondary rounded p-2">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-2">Nom du menu:</div>
+						<div class="w-28 inline-block underline underline-offset-4">Nom du menu:</div>
 						<span class="mr-2">{{ menu.title }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-2">Description:</div>
+						<div class="w-28 inline-block underline underline-offset-4">Description:</div>
 						<span class="mr-2">{{ menu.description }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-2">Prix:</div>
+						<div class="w-28 inline-block underline underline-offset-4">Prix:</div>
 						<span class="mr-2">{{ menu.price }}€</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div>
-						<span class="w-28 inline-block underline underline-offset-2">Formules:</span>
+						<span class="w-28 inline-block underline underline-offset-4">Formules:</span>
 						{% set forms = concatFormulas(menu.formulas) %}
 						<span>{{ forms }}</span>
 					</div>
 				</div>
 				<div class="flex justify-end items-center">
 					{{ include('management/menu/_delete-menu.html.twig', {id: menu.id}) }}
-					<button class="icon-btn btn-action">
+					<button class="icon-btn">
 					<span class="material-symbols-rounded"
 					      hx-get="{{ path('app_management_edit_menu', {id: menu.id}) }}">Edit</span>
 					</button>
@@ -79,7 +79,7 @@
 		{% endfor %}
 
 		<div class="flex justify-end">
-			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left btn-action">
+			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
 				Ajouter un menu <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>

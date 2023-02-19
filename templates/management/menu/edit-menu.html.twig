@@ -25,16 +25,16 @@
 
 	<div class="flex justify-end mb-6">
 		<button type="button"
-		        class="btn btn-new btn-action"
+		        class="btn-icon-left btn-new"
 		        onclick="addFormElement(this)"
 		        data-collection="#formulas">
-			Ajouter une formule
+			Ajouter une formule <span class="material-symbols-outlined">Add</span>
 		</button>
 	</div>
 
-	<div class="flex w-full justify-center gap-6">
-		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_management_menu') }}">Annuler</button>
-		<button type="submit" class="btn btn-valid">{{ buttonTitle ?? 'Valider' }}</button>
+	<div class="flex justify-center gap-6">
+		<button type="button" class="btn btn-cancel w-40" hx-get="{{ path('app_management_menu') }}">Annuler</button>
+		<button type="submit" class="btn btn-valid w-40">{{ buttonTitle ?? 'Valider' }}</button>
 	</div>
 
 	{{ form_widget(form._token) }}

@@ -11,11 +11,11 @@
 	{{ form_row(form.price) }}
 	{{ form_row(form.category) }}
 
-	<div class="flex justify-center items-center">
-		<button class="btn btn-cancel w-36" hx-get="{{ path('app_management_recipe') }}">
+	<div class="flex gap-6 justify-center items-center">
+		<button class="btn btn-cancel w-40" hx-get="{{ path('app_management_recipe') }}">
 			Annuler
 		</button>
-		<button class="btn btn-valid w-36">
+		<button class="btn btn-valid w-40">
 			Sauvegarder
 		</button>
 	</div>

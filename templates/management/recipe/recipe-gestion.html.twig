@@ -12,11 +12,12 @@
 		{% for recipe in recipes %}
 			{% if oldCategory != recipe.category %}
 				{% set margin = oldCategory == '' ? 'mb-2' : 'my-2' %}
-				<div class="flex justify-between items-center p-3 {{ margin }} rounded bg-white text-textColor
+				<div class="flex justify-between items-center p-3 {{ margin }} rounded bg-primary text-lightText
 				no-expand">
 					{{ recipe.category }}
-					<button class="flex items-center p-1.5 border-2 border-link rounded expand">
-						<span class="material-symbols-outlined text-link">expand_more</span>
+					<button class="flex items-center p-1.5 border-2 border-lightText rounded expand hover:border-secondary
+					hover:bg-secondary">
+						<span class="material-symbols-outlined text-lightText">expand_more</span>
 					</button>
 				</div>
 				{% set oldCategory = recipe.category %}
@@ -30,7 +31,7 @@
 		{% endfor %}
 
 		<div class="flex justify-end items-center mt-2 no-expand">
-			<button hx-get="{{ path('app_management_add-recipe') }}" class="btn-icon-left btn-action">
+			<button hx-get="{{ path('app_management_add-recipe') }}" class="btn-icon-left">
 				Ajouter une recette <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>
