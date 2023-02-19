@@ -11,7 +11,7 @@
 		</div>
 
 		{% set nbCols = 'md:grid-cols-%d'|format(menus|length) %}
-		<div class="grid grid-cols-1 border border-2 border-secondary p-4 mb-10 rounded-md {{ nbCols }}">
+		<div class="card grid grid-cols-1 mb-10 {{ nbCols }}">
 			{% for menu in menus %}
 				{% set rightBorder = loop.last ? '' : 'md:border-r-2 md:border-r-secondary' %}
 				{% set bottomBorder = loop.last ? 'border-b-0' : 'border-b-2' %}
@@ -20,11 +20,11 @@
 						md:border-b-0
 						{{ rightBorder }}">
 					<div class="text-center">
-						<p class="textH2">{{ menu.title }}</p>
-						<p>{{ menu.description }}</p>
+						<p class="textH2 text-lightText">{{ menu.title }}</p>
+						<p class="text-lightText">{{ menu.description }}</p>
 					</div>
 					<div class="flex justify-between md:flex-col">
-						<div class="text-center">
+						<div class="text-lightText text-center">
 							{% if menu.formulas|length == 2 %}
 								<p>{{ menu.formulas[0].name }}</p>
 								<p>ou</p>
@@ -36,7 +36,7 @@
 								{% endfor %}
 							{% endif %}
 						</div>
-						<div class="flex justify-end items-center">
+						<div class="flex justify-end items-center text-lightText">
 							{{ menu.price }}€
 						</div>
 					</div>
