@@ -7,7 +7,7 @@
 	</button>
 
 	<button
-			{% if allowDelete == false %}disabled{% endif %}
+			{% if not allowDelete %}disabled{% endif %}
 			hx-get="{{ path('app_management_confirm_del_category', {id: id}) }}"
 			class="icon-btn">
 		<span class="material-symbols-rounded">Delete</span>
