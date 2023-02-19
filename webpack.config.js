@@ -28,6 +28,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('cat', './assets/categoryDrag.js')
     .addEntry('expand', './assets/recipeExpand.js')
+    .addEntry('formElem', './assets/formElement.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

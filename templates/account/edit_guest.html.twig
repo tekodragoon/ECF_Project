@@ -1,3 +1,7 @@
+{% block javascripts %}
+	{{ encore_entry_script_tags('formElem') }}
+{% endblock %}
+
 <form
 		hx-post="{{ path }}"
 		hx-target="this"
@@ -23,7 +27,6 @@
 	<div class="flex justify-end mb-6">
 		<button type="button"
 		        class="btn btn-new"
-		        onclick="addFormElement(this)"
 		        data-collection="#allergies">
 			Ajouter une allergie
 		</button>
@@ -38,21 +41,3 @@
 
 	{{ form_end(form, {render_rest: false}) }}
 </form>
-<script>
-	const addFormElement = (e) => {
-		const collectionHolder = document.querySelector(e.dataset.collection);
-
-		const item = document.createElement('div');
-		item.classList.add('mb-2');
-		item.innerHTML = collectionHolder
-				.dataset
-				.prototype
-				.replace(
-						/__name__/g,
-						collectionHolder.dataset.index
-				);
-		item.querySelector('.btn-remove').addEventListener('click', () => item.remove());
-		collectionHolder.appendChild(item);
-		collectionHolder.dataset.index++;
-	}
-</script>
