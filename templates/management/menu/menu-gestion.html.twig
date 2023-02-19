@@ -3,9 +3,9 @@
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
-	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+	<div class="bg-darkBg drop-shadow-lg p-2 mb-6 rounded-lg">
 
-		<div class="textH2 mb-4">Liste des menus</div>
+		<div class="textH2 text-white mb-4">Liste des menus</div>
 
 		<form
 				hx-post="{{ path('app_management_menu') }}"
@@ -16,7 +16,7 @@
 
 			{% for menu in form.activeMenus %}
 				<div class="flex items-center gap-4">
-					<div class="w-1/2">
+					<div class="text-white w-1/2 pl-2 mb-2 border-white border-b">
 						{{ menu.vars.value.name }}
 					</div>
 					<div class="hidden">
@@ -30,7 +30,7 @@
 			{{ form_widget(form._token) }}
 
 			<div class="flex justify-end">
-				<button type="submit" class="btn-icon-left">
+				<button type="submit" class="btn-icon-left btn-valid">
 					Sauvegarder <span class="material-symbols-outlined button-icon">Save</span>
 				</button>
 			</div>
@@ -40,13 +40,13 @@
 
 	</div>
 
-	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+	<div class="bg-darkBg drop-shadow-lg p-2 mb-6 rounded-lg">
 
-		<div class="textH2 mb-4">Édition des menus</div>
+		<div class="textH2 text-white mb-4">Édition des menus</div>
 
 		{% for menu in menus %}
 			<div class="mb-4">
-				<div class="text-textColor border border-2 border-secondary rounded p-2">
+				<div class="text-white border-2 border-secondary rounded p-2">
 					<div class="mb-1">
 						<div class="w-28 inline-block underline underline-offset-2">Nom du menu:</div>
 						<span class="mr-2">{{ menu.title }}</span>
@@ -70,7 +70,7 @@
 				</div>
 				<div class="flex justify-end items-center">
 					{{ include('management/menu/_delete-menu.html.twig', {id: menu.id}) }}
-					<button class="icon-btn">
+					<button class="icon-btn btn-action">
 					<span class="material-symbols-rounded"
 					      hx-get="{{ path('app_management_edit_menu', {id: menu.id}) }}">Edit</span>
 					</button>
@@ -79,7 +79,7 @@
 		{% endfor %}
 
 		<div class="flex justify-end">
-			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
+			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left btn-action">
 				Ajouter un menu <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>

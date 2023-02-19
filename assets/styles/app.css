@@ -38,15 +38,15 @@
     }
 
     .textH1 {
-        @apply font-extrabold text-4xl text-center text-textColor
+        @apply font-extrabold text-4xl text-center
     }
 
     .textH2 {
-        @apply font-semibold text-3xl text-center text-textColor
+        @apply font-semibold text-3xl text-center
     }
 
     .textH3 {
-        @apply font-medium text-xl text-center text-textColor
+        @apply font-medium text-xl text-center
     }
 
     .textLink {
