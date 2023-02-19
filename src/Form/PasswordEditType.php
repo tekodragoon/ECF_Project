@@ -36,7 +36,7 @@ class PasswordEditType extends AbstractType
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'Verification',
+                    'label' => 'Vérification',
                 ],
                 'invalid_message' => 'Verification incorrecte.',
             ]);

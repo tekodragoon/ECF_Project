@@ -47,6 +47,7 @@ class RecipeType extends AbstractType
             }
 
             $form->add('category', EntityType::class, [
+                'label' => 'Catégorie',
                 'class' => RecipeCategory::class,
                 'placeholder' => '',
                 'choices' => $categories
