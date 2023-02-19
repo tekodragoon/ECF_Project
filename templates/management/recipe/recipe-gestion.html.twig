@@ -7,22 +7,22 @@
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
-	<div class="border border-2 border-secondary p-2 mb-6 rounded">
+	<div class="bg-darkBg drop-shadow-lg p-2 mb-6 rounded-lg">
 		{% set oldCategory = '' %}
 		{% for recipe in recipes %}
 			{% if oldCategory != recipe.category %}
 				{% set margin = oldCategory == '' ? 'mb-2' : 'my-2' %}
-				<div class="flex justify-between items-center p-3 {{ margin }} rounded bg-primary text-white
+				<div class="flex justify-between items-center p-3 {{ margin }} rounded bg-white text-textColor
 				no-expand">
 					{{ recipe.category }}
-					<button class="flex items-center p-1.5 bg-secondary rounded expand">
-						<span class="material-symbols-outlined">expand_more</span>
+					<button class="flex items-center p-1.5 border-2 border-link rounded expand">
+						<span class="material-symbols-outlined text-link">expand_more</span>
 					</button>
 				</div>
 				{% set oldCategory = recipe.category %}
 			{% endif %}
-			<div class="grid grid-cols-4 gap-2 items-center recipe-container hidden">
-				<div class="col-span-3 border border-2 border-black p-3 rounded">
+			<div class="flex gap-2 items-center recipe-container hidden">
+				<div class="flex-grow bg-white text-textColor p-3 rounded">
 					{{ recipe.name }}
 				</div>
 				{{ include('management/recipe/_manage-recipe.html.twig', {id: recipe.id}) }}
@@ -30,7 +30,7 @@
 		{% endfor %}
 
 		<div class="flex justify-end items-center mt-2 no-expand">
-			<button hx-get="{{ path('app_management_add-recipe') }}" class="btn-icon-left">
+			<button hx-get="{{ path('app_management_add-recipe') }}" class="btn-icon-left btn-action">
 				Ajouter une recette <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>

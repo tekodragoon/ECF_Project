@@ -1,4 +1,5 @@
 <form
+		class="bg-darkBg drop-shadow-lg p-2 mb-6 rounded-lg"
 		hx-post="{{ path }}"
 		hx-target="this"
 		hx-swap="outerHTML">
@@ -11,10 +12,10 @@
 	{{ form_row(form.category) }}
 
 	<div class="flex justify-center items-center">
-		<button class="btn" hx-get="{{ path('app_management_recipe') }}">
+		<button class="btn btn-cancel w-36" hx-get="{{ path('app_management_recipe') }}">
 			Annuler
 		</button>
-		<button class="btn">
+		<button class="btn btn-valid w-36">
 			Sauvegarder
 		</button>
 	</div>
