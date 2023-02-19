@@ -1,4 +1,8 @@
-<form hx-post="{{ path('app_account_edit') }}" hx-target="this" hx-swap="outerHTML">
+<form
+		class="card"
+		hx-post="{{ path('app_account_edit') }}"
+		hx-target="this"
+		hx-swap="outerHTML">
 	{{ form_start(form) }}
 	{{ form_row(form.lastname, {
 		label: 'Nom'
@@ -11,8 +15,8 @@
 	}) }}
 
 	<div class="flex w-full justify-center gap-6">
-		<button type="submit" class="btn">Modifier</button>
-		<button type="button" class="btn" hx-get="{{ path('app_account_show') }}">Annuler</button>
+		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_show') }}">Annuler</button>
+		<button type="submit" class="btn btn-valid">Modifier</button>
 	</div>
 
 	{{ form_end(form) }}

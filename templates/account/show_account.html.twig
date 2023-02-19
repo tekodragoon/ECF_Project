@@ -1,4 +1,5 @@
-<div hx-target="this" hx-swap="outerHTML">
+<div hx-target="this" hx-swap="outerHTML"
+		class="card">
 	{{ include('_flash-message.html.twig') }}
 
 	{# TODO: Changer le design pour aligner les champs texte #}
@@ -6,22 +7,26 @@
 	{{ include('account/_field.html.twig', {
 		field_name: 'Nom',
 		field_value: value,
+		last: false,
 	}) }}
 	{% set value = app.user.firstname ?? 'Non renseigné' %}
 	{{ include('account/_field.html.twig', {
 		field_name: 'Prénom',
 		field_value: value,
+		last: false,
 	}) }}
 	{% set value = app.user.email %}
 	{{ include('account/_field.html.twig', {
 		field_name: 'Email',
 		field_value: value,
+		last: false,
 	}) }}
 	{% set path = path('app_account_edit_pwd') %}
 	{{ include('account/_field.html.twig', {
 		field_name: 'Mot de passe',
 		field_value: '******',
 		field_path: path,
+		last: false,
 	}) }}
 	{% set path = path('app_account_guests') %}
 	{% set guests = app.user.guests.count + 1 %}
@@ -30,5 +35,6 @@
 		field_name: 'Convives',
 		field_value: value,
 		field_path: path,
+		last: true,
 	}) }}
 </div>

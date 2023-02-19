@@ -3,6 +3,7 @@
 {% endblock %}
 
 <form
+		class="card"
 		hx-post="{{ path }}"
 		hx-target="this"
 		hx-swap="outerHTML">
@@ -26,15 +27,15 @@
 
 	<div class="flex justify-end mb-6">
 		<button type="button"
-		        class="btn btn-new"
+		        class="btn-icon-right btn-new"
 		        data-collection="#allergies">
-			Ajouter une allergie
+			Ajouter une allergie<span class="material-symbols-outlined">add</span>
 		</button>
 	</div>
 
 	<div class="flex w-full justify-center gap-6">
-		<button type="submit" class="btn">{{ buttonTitle ?? 'Valider' }}</button>
-		<button type="button" class="btn" hx-get="{{ path('app_account_guests') }}">Annuler</button>
+		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_guests') }}">Annuler</button>
+		<button type="submit" class="btn btn-valid">{{ buttonTitle ?? 'Valider' }}</button>
 	</div>
 
 	{{ form_widget(form._token) }}
