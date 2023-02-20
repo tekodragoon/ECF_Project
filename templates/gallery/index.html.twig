@@ -10,7 +10,7 @@
 		</div>
 		<div class="grid grid-cols-3">
 			{% for image in images %}
-				<img src="{{ asset("build/images/gallery/#{image}") }}" alt="">
+				<img src="{{ asset("build/images/gallery/#{image.name}") }}" alt="">
 			{% endfor %}
 		</div>
 	</div>
