@@ -46,14 +46,18 @@
 
 		<div class="mb-6">
 			{% for recipeList in recipeLists %}
-				{{ include('menu/_recipeTitle.html.twig', {title: recipeList.category}) }}
-				{% for recipe in recipeList.recipes %}
-					{{ include('menu/_recipe.html.twig', {
-						name: recipe.name,
-						price: recipe.price,
-						description: recipe.description
-					}) }}
-				{% endfor %}
+				{% if recipeList.recipes|length > 0 %}
+					<div class="card">
+						{{ include('menu/_recipeTitle.html.twig', {title: recipeList.category}) }}
+						{% for recipe in recipeList.recipes %}
+							{{ include('menu/_recipe.html.twig', {
+								name: recipe.name,
+								price: recipe.price,
+								description: recipe.description
+							}) }}
+						{% endfor %}
+					</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 
