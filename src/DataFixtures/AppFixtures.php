@@ -3,22 +3,26 @@
 namespace App\DataFixtures;
 
 use App\Entity\Formula;
+use App\Entity\GalleryImages;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
 use App\Entity\User;
-use App\RecipeType;
+use App\Service\GalleryService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use FilesystemIterator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
+    private GalleryService $galleryService;
 
-    public function __construct(UserPasswordHasherInterface $hasher)
+    public function __construct(UserPasswordHasherInterface $hasher, GalleryService $gallery)
     {
         $this->hasher = $hasher;
+        $this->galleryService = $gallery;
     }
 
     public function load(ObjectManager $manager): void
@@ -189,6 +193,22 @@ class AppFixtures extends Fixture
         $menu3->setPrice(35);
         $menu3->setActive(true);
         $manager->persist($menu3);
+
+        // Création de la galerie d'image
+
+        $imgDir = $this->galleryService->getDirectory();
+        $iterator = new FilesystemIterator($imgDir);
+        $imageNames = [];
+        foreach ($iterator as $fileInfo) {
+            $imageNames[] = $fileInfo->getFilename();
+        }
+
+        foreach ($imageNames as $imageName) {
+            $i = new GalleryImages();
+            $i->setName($imageName);
+            $i->setInformation('Aperçu de ' . $imageName);
+            $manager->persist($i);
+        }
 
         $manager->flush();
     }
