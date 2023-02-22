@@ -1,0 +1,21 @@
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+
+    webp:
+        generate: true
+
+    resolvers:
+        default:
+            web_path: ~
+
+    filter_sets:
+        cache: ~
+
+        watermark_qa:
+
+            filters:
+                watermark_image:
+                    image: assets/images/Watermark.png
+                    size: 0.2
+                    position: bottomright
