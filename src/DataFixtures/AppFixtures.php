@@ -206,10 +206,16 @@ class AppFixtures extends Fixture
         foreach ($imageNames as $imageName) {
             $i = new GalleryImages();
             $i->setName($imageName);
-            $i->setInformation('Aperçu de ' . $imageName);
+            $i->setInformation($this->getPictureInformation($imageName));
             $manager->persist($i);
         }
 
         $manager->flush();
+    }
+
+    private function getPictureInformation($imageName):string
+    {
+        $i = strpos($imageName, '.');
+        return substr($imageName, 0, $i);
     }
 }
