@@ -3,26 +3,22 @@
 namespace App\DataFixtures;
 
 use App\Entity\Formula;
-use App\Entity\GalleryImages;
+use App\Entity\GalleryImage;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
 use App\Entity\User;
-use App\Service\GalleryService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use FilesystemIterator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
-    private GalleryService $galleryService;
 
-    public function __construct(UserPasswordHasherInterface $hasher, GalleryService $gallery)
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
         $this->hasher = $hasher;
-        $this->galleryService = $gallery;
     }
 
     public function load(ObjectManager $manager): void
@@ -114,11 +110,19 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 8; $i++) {
             $recipe = new Recipe();
+            $galleryImage = new GalleryImage();
+
             $recipe->setName($mainName[$i]);
             $recipe->setDescription($mainDesc[$i]);
             $recipe->setPrice($mainPrice[$i]);
             $recipe->setCategory($cat2);
+
+            $galleryImage->setName($mainName[$i]);
+            $galleryImage->setPath($mainName[$i].'.jpeg');
+            $galleryImage->setRecipe($recipe);
+
             $manager->persist($recipe);
+            $manager->persist($galleryImage);
         }
 
         $dessertName = [
@@ -194,28 +198,6 @@ class AppFixtures extends Fixture
         $menu3->setActive(true);
         $manager->persist($menu3);
 
-        // Création de la galerie d'image
-
-        $imgDir = $this->galleryService->getDirectory();
-        $iterator = new FilesystemIterator($imgDir);
-        $imageNames = [];
-        foreach ($iterator as $fileInfo) {
-            $imageNames[] = $fileInfo->getFilename();
-        }
-
-        foreach ($imageNames as $imageName) {
-            $i = new GalleryImages();
-            $i->setName($imageName);
-            $i->setInformation($this->getPictureInformation($imageName));
-            $manager->persist($i);
-        }
-
         $manager->flush();
-    }
-
-    private function getPictureInformation($imageName):string
-    {
-        $i = strpos($imageName, '.');
-        return substr($imageName, 0, $i);
     }
 }
