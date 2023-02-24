@@ -13,17 +13,20 @@
 			<h1 class="textH1">Nous contacter</h1>
 		</div>
 
-		{{ form_start(form) }}
-		{{ form_widget(form) }}
+		<div class="card">
 
-		<div class="flex justify-end">
-			<button class="btn-icon-right">
-				Envoyer <span class="material-symbols-outlined">navigate_next</span>
-			</button>
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+
+			<div class="flex justify-end">
+				<button class="btn-icon-right">
+					Envoyer <span class="material-symbols-outlined">navigate_next</span>
+				</button>
+			</div>
+
+			{{ form_end(form) }}
+
 		</div>
-
-		{{ form_end(form) }}
-
 	</div>
 
 {% endblock %}
