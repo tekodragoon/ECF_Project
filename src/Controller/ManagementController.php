@@ -381,4 +381,15 @@ class ManagementController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    // ------------------------------------------------------------------------- SECTION CATEGORY
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+
+    #[Route('/gallery', name: 'app_management_gallery')]
+    public function gallery():Response
+    {
+        return $this->render('management/gallery/index.html.twig');
+    }
 }

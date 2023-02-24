@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Mailing;
 use App\Form\UsermailType;
-use App\Repository\GalleryImagesRepository;
+use App\Repository\GalleryImageRepository;
 use App\Repository\MailingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,10 +16,10 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function index(
-        Request $request,
-        MailingRepository $repo,
-        ValidatorInterface $validator,
-        GalleryImagesRepository $imagesRepository,
+        Request                $request,
+        MailingRepository      $repo,
+        ValidatorInterface     $validator,
+        GalleryImageRepository $imagesRepository,
     ): Response
     {
         $mail = new Mailing();

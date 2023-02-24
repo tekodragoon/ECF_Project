@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\GalleryImages;
+use App\Entity\GalleryImage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<GalleryImages>
+ * @extends ServiceEntityRepository<GalleryImage>
  *
- * @method GalleryImages|null find($id, $lockMode = null, $lockVersion = null)
- * @method GalleryImages|null findOneBy(array $criteria, array $orderBy = null)
- * @method GalleryImages[]    findAll()
- * @method GalleryImages[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GalleryImage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GalleryImage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GalleryImage[]    findAll()
+ * @method GalleryImage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GalleryImagesRepository extends ServiceEntityRepository
+class GalleryImageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GalleryImages::class);
+        parent::__construct($registry, GalleryImage::class);
     }
 
-    public function save(GalleryImages $entity, bool $flush = false): void
+    public function save(GalleryImage $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class GalleryImagesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(GalleryImages $entity, bool $flush = false): void
+    public function remove(GalleryImage $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class GalleryImagesRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return GalleryImages[] Returns an array of GalleryImages objects
+//     * @return GalleryImage[] Returns an array of GalleryImage objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class GalleryImagesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?GalleryImages
+//    public function findOneBySomeField($value): ?GalleryImage
 //    {
 //        return $this->createQueryBuilder('g')
 //            ->andWhere('g.exampleField = :val')
