@@ -28,6 +28,9 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?RecipeCategory $category = null;
 
+    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
+    private ?GalleryImage $galleryImages = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +80,28 @@ class Recipe
     public function setCategory(?RecipeCategory $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getGalleryImages(): ?GalleryImage
+    {
+        return $this->galleryImages;
+    }
+
+    public function setGalleryImages(?GalleryImage $galleryImages): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($galleryImages === null && $this->galleryImages !== null) {
+            $this->galleryImages->setRecipe(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($galleryImages !== null && $galleryImages->getRecipe() !== $this) {
+            $galleryImages->setRecipe($this);
+        }
+
+        $this->galleryImages = $galleryImages;
 
         return $this;
     }
