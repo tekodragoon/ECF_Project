@@ -42,7 +42,7 @@
 		<div class="grid justify-center items-center grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 sm:gap-6 md:gap-8 p-4">
 			{% for image in images %}
 			<div class="home-vignette">
-				<img src="{{ asset("build/images/gallery/#{image.name}") }}" alt="{{ image.information }}">
+				<img src="{{ asset("build/images/gallery/#{image.path}") }}" alt="{{ image.name }}">
 			</div>
 			{% endfor %}
 		</div>
