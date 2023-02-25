@@ -34,10 +34,13 @@
 			{% for image in images %}
 				{% set span = loop.index % 3 == 0 ? 'col-span-2' : '' %}
 				<div class="{{ span }} gallery">
-					<img class="rounded-xl border-4 border-white"
-					     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('watermark_qa') }}"
-					     alt="{{ image.name }}">
-					<span class="absolute text-end max-w-xs top-2 right-2 w-fit bg-darkBg text-lightText p-2 rounded">
+					<div class="gallery-image">
+						<img class="rounded-xl border-4 border-white"
+						     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('watermark') }}"
+						     alt="{{ image.name }}">
+					</div>
+					<span class="absolute text-end max-w-xs top-2 right-2 w-fit bg-darkBg text-lightText p-2 rounded
+					gallery-span">
 						{{ image.name }}
 					</span>
 				</div>

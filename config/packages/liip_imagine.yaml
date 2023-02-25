@@ -19,15 +19,31 @@ liip_imagine:
   filter_sets:
     cache: ~
 
-    qa_thumb:
+    hero:
+      quality: 80
+      filters:
+        scale:
+          dim: [800, 600]
+
+    miniature:
+      quality: 75
+      filters:
+        scale:
+          dim: [400, 300]
+
+    thumb:
+      quality: 75
       filters:
         thumbnail: { size: [ 120, 90 ], mode: outbound }
 
 
-    watermark_qa:
+    watermark:
+      quality: 80
       filters:
         watermark_image:
           image: assets/images/Watermark.png
           size: 0.2
           position: bottomright
+        scale:
+          dim: [600, 300]
 
