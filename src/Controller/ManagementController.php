@@ -13,6 +13,7 @@ use App\Form\RecipeType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
 use App\Model\CategoryGroup;
+use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
 use App\Repository\RecipeRepository;
@@ -388,8 +389,12 @@ class ManagementController extends AbstractController
     // -------------------------------------------------------------------------
 
     #[Route('/gallery', name: 'app_management_gallery')]
-    public function gallery():Response
+    public function gallery(GalleryImageRepository $repository):Response
     {
-        return $this->render('management/gallery/index.html.twig');
+        $images = $repository->findAll();
+
+        return $this->render('management/gallery/index.html.twig', [
+            'images' => $images,
+        ]);
     }
 }

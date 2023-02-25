@@ -1,21 +1,33 @@
 liip_imagine:
-    # valid drivers options include "gd" or "gmagick" or "imagick"
-    driver: "gd"
+  # valid drivers options include "gd" or "gmagick" or "imagick"
+  driver: "gd"
 
-    webp:
-        generate: true
+  webp:
+    generate: true
 
-    resolvers:
-        default:
-            web_path: ~
+  resolvers:
+    default:
+      web_path:
+        web_root: '%kernel.project_dir%/public'
+        cache_prefix: media/cache
 
-    filter_sets:
-        cache: ~
+  loaders:
+    default:
+      filesystem:
+        data_root: '%kernel.project_dir%/public'
 
-        watermark_qa:
+  filter_sets:
+    cache: ~
 
-            filters:
-                watermark_image:
-                    image: assets/images/Watermark.png
-                    size: 0.2
-                    position: bottomright
+    qa_thumb:
+      filters:
+        thumbnail: { size: [ 120, 90 ], mode: outbound }
+
+
+    watermark_qa:
+      filters:
+        watermark_image:
+          image: assets/images/Watermark.png
+          size: 0.2
+          position: bottomright
+

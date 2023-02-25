@@ -7,6 +7,14 @@
 
 		<div class="textH2 text-white mb-4">Liste des photos</div>
 
+		{% for image in images %}
+			<div class="bg-white text-textColor p-2 rounded mb-4">
+				<p>{{ image.name }}</p>
+				<img class="rounded-xl border-4 border-white"
+				     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('qa_thumb') }}"
+				     alt="{{ image.name }}">
+			</div>
+		{% endfor %}
 	</div>
 
 </div>
