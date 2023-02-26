@@ -95,6 +95,20 @@
     button:disabled:hover {
         @apply border-gray-200 bg-gray-200 text-gray-400
     }
+
+    .toggle {
+        @apply cursor-pointer
+        flex justify-center items-center
+        bg-darkBg p-1 rounded
+    }
+
+    .visibility {
+        @apply absolute top-1 left-1
+    }
+
+    .delete {
+        @apply absolute bottom-1 left-1
+    }
 }
 
 body,

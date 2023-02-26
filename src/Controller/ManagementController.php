@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\GalleryImage;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
@@ -401,5 +402,13 @@ class ManagementController extends AbstractController
         return $this->render('management/gallery/index.html.twig', [
             'images' => $images,
         ]);
+    }
+
+    #[Route('/gallery-toggle/{id}', name: 'app_management_toggle-visibility')]
+    public function toggleVisibility(GalleryImage $image, GalleryImageRepository $repository): Response
+    {
+        $image->setVisible(!$image->isVisible());
+        $repository->save($image, true);
+        return $this->redirectToRoute('app_management_gallery');
     }
 }

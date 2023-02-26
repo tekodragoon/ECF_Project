@@ -7,14 +7,28 @@
 
 		<div class="textH2 text-white mb-4">Liste des photos</div>
 
-		{% for image in images %}
-			<div class="bg-white text-textColor p-2 rounded mb-4">
-				<p>{{ image.name }}</p>
-				<img class="rounded-xl border-4 border-white"
-				     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('thumb') }}"
-				     alt="{{ image.name }}">
-			</div>
-		{% endfor %}
+		<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+			{% for image in images %}
+				<div class="relative flex justify-end bg-white rounded-md p-1">
+					<div class="toggle visibility"
+					     hx-get="{{ path('app_management_toggle-visibility', {id: image.id}) }}">
+						{% if image.visible %}
+							<span class="material-symbols-outlined text-valid">visibility</span>
+						{% else %}
+							<span class="material-symbols-outlined text-error">visibility_off</span>
+						{% endif %}
+					</div>
+					<div class="toggle delete">
+						<span class="material-symbols-rounded text-error">delete</span>
+					</div>
+					<img class="rounded-md"
+					     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('thumb') }}"
+					     alt="{{ image.name }}">
+				</div>
+			{% endfor %}
+
+		</div>
 	</div>
 
 </div>
