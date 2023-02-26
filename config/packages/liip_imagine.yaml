@@ -41,7 +41,7 @@ liip_imagine:
       quality: 80
       filters:
         watermark_image:
-          image: assets/images/Watermark.png
+          image: assets/Utils/Watermark.png
           size: 0.2
           position: bottomright
         scale:
