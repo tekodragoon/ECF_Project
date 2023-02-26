@@ -3,7 +3,9 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-	<img src="{{ asset('build/images/home-hero.jpg')|imagine_filter('hero') }}" alt="hero-image">
+	<div class="hero"
+			style="background-image: url({{ asset('build/images/home-hero.jpg')|imagine_filter('hero') }});">
+	</div>
 
 	{{ include('_link.html.twig') }}
 

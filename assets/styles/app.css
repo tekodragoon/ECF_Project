@@ -164,6 +164,12 @@ select {
 
 /* -------------------------------------------------------------HOME VIGNETTE*/
 
+.hero {
+    min-height: 750px;
+    background-position: center;
+    background-size: cover;
+}
+
 .home-vignette {
     height: 200px;
 }
