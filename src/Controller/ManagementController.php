@@ -17,10 +17,13 @@ use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
 use App\Repository\RecipeRepository;
+use App\Service\WarmUpCacheService;
 use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -29,8 +32,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ManagementController extends AbstractController
 {
     #[Route('/', name: 'app_management')]
-    public function index(): Response
+    public function index(ParameterBagInterface $bag, MessageBusInterface $bus): Response
     {
+        $cache = new WarmUpCacheService($bag, $bus);
+        $cache->createCacheImages();
         return $this->render('management/index.html.twig');
     }
 

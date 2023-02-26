@@ -2,6 +2,8 @@ liip_imagine:
   # valid drivers options include "gd" or "gmagick" or "imagick"
   driver: "gd"
 
+  messenger: true
+
   webp:
     generate: true
 
@@ -36,7 +38,6 @@ liip_imagine:
       filters:
         thumbnail: { size: [ 120, 90 ], mode: outbound }
 
-
     watermark:
       quality: 80
       filters:
@@ -46,4 +47,12 @@ liip_imagine:
           position: bottomright
         scale:
           dim: [600, 300]
+
+    full_watermark:
+      quality: 80
+      filters:
+        watermark_image:
+          image: assets/Utils/Watermark.png
+          size: 0.2
+          position: bottomright
 

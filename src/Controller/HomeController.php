@@ -6,9 +6,12 @@ use App\Entity\Mailing;
 use App\Form\UsermailType;
 use App\Repository\GalleryImageRepository;
 use App\Repository\MailingRepository;
+use App\Service\WarmUpCacheService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -20,6 +23,8 @@ class HomeController extends AbstractController
         MailingRepository      $repo,
         ValidatorInterface     $validator,
         GalleryImageRepository $imagesRepository,
+        ParameterBagInterface $bag,
+        MessageBusInterface $bus,
     ): Response
     {
         $mail = new Mailing();
@@ -40,6 +45,9 @@ class HomeController extends AbstractController
             }
             return $this->redirectToRoute('app_home', ['_fragment' => 'block-actu']);
         }
+
+        $cache = new WarmUpCacheService($bag, $bus);
+        $cache->createCacheImages();
 
         $galleryImages = $imagesRepository->findAll();
         $imagesIndex = array_rand($galleryImages, 4);
