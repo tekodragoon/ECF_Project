@@ -12,7 +12,7 @@ class GalleryController extends AbstractController
     #[Route('/gallery', name: 'app_gallery')]
     public function index(GalleryImageRepository $repository): Response
     {
-        $images = $repository->findAll();
+        $images = $repository->findBy(['visible' => true], ['id' => 'ASC']);
 
         return $this->render('gallery/index.html.twig', [
             'images' => $images,
