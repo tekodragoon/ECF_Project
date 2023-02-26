@@ -39,7 +39,7 @@ closeButton.addEventListener('click', () => {
 const changeImage = () => {
 	let image = images[currentIndex];
 	let source = image.querySelector('.gallery-image').children[0].src;
-	let altSource = source.replace('media/cache/resolve/watermark/', '');
+	let altSource = source.replace('watermark', 'full_watermark');
 	let text = image.querySelector('.gallery-span');
 	zoomImage.src = altSource;
 	zoomInfo.innerText = text.innerText.trim();
