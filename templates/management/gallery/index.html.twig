@@ -19,9 +19,7 @@
 							<span class="material-symbols-outlined text-error">visibility_off</span>
 						{% endif %}
 					</div>
-					<div class="toggle delete">
-						<span class="material-symbols-rounded text-error">delete</span>
-					</div>
+					{{ include('management/gallery/_delete-image.html.twig', {id: image.id}) }}
 					<img class="rounded-md"
 					     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('thumb') }}"
 					     alt="{{ image.name }}">

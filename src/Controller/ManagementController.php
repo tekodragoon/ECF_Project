@@ -18,8 +18,10 @@ use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
 use App\Repository\RecipeRepository;
+use App\Service\GalleryService;
 use App\Service\WarmUpCacheService;
 use Doctrine\ORM\NonUniqueResultException;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,6 +34,13 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/manager')]
 class ManagementController extends AbstractController
 {
+    private GalleryService $galleryService;
+
+    public function __construct(GalleryService $galleryService)
+    {
+        $this->galleryService = $galleryService;
+    }
+
     #[Route('/', name: 'app_management')]
     public function index(ParameterBagInterface $bag, MessageBusInterface $bus): Response
     {
@@ -409,6 +418,47 @@ class ManagementController extends AbstractController
     {
         $image->setVisible(!$image->isVisible());
         $repository->save($image, true);
+        return $this->redirectToRoute('app_management_gallery');
+    }
+
+    #[Route('gallery-confirm/{id}', name: 'app_management_confirm-delete-image')]
+    public function confirmDeleteImage(GalleryImage $image):Response
+    {
+        return $this->render('management/gallery/_confirm-del-image.html.twig', [
+            'id' => $image->getId(),
+        ]);
+    }
+    #[Route('/gallery-delete/{id}', name: 'app_management_delete-image')]
+    public function deleteImage(GalleryImage $image):Response
+    {
+        return $this->render('management/gallery/_delete-image.html.twig', [
+            'id' => $image->getId(),
+        ]);
+    }
+
+    #[Route('/remove-image/{id}', name: 'app_management_remove-image')]
+    public function removeImage(
+        GalleryImage $image,
+        GalleryImageRepository $repository,
+        CacheManager $cacheManager,
+    ):Response
+    {
+        // suppression de l'image dans le dossier gallery
+        $imagePath = $this->galleryService->getDirectory().$image->getPath();
+        $galSup = unlink($imagePath);
+
+        if ($galSup) {
+            // suppression du cache
+            $relativePath = 'build/images/gallery/'.$image->getPath();
+            $cacheManager->remove($relativePath);
+
+            // suppression de l'image en bdd
+            $repository->remove($image, true);
+            $this->addFlash('success', 'L\'image a été correctement supprimé.');
+        } else {
+            $this->addFlash('error', 'Un problème est survenu lors de la suppression du fichier.');
+        }
+
         return $this->redirectToRoute('app_management_gallery');
     }
 }
