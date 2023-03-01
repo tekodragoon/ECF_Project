@@ -31,6 +31,11 @@ class Recipe
     #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
     private ?GalleryImage $galleryImages = null;
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

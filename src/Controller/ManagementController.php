@@ -9,6 +9,7 @@ use App\Entity\RecipeCategory;
 use App\Form\ActiveMenuGroupType;
 use App\Form\CategoryOrderGroupType;
 use App\Form\CategoryType;
+use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
 use App\Model\ActiveMenu;
@@ -398,13 +399,13 @@ class ManagementController extends AbstractController
         ]);
     }
 
-    // ------------------------------------------------------------------------- SECTION CATEGORY
+    // ------------------------------------------------------------------------- SECTION GAllERY
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
 
     #[Route('/gallery', name: 'app_management_gallery')]
-    public function gallery(GalleryImageRepository $repository):Response
+    public function gallery(GalleryImageRepository $repository): Response
     {
         $images = $repository->findAll();
 
@@ -422,14 +423,15 @@ class ManagementController extends AbstractController
     }
 
     #[Route('gallery-confirm/{id}', name: 'app_management_confirm-delete-image')]
-    public function confirmDeleteImage(GalleryImage $image):Response
+    public function confirmDeleteImage(GalleryImage $image): Response
     {
         return $this->render('management/gallery/_confirm-del-image.html.twig', [
             'id' => $image->getId(),
         ]);
     }
+
     #[Route('/gallery-delete/{id}', name: 'app_management_delete-image')]
-    public function deleteImage(GalleryImage $image):Response
+    public function deleteImage(GalleryImage $image): Response
     {
         return $this->render('management/gallery/_delete-image.html.twig', [
             'id' => $image->getId(),
@@ -438,18 +440,18 @@ class ManagementController extends AbstractController
 
     #[Route('/remove-image/{id}', name: 'app_management_remove-image')]
     public function removeImage(
-        GalleryImage $image,
+        GalleryImage           $image,
         GalleryImageRepository $repository,
-        CacheManager $cacheManager,
-    ):Response
+        CacheManager           $cacheManager,
+    ): Response
     {
         // suppression de l'image dans le dossier gallery
-        $imagePath = $this->galleryService->getDirectory().$image->getPath();
+        $imagePath = $this->galleryService->getDirectory() . $image->getFilename();
         $galSup = unlink($imagePath);
 
         if ($galSup) {
             // suppression du cache
-            $relativePath = 'build/images/gallery/'.$image->getPath();
+            $relativePath = 'build/images/gallery/' . $image->getFilename();
             $cacheManager->remove($relativePath);
 
             // suppression de l'image en bdd
@@ -460,5 +462,28 @@ class ManagementController extends AbstractController
         }
 
         return $this->redirectToRoute('app_management_gallery');
+    }
+
+    #[Route('/add-image', name: 'app_management_add-image')]
+    public function addImage(Request $request, GalleryImageRepository $repository): Response
+    {
+        $galleryImage = new GalleryImage();
+        $galleryImage->setFilename('default');
+        $form = $this->createForm(GalleryImageType::class, $galleryImage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $uploadedImage = $form->get('file')->getData();
+            if ($uploadedImage) {
+                $this->addFlash('success', 'Reception du fichier.');
+                return $this->redirectToRoute('app_management_gallery');
+            }
+            $this->addFlash('error', 'Erreur lors de l\'envoi du fichier.');
+            return $this->redirectToRoute('app_management_gallery');
+        }
+
+        return $this->render('management/gallery/add-image.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

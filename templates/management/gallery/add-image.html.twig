@@ -1,0 +1,31 @@
+<form
+		hx-post="{{ path('app_management_add-image') }}"
+		hx-target="this"
+		hx-swap="outerHTML">
+
+	{{ include('_flash-message.html.twig') }}
+
+	<div class="card">
+		{{ form_start(form) }}
+
+		<div class="bg-white rounded">
+			{{ form_row(form.file) }}
+		</div>
+
+		{{ form_row(form.name) }}
+		{{ form_row(form.recipe) }}
+
+		<div class="flex justify-center items-center gap-6">
+			<button type="button" class="btn btn-cancel w-36" hx-get="{{ path('app_management_gallery') }}">
+				Annuler
+			</button>
+			<button type="submit" class="btn-icon-right btn-valid w-36">
+				Uploader <span class="material-symbols-outlined button-icon">upload_file</span>
+			</button>
+		</div>
+
+		{{ form_end(form) }}
+
+	</div>
+
+</form>
