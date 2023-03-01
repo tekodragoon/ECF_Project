@@ -15,7 +15,7 @@ class GalleryImage
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $path = null;
+    private ?string $filename = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -36,14 +36,14 @@ class GalleryImage
         return $this->id;
     }
 
-    public function getPath(): ?string
+    public function getFilename(): ?string
     {
-        return $this->path;
+        return $this->filename;
     }
 
-    public function setPath(string $path): self
+    public function setFilename(string $filename): self
     {
-        $this->path = $path;
+        $this->filename = $filename;
 
         return $this;
     }

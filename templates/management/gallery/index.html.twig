@@ -7,7 +7,7 @@
 
 		<div class="textH2 text-white mb-4">Liste des photos</div>
 
-		<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+		<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
 
 			{% for image in images %}
 				<div class="relative flex justify-end bg-white rounded-md p-1">
@@ -21,12 +21,21 @@
 					</div>
 					{{ include('management/gallery/_delete-image.html.twig', {id: image.id}) }}
 					<img class="rounded-md"
-					     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('thumb') }}"
+					     src="{{ asset("build/images/gallery/#{image.filename}")|imagine_filter('thumb') }}"
 					     alt="{{ image.name }}">
 				</div>
 			{% endfor %}
 
 		</div>
+
+		<div class="flex justify-end items-center">
+			<button
+					hx-get="{{ path('app_management_add-image') }}"
+					class="btn-icon-right">
+				Ajouter une image <span class="material-symbols-rounded button-icon">Add</span>
+			</button>
+		</div>
+
 	</div>
 
 </div>

@@ -36,7 +36,7 @@
 				<div class="{{ span }} gallery">
 					<div class="gallery-image">
 						<img class="rounded-xl border-4 border-white"
-						     src="{{ asset("build/images/gallery/#{image.path}")|imagine_filter('watermark') }}"
+						     src="{{ asset("build/images/gallery/#{image.filename}")|imagine_filter('watermark') }}"
 						     alt="{{ image.name }}">
 					</div>
 					<span class="gallery-span bg-darkBg text-lightText p-2 rounded">

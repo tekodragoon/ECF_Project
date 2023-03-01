@@ -118,7 +118,7 @@ class AppFixtures extends Fixture
             $recipe->setCategory($cat2);
 
             $galleryImage->setName($mainName[$i]);
-            $galleryImage->setPath($mainName[$i].'.jpeg');
+            $galleryImage->setFilename($mainName[$i].'.jpeg');
             $galleryImage->setRecipe($recipe);
 
             $manager->persist($recipe);
