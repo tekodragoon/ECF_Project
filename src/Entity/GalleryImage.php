@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\GalleryImageRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: GalleryImageRepository::class)]
+#[Vich\Uploadable]
 class GalleryImage
 {
     #[ORM\Id]
@@ -20,11 +23,31 @@ class GalleryImage
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToOne(inversedBy: 'galleryImages', cascade: ['persist', 'remove'])]
+    #[ORM\Column]
+    private ?bool $visible;
+
+    #[Vich\UploadableField(mapping: 'image_gallery', fileNameProperty: 'filename')]
+    private ?File $imageFile = null;
+
+    #[ORM\ManyToOne(inversedBy: 'galleryImages')]
     private ?Recipe $recipe = null;
 
-    #[ORM\Column]
-    private ?bool $visible = null;
+    /**
+     * @return ?File
+     */
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->filename = $imageFile->getFilename();
+        }
+    }
 
     public function __construct()
     {
@@ -60,18 +83,6 @@ class GalleryImage
         return $this;
     }
 
-    public function getRecipe(): ?Recipe
-    {
-        return $this->recipe;
-    }
-
-    public function setRecipe(?Recipe $recipe): self
-    {
-        $this->recipe = $recipe;
-
-        return $this;
-    }
-
     public function isVisible(): ?bool
     {
         return $this->visible;
@@ -80,6 +91,18 @@ class GalleryImage
     public function setVisible(bool $visible): self
     {
         $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getRecipe(): ?Recipe
+    {
+        return $this->recipe;
+    }
+
+    public function setRecipe(?Recipe $recipe): self
+    {
+        $this->recipe = $recipe;
 
         return $this;
     }

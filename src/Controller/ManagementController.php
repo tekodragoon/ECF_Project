@@ -35,13 +35,6 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/manager')]
 class ManagementController extends AbstractController
 {
-    private GalleryService $galleryService;
-
-    public function __construct(GalleryService $galleryService)
-    {
-        $this->galleryService = $galleryService;
-    }
-
     #[Route('/', name: 'app_management')]
     public function index(ParameterBagInterface $bag, MessageBusInterface $bus): Response
     {
@@ -445,21 +438,13 @@ class ManagementController extends AbstractController
         CacheManager           $cacheManager,
     ): Response
     {
-        // suppression de l'image dans le dossier gallery
-        $imagePath = $this->galleryService->getDirectory() . $image->getFilename();
-        $galSup = unlink($imagePath);
+        // suppression du cache
+        $relativePath = 'build/images/gallery/' . $image->getFilename();
+        $cacheManager->remove($relativePath);
 
-        if ($galSup) {
-            // suppression du cache
-            $relativePath = 'build/images/gallery/' . $image->getFilename();
-            $cacheManager->remove($relativePath);
-
-            // suppression de l'image en bdd
-            $repository->remove($image, true);
-            $this->addFlash('success', 'L\'image a été correctement supprimé.');
-        } else {
-            $this->addFlash('error', 'Un problème est survenu lors de la suppression du fichier.');
-        }
+        // suppression de l'image en bdd
+        $repository->remove($image, true);
+        $this->addFlash('success', 'L\'image a été correctement supprimé.');
 
         return $this->redirectToRoute('app_management_gallery');
     }
@@ -468,17 +453,13 @@ class ManagementController extends AbstractController
     public function addImage(Request $request, GalleryImageRepository $repository): Response
     {
         $galleryImage = new GalleryImage();
-        $galleryImage->setFilename('default');
         $form = $this->createForm(GalleryImageType::class, $galleryImage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $uploadedImage = $form->get('file')->getData();
-            if ($uploadedImage) {
-                $this->addFlash('success', 'Reception du fichier.');
-                return $this->redirectToRoute('app_management_gallery');
-            }
-            $this->addFlash('error', 'Erreur lors de l\'envoi du fichier.');
+
+            $repository->save($galleryImage, true);
+
             return $this->redirectToRoute('app_management_gallery');
         }
 

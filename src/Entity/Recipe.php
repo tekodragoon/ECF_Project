@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\RecipeType;
 use App\Repository\RecipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,8 +30,13 @@ class Recipe
     #[ORM\JoinColumn(nullable: false)]
     private ?RecipeCategory $category = null;
 
-    #[ORM\OneToOne(mappedBy: 'recipe', cascade: ['persist', 'remove'])]
-    private ?GalleryImage $galleryImages = null;
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: GalleryImage::class)]
+    private Collection $galleryImages;
+
+    public function __construct()
+    {
+        $this->galleryImages = new ArrayCollection();
+    }
 
     public function __toString(): string
     {
@@ -89,24 +96,32 @@ class Recipe
         return $this;
     }
 
-    public function getGalleryImages(): ?GalleryImage
+    /**
+     * @return Collection<int, GalleryImage>
+     */
+    public function getGalleryImages(): Collection
     {
         return $this->galleryImages;
     }
 
-    public function setGalleryImages(?GalleryImage $galleryImages): self
+    public function addGalleryImage(GalleryImage $galleryImage): self
     {
-        // unset the owning side of the relation if necessary
-        if ($galleryImages === null && $this->galleryImages !== null) {
-            $this->galleryImages->setRecipe(null);
+        if (!$this->galleryImages->contains($galleryImage)) {
+            $this->galleryImages->add($galleryImage);
+            $galleryImage->setRecipe($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($galleryImages !== null && $galleryImages->getRecipe() !== $this) {
-            $galleryImages->setRecipe($this);
-        }
+        return $this;
+    }
 
-        $this->galleryImages = $galleryImages;
+    public function removeGalleryImage(GalleryImage $galleryImage): self
+    {
+        if ($this->galleryImages->removeElement($galleryImage)) {
+            // set the owning side to null (unless already changed)
+            if ($galleryImage->getRecipe() === $this) {
+                $galleryImage->setRecipe(null);
+            }
+        }
 
         return $this;
     }

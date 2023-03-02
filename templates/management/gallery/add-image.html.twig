@@ -1,4 +1,5 @@
 <form
+		enctype="multipart/form-data"
 		hx-post="{{ path('app_management_add-image') }}"
 		hx-target="this"
 		hx-swap="outerHTML">
@@ -8,9 +9,7 @@
 	<div class="card">
 		{{ form_start(form) }}
 
-		<div class="bg-white rounded">
-			{{ form_row(form.file) }}
-		</div>
+		{{ form_row(form.imageFile) }}
 
 		{{ form_row(form.name) }}
 		{{ form_row(form.recipe) }}
