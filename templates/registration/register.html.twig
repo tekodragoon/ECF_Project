@@ -10,20 +10,25 @@
 			<h1 class="textH1">Inscrivez vous</h1>
 		</div>
 
-		{{ form_start(registrationForm) }}
-		{{ form_row(registrationForm.email, {
-			label: 'Votre email'
-		}) }}
-		{{ form_row(registrationForm.allowNewsletter) }}
-		{{ form_row(registrationForm.plainPassword, {
-			label: 'Votre mot de passe'
-		}) }}
+		<div class="card">
 
-		<div class="flex w-full justify-center">
-			<button type="submit" class="btn">S'inscrire</button>
+			{{ form_start(registrationForm) }}
+			{{ form_row(registrationForm.email, {
+				label: 'Votre email'
+			}) }}
+			{{ form_row(registrationForm.allowNewsletter) }}
+			{{ form_row(registrationForm.plainPassword, {
+				label: 'Votre mot de passe'
+			}) }}
+
+			<div class="flex w-full justify-center">
+				<button type="submit" class="btn">S'inscrire</button>
+			</div>
+
+			{{ form_end(registrationForm) }}
+
 		</div>
 
-		{{ form_end(registrationForm) }}
 		<div class="mt-3">
 			<p>Vous êtes déjà client chez nous,</p>
 			<a class="textLink" href="{{ path("app_login") }}">cliquez ici</a>

@@ -20,51 +20,54 @@
 				</div>
 			{% endif %}
 
+			<div class="card">
+
+				<div class="mb-6">
+					<label class="block text-lightText" for="inputEmail">Votre email</label>
+					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="mt-1 w-full rounded p-2
+			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
+					       autocomplete="email" required autofocus>
+				</div>
+
+				<div class="mb-6">
+					<label class="block text-lightText" for="inputPassword">Votre mot de passe</label>
+					<input type="password" name="password" id="inputPassword" class="mt-1 w-full rounded p-2
+			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
+					       autocomplete="current-password"
+					       required>
+					<div class="flex justify-end gap-1 mt-1">
+						<span class="text-lightText">Mot de passe</span>
+						<a class="textLink" href="#">oublié ?</a>
+					</div>
+				</div>
+
+
+				<input type="hidden" name="_csrf_token"
+				       value="{{ csrf_token('authenticate') }}"
+				>
+
+				{#
+				Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+				See https://symfony.com/doc/current/security/remember_me.html
+
+				<div class="checkbox mb-3">
+						<label>
+								<input type="checkbox" name="_remember_me"> Remember me
+						</label>
+				</div>
+				#}
+
+				<div class="flex w-full justify-center">
+					<button class="btn" type="submit">
+						Se connecter
+					</button>
+				</div>
+
+			</div>
+
 			<div class="mb-6">
 				<p>Pas encore de compte chez nous ?</p>
 				<a class="textLink" href="{{ path("app_register") }}">Inscrivez-vous ici</a>
-			</div>
-
-			<div class="mb-6">
-				<label class="block text-textColor" for="inputEmail">Votre email</label>
-				<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="mt-1 w-full rounded p-2
-			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
-				       autocomplete="email" required autofocus>
-			</div>
-
-			<div class="mb-6">
-				<label class="block text-textColor" for="inputPassword">Votre mot de passe</label>
-				<input type="password" name="password" id="inputPassword" class="mt-1 w-full rounded p-2
-			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
-				       autocomplete="current-password"
-				       required>
-				<div class="flex justify-end gap-1 mt-1">
-					<span>Mot de passe</span>
-					<a class="textLink" href="#">oublié ?</a>
-				</div>
-			</div>
-
-
-
-			<input type="hidden" name="_csrf_token"
-			       value="{{ csrf_token('authenticate') }}"
-			>
-
-			{#
-			Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-			See https://symfony.com/doc/current/security/remember_me.html
-
-			<div class="checkbox mb-3">
-					<label>
-							<input type="checkbox" name="_remember_me"> Remember me
-					</label>
-			</div>
-			#}
-
-			<div class="flex w-full justify-center">
-				<button class="btn" type="submit">
-					Se connecter
-				</button>
 			</div>
 
 		</form>
