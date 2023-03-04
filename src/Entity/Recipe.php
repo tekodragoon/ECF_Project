@@ -26,7 +26,7 @@ class Recipe
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $price = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: "recipes")]
     #[ORM\JoinColumn(nullable: false)]
     private ?RecipeCategory $category = null;
 
