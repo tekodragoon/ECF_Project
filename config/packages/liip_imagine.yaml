@@ -7,6 +7,9 @@ liip_imagine:
   webp:
     generate: false
 
+  twig:
+    mode: lazy
+
   resolvers:
     default:
       web_path:
