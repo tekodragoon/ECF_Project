@@ -476,7 +476,7 @@ class ManagementController extends AbstractController
     #[Route('/users-manage', name: 'app_management_users')]
     public function user(UserRepository $repository):Response
     {
-        $users = $repository->findAll();
+        $users = $repository->findBy([], ['roles' => 'ASC']);
 
         return $this->render('management/user/index.html.twig', [
             'users' => $users,

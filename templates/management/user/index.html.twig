@@ -4,10 +4,23 @@
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
 	<div class="card">
+		<div class="grid grid-cols-3 text-center uppercase text-xl items-center text-lightText p-2 rounded mb-4">
+			<span class="p-2">Email</span>
+			<span class="p-2">Role</span>
+			<span class="p-2">Actions</span>
+		</div>
 		{% for user in users %}
-			<div class="bg-lightBg text-textColor p-2 rounded mb-4">
-				<span>{{ user.email }}</span>
-				<span>{{ user.roles[0] }}</span>
+			<div class="grid grid-cols-3 items-center bg-lightBg text-textColor p-2 rounded mb-4">
+				<span class="border-r border-r-2 border-black p-2">{{ user.email }}</span>
+				<div class="flex justify-between items-center border-r border-r-2 border-black p-2">
+					<span class="">{{ user.roles[0]|shortRole }}</span>
+					<div class="toggle text-lightText">
+						<span class="material-symbols-rounded">edit</span>
+					</div>
+				</div>
+				<button class="btn btn-danger">
+					Supprimer
+				</button>
 			</div>
 		{% endfor %}
 	</div>
