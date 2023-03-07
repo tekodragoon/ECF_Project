@@ -19,7 +19,7 @@ use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
 use App\Repository\RecipeRepository;
-use App\Service\GalleryService;
+use App\Repository\UserRepository;
 use App\Service\WarmUpCacheService;
 use Doctrine\ORM\NonUniqueResultException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
@@ -392,7 +392,7 @@ class ManagementController extends AbstractController
         ]);
     }
 
-    // ------------------------------------------------------------------------- SECTION GAllERY
+    // ------------------------------------------------------------------------- SECTION GALLERY
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
@@ -465,6 +465,21 @@ class ManagementController extends AbstractController
 
         return $this->render('management/gallery/add-image.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    // ------------------------------------------------------------------------- SECTION USER
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+
+    #[Route('/users-manage', name: 'app_management_users')]
+    public function user(UserRepository $repository):Response
+    {
+        $users = $repository->findAll();
+
+        return $this->render('management/user/index.html.twig', [
+            'users' => $users,
         ]);
     }
 }

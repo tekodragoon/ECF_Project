@@ -1,0 +1,14 @@
+<div hx-target="this" hx-swap="outerHTML" id="recipe-gestion">
+	{{ include('_flash-message.html.twig') }}
+
+	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
+
+	<div class="card">
+		{% for user in users %}
+			<div class="bg-lightBg text-textColor p-2 rounded mb-4">
+				<span>{{ user.email }}</span>
+				<span>{{ user.roles[0] }}</span>
+			</div>
+		{% endfor %}
+	</div>
+</div>
