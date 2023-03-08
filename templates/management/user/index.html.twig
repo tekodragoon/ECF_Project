@@ -1,4 +1,4 @@
-<div hx-target="this" hx-swap="outerHTML" id="recipe-gestion">
+<div hx-target="this" hx-swap="outerHTML" id="user-gestion">
 	{{ include('_flash-message.html.twig') }}
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
@@ -10,17 +10,8 @@
 			<span class="p-2">Actions</span>
 		</div>
 		{% for user in users %}
-			<div class="grid grid-cols-3 items-center bg-lightBg text-textColor p-2 rounded mb-4">
-				<span class="border-r border-r-2 border-black p-2">{{ user.email }}</span>
-				<div class="flex justify-between items-center border-r border-r-2 border-black p-2">
-					<span class="">{{ user.roles[0]|shortRole }}</span>
-					<div class="toggle text-lightText">
-						<span class="material-symbols-rounded">edit</span>
-					</div>
-				</div>
-				<button class="btn btn-danger">
-					Supprimer
-				</button>
+			<div class="{{ 'userId-%s'|format(user.id) }}">
+				{{ include('management/user/_user-information.html.twig', {user: user}) }}
 			</div>
 		{% endfor %}
 	</div>

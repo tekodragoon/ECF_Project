@@ -1,0 +1,23 @@
+<form
+		hx-target="#user-gestion"
+		hx-swap="outerHTML"
+		hx-post="{{ path('app_management_update-user-role', {id: id}) }}"
+		class="flex p-2 mb-4 bg-darkBg border border-2 border-lightText rounded"
+>
+	{{ form_start(form) }}
+	<div class="flex-grow">
+		{{ form_widget(form.role) }}
+	</div>
+	<button
+			hx-target=".{{ 'userId-%s'|format(id) }}"
+			hx-swap="innerHTML"
+			hx-get="{{ path('app_management_show-user-information', {id: id}) }}"
+			type="button"
+			class="icon-btn btn-cancel">
+		<span class="material-symbols-outlined">cancel</span>
+	</button>
+	<button type="submit" class="icon-btn btn-valid">
+		<span class="material-symbols-rounded">save</span>
+	</button>
+	{{ form_end(form) }}
+</form>

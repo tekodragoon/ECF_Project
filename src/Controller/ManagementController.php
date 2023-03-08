@@ -6,15 +6,18 @@ use App\Entity\GalleryImage;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
+use App\Entity\User;
 use App\Form\ActiveMenuGroupType;
 use App\Form\CategoryOrderGroupType;
 use App\Form\CategoryType;
 use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
+use App\Form\UserRoleType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
 use App\Model\CategoryGroup;
+use App\Model\UserRole;
 use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
@@ -480,6 +483,34 @@ class ManagementController extends AbstractController
 
         return $this->render('management/user/index.html.twig', [
             'users' => $users,
+        ]);
+    }
+
+    #[Route('/user-edit-role/{id}', name: 'app_management_update-user-role')]
+    public function updateUserRole(Request $request, User $user, UserRepository $repository):Response
+    {
+        $userRole = new UserRole();
+        $userRole->setRole($user->getRoles()[0]);
+        $form = $this->createForm(UserRoleType::class, $userRole);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles([$userRole->getRole()]);
+            $repository->save($user, true);
+            return $this->redirectToRoute('app_management_users');
+        }
+
+        return $this->render('management/user/edit-user-role.html.twig', [
+            'form' => $form,
+            'id' => $user->getId(),
+        ]);
+    }
+
+    #[Route('/user-show/{id}', name: 'app_management_show-user-information')]
+    public function showUserInformation(User $user):Response
+    {
+        return $this->render('management/user/_user-information.html.twig', [
+            'user' => $user,
         ]);
     }
 }
