@@ -12,6 +12,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Transliterator;
 
 class AppFixtures extends Fixture
 {
@@ -34,14 +35,17 @@ class AppFixtures extends Fixture
         $manager->persist($admin);
 
         $faker = Faker\Factory::create('fr_FR');
+        $trans = Transliterator::create('NFD; [:Nonspacing Mark:] Remove; NFC');
 
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
             $lastname = $faker->unique()->lastName();
             $firstname = $faker->unique()->firstName();
-            $email = $lastname.'-'.$firstname.'@example.com';
+            $l = $trans->transliterate(strtolower($lastname));
+            $f = $trans->transliterate(strtolower($firstname));
+            $email = $l.'-'.$f.'@example.com';
             $user->setEmail($email);
-            $userPassword = $this->hasher->hashPassword($user, $firstname.'1234');
+            $userPassword = $this->hasher->hashPassword($user, $f.'1234');
             $user->setPassword($userPassword);
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
