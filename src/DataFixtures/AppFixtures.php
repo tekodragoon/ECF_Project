@@ -10,6 +10,7 @@ use App\Entity\RecipeCategory;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
@@ -25,18 +26,27 @@ class AppFixtures extends Fixture
     {
         // Create user and admin
 
-        $user = new User();
-        $user->setEmail('user@example.com');
-        $userPassword = $this->hasher->hashPassword($user, 'user1234');
-        $user->setPassword($userPassword);
-        $manager->persist($user);
-
         $admin = new User();
         $admin->setEmail('admin@example.com');
         $adminPassword = $this->hasher->hashPassword($admin, 'admin1234');
         $admin->setPassword($adminPassword);
         $admin->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
+
+        $faker = Faker\Factory::create('fr_FR');
+
+        for ($i = 0; $i < 10; $i++) {
+            $user = new User();
+            $lastname = $faker->unique()->lastName();
+            $firstname = $faker->unique()->firstName();
+            $email = $lastname.'-'.$firstname.'@example.com';
+            $user->setEmail($email);
+            $userPassword = $this->hasher->hashPassword($user, $firstname.'1234');
+            $user->setPassword($userPassword);
+            $user->setFirstname($firstname);
+            $user->setLastname($lastname);
+            $manager->persist($user);
+        }
 
         // Create exercice recipes (Creating base menu)
 
@@ -118,7 +128,7 @@ class AppFixtures extends Fixture
             $recipe->setCategory($cat2);
 
             $galleryImage->setName($mainName[$i]);
-            $galleryImage->setFilename($mainName[$i].'.jpeg');
+            $galleryImage->setFilename($mainName[$i] . '.jpeg');
             $galleryImage->setRecipe($recipe);
 
             $manager->persist($recipe);
@@ -145,7 +155,7 @@ class AppFixtures extends Fixture
             'Entremet au chocolat, croustillant au gianduja et coulis de mûres.',
             'Ravioles de gelée d\'épices, fourrée d\'une ganache au chocolat et d\'une mousse aux marrons.',
         ];
-        $dessertPrice = [8 , 10, 11, 9, 12, 9, 12, 12];
+        $dessertPrice = [8, 10, 11, 9, 12, 9, 12, 12];
 
         for ($i = 0; $i < 8; $i++) {
             $recipe = new Recipe();
