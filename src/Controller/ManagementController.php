@@ -497,6 +497,7 @@ class ManagementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles([$userRole->getRole()]);
             $repository->save($user, true);
+            $this->addFlash('success', 'Role mis à jour');
             return $this->redirectToRoute('app_management_users');
         }
 
