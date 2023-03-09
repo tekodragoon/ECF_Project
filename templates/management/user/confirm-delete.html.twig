@@ -1,0 +1,17 @@
+<div class="flex justify-evenly items-center p-2 mb-4 bg-darkBg border border-2 border-lightText rounded">
+	<p class="p-2 text-lightText">Êtes-vous sûr(e)?</p>
+	<button
+			hx-target="#user-gestion"
+			hx-swap="outerHTML"
+			hx-get="{{ path('app_management_remove-user', {id: id}) }}"
+			class="btn btn-danger">
+		Oui
+	</button>
+	<button
+			hx-target=".{{ 'userId-%s'|format(id) }}"
+			hx-swap="innerHTML"
+			hx-get="{{ path('app_management_show-user-information', {id: id}) }}"
+			class="btn btn-cancel">
+		Non
+	</button>
+</div>

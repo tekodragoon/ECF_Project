@@ -3,20 +3,22 @@
 
 	<span class="col-span-2 border-r border-r-2 border-black p-2">{{ user.email }}</span>
 
-	<div class="flex justify-between items-center border-r border-r-2 border-black p-2">
+	<span class="border-r border-r-2 border-black p-2">{{ user.roles[0]|shortRole }}</span>
 
-		<span class="">{{ user.roles[0]|shortRole }}</span>
+	<div class="flex justify-evenly items-center">
 
-		<div class="toggle text-lightText"
+		<button class="icon-btn btn-valid"
 		     hx-target="{{ '#userId-%s'|format(user.id) }}"
 		     hx-get="{{ path('app_management_update-user-role', {id: user.id}) }}">
 			<span class="material-symbols-rounded">edit</span>
-		</div>
+		</button>
+
+		<button class="icon-btn btn-danger"
+		        hx-target="{{ '#userId-%s'|format(user.id) }}"
+		        hx-get="{{ path('app_management_confirm-remove-user', {id: user.id}) }}">
+			<span class="material-symbols-rounded">delete</span>
+		</button>
 
 	</div>
-
-	<button class="btn btn-danger">
-		Supprimer
-	</button>
 
 </div>

@@ -514,4 +514,20 @@ class ManagementController extends AbstractController
             'user' => $user,
         ]);
     }
+
+    #[Route('/confirm-remove-user/{id}', name: 'app_management_confirm-remove-user')]
+    public function confirmRemoveUser(User $user):Response
+    {
+        return $this->render('management/user/confirm-delete.html.twig', [
+            'id' => $user->getId(),
+        ]);
+    }
+
+    #[Route('/remove-user/{id}', name: 'app_management_remove-user')]
+    public function removeUser(User $user, UserRepository $repository):Response
+    {
+        $repository->remove($user, true);
+        $this->addFlash('success', 'Utilisateur supprimé.');
+        return $this->redirectToRoute('app_management_users');
+    }
 }
