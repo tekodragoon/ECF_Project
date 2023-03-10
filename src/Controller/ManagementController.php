@@ -530,4 +530,15 @@ class ManagementController extends AbstractController
         $this->addFlash('success', 'Utilisateur supprimé.');
         return $this->redirectToRoute('app_management_users');
     }
+
+    // ------------------------------------------------------------------------- SECTION RESTAURANT
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+
+    #[Route('/manage-rest', name: 'app_management_manage-restaurant')]
+    public function manageRestaurant():Response
+    {
+        return $this->render('management/restaurant/index.html.twig');
+    }
 }
