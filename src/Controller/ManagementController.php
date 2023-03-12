@@ -6,7 +6,6 @@ use App\Entity\GalleryImage;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
-use App\Entity\Restaurant;
 use App\Entity\User;
 use App\Form\ActiveMenuGroupType;
 use App\Form\CategoryOrderGroupType;
@@ -14,7 +13,6 @@ use App\Form\CategoryType;
 use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
-use App\Form\RestaurantType;
 use App\Form\TimeDataType;
 use App\Form\UserRoleType;
 use App\Model\ActiveMenu;
@@ -30,7 +28,6 @@ use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
 use App\Service\WarmUpCacheService;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -544,16 +541,17 @@ class ManagementController extends AbstractController
 
     /**
      * @throws NonUniqueResultException
-     * @throws NoResultException
      */
     #[Route('/manage-rest', name: 'app_management_manage-restaurant')]
     public function manageRestaurant(Request $request, RestaurantRepository $repository):Response
     {
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
-            // TODO: Afficher un message d'erreur
-            return $this->redirectToRoute('app_home');
+            throw $this->createNotFoundException(
+                'Les données du restaurant sont introuvable.'
+            );
         }
+
 
         return $this->render('management/restaurant/index.html.twig', [
             'restaurant' => $restaurant,

@@ -43,14 +43,13 @@ class RestaurantRepository extends ServiceEntityRepository
 
     /**
      * @throws NonUniqueResultException
-     * @throws NoResultException
      */
     public function findRestaurant()
     {
         return $this->createQueryBuilder('r')
             ->orderBy('r.id', 'ASC')
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
 //    /**
