@@ -6,6 +6,7 @@ use App\Entity\GalleryImage;
 use App\Entity\Menu;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
+use App\Entity\Restaurant;
 use App\Entity\User;
 use App\Form\ActiveMenuGroupType;
 use App\Form\CategoryOrderGroupType;
@@ -13,18 +14,23 @@ use App\Form\CategoryType;
 use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
+use App\Form\RestaurantType;
+use App\Form\TimeDataType;
 use App\Form\UserRoleType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
 use App\Model\CategoryGroup;
+use App\Model\TimeData;
 use App\Model\UserRole;
 use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
 use App\Repository\RecipeCategoryRepository;
 use App\Repository\RecipeRepository;
+use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
 use App\Service\WarmUpCacheService;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -536,9 +542,39 @@ class ManagementController extends AbstractController
     // -------------------------------------------------------------------------
     // -------------------------------------------------------------------------
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
     #[Route('/manage-rest', name: 'app_management_manage-restaurant')]
-    public function manageRestaurant():Response
+    public function manageRestaurant(Request $request, RestaurantRepository $repository):Response
     {
-        return $this->render('management/restaurant/index.html.twig');
+        $restaurant = $repository->findRestaurant();
+        if (!$restaurant) {
+            // TODO: Afficher un message d'erreur
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('management/restaurant/index.html.twig', [
+            'restaurant' => $restaurant,
+        ]);
+    }
+
+    #[Route('/test-form', name: 'app_management_test-time')]
+    public function testTime(Request $request):Response
+    {
+        $time = new TimeData();
+        $form = $this->createForm(TimeDataType::class, $time);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $t = $time->getTime()->format('H:i');
+            $this->addFlash('success', $t.' time');
+            return $this->redirectToRoute('app_management_manage-restaurant');
+        }
+
+        return $this->render('management/restaurant/form.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

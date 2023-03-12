@@ -3,4 +3,52 @@
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
+	{# GESTION DES HORAIRES  #}
+
+	<div class="card grid grid-cols-4 gap-2 text-lightText">
+		{% for openDay in restaurant.openDays %}
+			<div class="border border-2 border-lightBg rounded p-2">
+				<div class="underline underline-offset-4">{{ openDay.dayOfWeek|dayOfWeek }}</div>
+				<div class="{{ openDay.open ? 'text-valid' : 'text-warning' }}">
+					{{ openDay.open ? 'Ouvert' : 'Fermé' }}
+				</div>
+				{% if openDay.open %}
+					<div class="flex justify-between">
+						<span>Service le midi:</span>
+						<span class="{{ openDay.noonService ? 'text-valid' : 'text-warning' }}">
+							{{ openDay.noonService ? 'Oui' : 'Non' }}
+						</span>
+					</div>
+					<div class="flex justify-evenly">
+						{% if openDay.noonService %}
+							<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
+							<span>-</span>
+							<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
+						{% else %}
+							<span>-</span>
+						{% endif %}
+					</div>
+					<div class="flex justify-between">
+						<span>Service le soir:</span>
+						<span class="{{ openDay.eveningService ? 'text-valid' : 'text-warning' }}">
+							{{ openDay.eveningService ? 'Oui' : 'Non' }}
+						</span>
+					</div>
+					<div class="flex justify-evenly">
+						{% if openDay.eveningService %}
+							<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
+							<span>-</span>
+							<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
+						{% else %}
+							<span>-</span>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+		<div class="flex justify-center items-center">
+			<button class="btn">Éditer</button>
+		</div>
+	</div>
+
 </div>

@@ -19,9 +19,13 @@ class Restaurant
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: OpeningHours::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $openHours;
 
+    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: OpeningDays::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $openDays;
+
     public function __construct()
     {
         $this->openHours = new ArrayCollection();
+        $this->openDays = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,6 +57,36 @@ class Restaurant
             // set the owning side to null (unless already changed)
             if ($openHour->getRestaurant() === $this) {
                 $openHour->setRestaurant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OpeningDays>
+     */
+    public function getOpenDays(): Collection
+    {
+        return $this->openDays;
+    }
+
+    public function addOpenDay(OpeningDays $openDay): self
+    {
+        if (!$this->openDays->contains($openDay)) {
+            $this->openDays->add($openDay);
+            $openDay->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOpenDay(OpeningDays $openDay): self
+    {
+        if ($this->openDays->removeElement($openDay)) {
+            // set the owning side to null (unless already changed)
+            if ($openDay->getRestaurant() === $this) {
+                $openDay->setRestaurant(null);
             }
         }
 

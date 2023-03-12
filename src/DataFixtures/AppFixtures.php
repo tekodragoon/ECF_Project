@@ -5,9 +5,13 @@ namespace App\DataFixtures;
 use App\Entity\Formula;
 use App\Entity\GalleryImage;
 use App\Entity\Menu;
+use App\Entity\OpeningDays;
+use App\Entity\OpeningHours;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
+use App\Entity\Restaurant;
 use App\Entity\User;
+use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
@@ -43,14 +47,40 @@ class AppFixtures extends Fixture
             $firstname = $faker->unique()->firstName();
             $l = $trans->transliterate(strtolower($lastname));
             $f = $trans->transliterate(strtolower($firstname));
-            $email = $l.'-'.$f.'@example.com';
+            $email = $l . '-' . $f . '@example.com';
             $user->setEmail($email);
-            $userPassword = $this->hasher->hashPassword($user, $f.'1234');
+            $userPassword = $this->hasher->hashPassword($user, $f . '1234');
             $user->setPassword($userPassword);
             $user->setFirstname($firstname);
             $user->setLastname($lastname);
             $manager->persist($user);
         }
+
+        // Create Restaurant
+
+        $restaurant = new Restaurant();
+
+        for ($i = 0; $i < 7; $i++) {
+            $openHour = new OpeningHours();
+            $openHour->setDayOfWeek($i);
+            $openDay = new OpeningDays();
+            $openDay->setDayOfWeek($i);
+            if ($i <= 4) {
+                $openDay->setOpen(true);
+                $openDay->setNoonService(true);
+                $openHour->setNoonStart(DateTime::createFromFormat('H:i', "11:30"));
+                $openHour->setNoonEnd(DateTime::createFromFormat('H:i', "15:00"));
+            }
+            if ($i <= 5) {
+                $openDay->setOpen(true);
+                $openDay->setEveningService(true);
+                $openHour->setEveningStart(DateTime::createFromFormat('H:i', "19:00"));
+                $openHour->setEveningEnd(DateTime::createFromFormat('H:i', "23:00"));
+            }
+            $restaurant->addOpenHour($openHour);
+            $restaurant->addOpenDay($openDay);
+        }
+        $manager->persist($restaurant);
 
         // Create exercice recipes (Creating base menu)
 

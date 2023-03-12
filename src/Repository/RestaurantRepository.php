@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Restaurant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +39,18 @@ class RestaurantRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function findRestaurant()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.id', 'ASC')
+            ->getQuery()
+            ->getSingleResult();
     }
 
 //    /**
