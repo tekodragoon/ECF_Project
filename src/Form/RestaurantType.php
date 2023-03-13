@@ -19,8 +19,13 @@ class RestaurantType extends AbstractType
                 'entry_options' => [
                     'label' => false
                 ],
-                'allow_add' => true,
-                'allow_delete' => true,
+            ])
+            ->add('openDays', CollectionType::class, [
+                'entry_type' => OpeningDaysType::class,
+                'by_reference' => false,
+                'entry_options' => [
+                    'label' => false
+                ],
             ])
         ;
     }

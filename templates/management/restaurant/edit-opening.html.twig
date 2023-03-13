@@ -1,0 +1,13 @@
+<div hx-target="this" hx-swap="outerHTML" id="rest-open-gestion">
+	{{ include('_flash-message.html.twig') }}
+
+	{{ include('_back-button.html.twig', {path: path('app_management_manage-restaurant')}) }}
+
+	{% if form.openDays|length != 7 or form.openHours|length != 7 %}
+		<div class="card text-lightText text-xl">
+			Il y a une erreur dans les données. Veuillez contacter le support.
+		</div>
+	{% else %}
+		{{ include('management/restaurant/open-form.html.twig', {form: form}) }}
+	{% endif %}
+</div>

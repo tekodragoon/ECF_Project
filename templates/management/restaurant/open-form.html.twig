@@ -1,0 +1,84 @@
+{% block javascript %}
+{{ encore_entry_script_tags('open') }}
+{% endblock %}
+<form
+		hx-post="{{ path('app_management_open-restaurant') }}"
+		hx-target="this"
+		hx-swap="outerHTML"
+>
+	{{ form_start(form) }}
+	{% for hour in form.openHours %}
+		<div class="card">
+
+			<div class="relative">
+				<div class="text-xl text-lightText uppercase text-center p-2">
+					{{ hour.vars.value.dayOfWeek|dayOfWeek }}
+				</div>
+				<button
+						type="button"
+						id="{{ 'expand-%s'|format(hour.vars.value.dayOfWeek) }}"
+						class="absolute top-0 right-0 flex items-center p-1.5 border-2 border-lightText rounded expand
+						hover:border-secondary hover:bg-secondary">
+					<span class="material-symbols-outlined text-lightText">
+						expand_more
+					</span>
+				</button>
+			</div>
+
+			<div id="{{ 'setting-%s'|format(hour.vars.value.dayOfWeek) }}" class="hidden">
+
+				<div class="p-2">
+					{{ form_widget(form.openDays[loop.index0].vars.form.open) }}
+				</div>
+
+				<div id="{{ 'open-close-%s'|format(hour.vars.value.dayOfWeek) }}">
+
+					<div class="flex items-center gap-4 p-2">
+						<div class="text-lightText mx-2">Service du midi</div>
+						<div class="flex-grow">
+							{{ form_widget(form.openDays[loop.index0].vars.form.noonService) }}
+						</div>
+					</div>
+
+					<div id="{{ 'noon-%s'|format(hour.vars.value.dayOfWeek) }}">
+						<span class="text-lightText">Horaire</span>
+						<div class="grid grid-cols-2 gap-2 mb-2">
+							{{ form_widget(hour.vars.form.noonStart,
+								{'attr': {'class': 'flex items-center gap-4 bg-lightBg p-2 rounded mb-1'}}) }}
+							{{ form_widget(hour.vars.form.noonEnd,
+								{'attr': {'class': 'flex items-center gap-4 bg-lightBg p-2 rounded mb-1'}}) }}
+						</div>
+					</div>
+
+					<div class="flex items-center gap-4 p-2">
+						<div class="text-lightText mx-2">Service du soir</div>
+						<div class="flex-grow">
+							{{ form_widget(form.openDays[loop.index0].vars.form.eveningService) }}
+						</div>
+					</div>
+
+					<div id="{{ 'evening-%s'|format(hour.vars.value.dayOfWeek) }}">
+						<span class="text-lightText">Horaire</span>
+						<div class="grid grid-cols-2 gap-2">
+							{{ form_widget(hour.vars.form.eveningStart,
+								{'attr': {'class': 'flex items-center gap-4 bg-lightBg p-2 rounded mb-1'}}) }}
+							{{ form_widget(hour.vars.form.eveningEnd,
+								{'attr': {'class': 'flex items-center gap-4 bg-lightBg p-2 rounded mb-1'}}) }}
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+	<div class="flex justify-center">
+		<button type="submit" class="btn-icon-right btn-valid">
+			Sauvegarder <span class="material-symbols-outlined button-icon">Save</span>
+		</button>
+	</div>
+
+	{{ form_row(form._token) }}
+	{{ form_end(form, {render_rest: false}) }}
+
+</form>

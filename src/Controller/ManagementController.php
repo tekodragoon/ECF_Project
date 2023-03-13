@@ -13,6 +13,7 @@ use App\Form\CategoryType;
 use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
+use App\Form\RestaurantType;
 use App\Form\TimeDataType;
 use App\Form\UserRoleType;
 use App\Model\ActiveMenu;
@@ -558,20 +559,22 @@ class ManagementController extends AbstractController
         ]);
     }
 
-    #[Route('/test-form', name: 'app_management_test-time')]
-    public function testTime(Request $request):Response
+    /**
+     * @throws NonUniqueResultException
+     */
+    #[Route('/manage-open-rest', name: 'app_management_open-restaurant')]
+    public function manageOpenRestaurant(Request $request, RestaurantRepository $repository):Response
     {
-        $time = new TimeData();
-        $form = $this->createForm(TimeDataType::class, $time);
+        $restaurant = $repository->findRestaurant();
+        if (!$restaurant) {
+            throw $this->createNotFoundException(
+                'Les données du restaurant sont introuvable.'
+            );
+        }
+        $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $t = $time->getTime()->format('H:i');
-            $this->addFlash('success', $t.' time');
-            return $this->redirectToRoute('app_management_manage-restaurant');
-        }
-
-        return $this->render('management/restaurant/form.html.twig', [
+        return $this->render('management/restaurant/edit-opening.html.twig', [
             'form' => $form->createView(),
         ]);
     }
