@@ -92,4 +92,39 @@ class Restaurant
 
         return $this;
     }
+
+    public function today(): int
+    {
+        date_default_timezone_set('Europe/Paris');
+        return date('w') - 1;
+    }
+
+    public function isOpenToday(): bool
+    {
+        return $this->openDays[$this->today()]->isOpen();
+    }
+
+    public function isNoonServiceToday(): bool
+    {
+        return $this->openDays[$this->today()]->isNoonService();
+    }
+
+    public function getNoonServiceSchedule(): string
+    {
+        $start = $this->openHours[$this->today()]->getNoonStart()->format('H\hi');
+        $end = $this->openHours[$this->today()]->getNoonEnd()->format('H\hi');
+        return $start.' à '.$end;
+    }
+
+    public function isEveningServiceToday(): bool
+    {
+        return $this->openDays[$this->today()]->isEveningService();
+    }
+
+    public function getEveningServiceSchedule(): string
+    {
+        $start = $this->openHours[$this->today()]->getEveningStart()->format('H\hi');
+        $end = $this->openHours[$this->today()]->getEveningEnd()->format('H\hi');
+        return $start.' à '.$end;
+    }
 }

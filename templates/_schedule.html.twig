@@ -1,0 +1,15 @@
+{{ "now"|date("D d F Y", "Europe/Paris") }}
+{#{{ restaurant.today }}#}
+{% if restaurant.openToday %}
+	<p>Nous vous accueillons</p>
+	{% if restaurant.noonServiceToday and restaurant.eveningServiceToday %}
+		<p>de {{ restaurant.getNoonServiceSchedule }} et de {{ restaurant.getEveningServiceSchedule }}</p>
+	{% elseif restaurant.noonServiceToday %}
+		<p>uniquement de {{ restaurant.getNoonServiceSchedule }}</p>
+	{% elseif restaurant.eveningServiceToday %}
+		<p>uniquement de {{ restaurant.getEveningServiceSchedule }}</p>
+	{% endif %}
+{% else %}
+	<p>Nous sommes fermés aujourd'hui.</p>
+{% endif %}
+<a href="#" class="textLink">Voir toutes les horaires</a>

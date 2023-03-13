@@ -11,10 +11,7 @@
 				<p class="font-bold text-lightText">01 23 45 67 89</p>
 			</div>
 			<div class="flex flex-col justify-center items-center lg:items-start text-lightText">
-				<p>Horaires d'ouverture</p>
-				<p>Du lundi au vendredi:</p>
-				<p>De 11h30 à 15h00 et de 19h00 à 23h00</p>
-				<p>Le samedi de 19h00 à 23h00</p>
+				{{ render(controller('App\\Controller\\HomeController::showCurrentSchedule')) }}
 			</div>
 		</div>
 		<div class="w-full text-lightText text-center my-3">

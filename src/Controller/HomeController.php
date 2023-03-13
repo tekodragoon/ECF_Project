@@ -6,7 +6,10 @@ use App\Entity\Mailing;
 use App\Form\UsermailType;
 use App\Repository\GalleryImageRepository;
 use App\Repository\MailingRepository;
+use App\Repository\RestaurantRepository;
 use App\Service\WarmUpCacheService;
+use DateTime;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,5 +65,19 @@ class HomeController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function showCurrentSchedule(RestaurantRepository $repository): Response
+    {
+        $restaurant = $repository->findRestaurant();
+        if (!$restaurant) {
+            throw $this->createNotFoundException(
+                'Les données du restaurant sont introuvables. Contacter le support.'
+            );
+        }
+        return $this->render('_schedule.html.twig', [
+            'restaurant' => $restaurant,
+        ]);
+    }
 }
