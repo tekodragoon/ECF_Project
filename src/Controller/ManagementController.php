@@ -14,12 +14,10 @@ use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
 use App\Form\RestaurantType;
-use App\Form\TimeDataType;
 use App\Form\UserRoleType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
 use App\Model\CategoryGroup;
-use App\Model\TimeData;
 use App\Model\UserRole;
 use App\Repository\GalleryImageRepository;
 use App\Repository\MenuRepository;
@@ -481,7 +479,7 @@ class ManagementController extends AbstractController
     // -------------------------------------------------------------------------
 
     #[Route('/users-manage', name: 'app_management_users')]
-    public function user(UserRepository $repository):Response
+    public function user(UserRepository $repository): Response
     {
         $users = $repository->findBy([], ['roles' => 'ASC']);
 
@@ -491,7 +489,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/user-edit-role/{id}', name: 'app_management_update-user-role')]
-    public function updateUserRole(Request $request, User $user, UserRepository $repository):Response
+    public function updateUserRole(Request $request, User $user, UserRepository $repository): Response
     {
         $userRole = new UserRole();
         $userRole->setRole($user->getRoles()[0]);
@@ -512,7 +510,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/user-show/{id}', name: 'app_management_show-user-information')]
-    public function showUserInformation(User $user):Response
+    public function showUserInformation(User $user): Response
     {
         return $this->render('management/user/_user-information.html.twig', [
             'user' => $user,
@@ -520,7 +518,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/confirm-remove-user/{id}', name: 'app_management_confirm-remove-user')]
-    public function confirmRemoveUser(User $user):Response
+    public function confirmRemoveUser(User $user): Response
     {
         return $this->render('management/user/confirm-delete.html.twig', [
             'id' => $user->getId(),
@@ -528,7 +526,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/remove-user/{id}', name: 'app_management_remove-user')]
-    public function removeUser(User $user, UserRepository $repository):Response
+    public function removeUser(User $user, UserRepository $repository): Response
     {
         $repository->remove($user, true);
         $this->addFlash('success', 'Utilisateur supprimé.');
@@ -544,15 +542,14 @@ class ManagementController extends AbstractController
      * @throws NonUniqueResultException
      */
     #[Route('/manage-rest', name: 'app_management_manage-restaurant')]
-    public function manageRestaurant(Request $request, RestaurantRepository $repository):Response
+    public function manageRestaurant(RestaurantRepository $repository): Response
     {
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvable.'
+                'Les données du restaurant sont introuvables. Contacter le support.'
             );
         }
-
 
         return $this->render('management/restaurant/index.html.twig', [
             'restaurant' => $restaurant,
@@ -563,16 +560,43 @@ class ManagementController extends AbstractController
      * @throws NonUniqueResultException
      */
     #[Route('/manage-open-rest', name: 'app_management_open-restaurant')]
-    public function manageOpenRestaurant(Request $request, RestaurantRepository $repository):Response
+    public function manageOpenRestaurant(Request $request, RestaurantRepository $repository): Response
     {
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvable.'
+                'Les données du restaurant sont introuvables. Contacter le support.'
             );
         }
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // check for close day
+            foreach ($restaurant->getOpenDays() as $openDay) {
+                if (!$openDay->isOpen()) { // if restaurant close
+                    // set no service
+                    $openDay->setNoonService(false);
+                    $openDay->setEveningService(false);
+                }
+            }
+            // remove hours data if necessary
+            $h = $restaurant->getOpenHours();
+            $d = $restaurant->getOpenDays();
+            for ($i = 0; $i < 7; $i++) {
+                if (!$d[$i]->isNoonService()) {
+                    $h[$i]->setNoonStart(null);
+                    $h[$i]->setNoonEnd(null);
+                }
+                if (!$d[$i]->isEveningService()) {
+                    $h[$i]->setEveningStart(null);
+                    $h[$i]->setEveningEnd(null);
+                }
+            }
+            $repository->save($restaurant, true);
+            $this->addFlash('success', 'Modifications enregistrées');
+            return $this->redirectToRoute('app_management_manage-restaurant');
+        }
 
         return $this->render('management/restaurant/edit-opening.html.twig', [
             'form' => $form->createView(),

@@ -3,7 +3,7 @@
 {% endblock %}
 <form
 		hx-post="{{ path('app_management_open-restaurant') }}"
-		hx-target="this"
+		hx-target="#restaurant-gestion"
 		hx-swap="outerHTML"
 >
 	{{ form_start(form) }}
@@ -12,11 +12,11 @@
 
 			<div class="relative">
 				<div class="text-xl text-lightText uppercase text-center p-2">
-					{{ hour.vars.value.dayOfWeek|dayOfWeek }}
+					{{ loop.index0|dayOfWeek }}
 				</div>
 				<button
 						type="button"
-						id="{{ 'expand-%s'|format(hour.vars.value.dayOfWeek) }}"
+						id="{{ 'expand-%s'|format(loop.index0) }}"
 						class="absolute top-0 right-0 flex items-center p-1.5 border-2 border-lightText rounded expand
 						hover:border-secondary hover:bg-secondary">
 					<span class="material-symbols-outlined text-lightText">
@@ -25,13 +25,13 @@
 				</button>
 			</div>
 
-			<div id="{{ 'setting-%s'|format(hour.vars.value.dayOfWeek) }}" class="hidden">
+			<div id="{{ 'setting-%s'|format(loop.index0) }}" class="hidden">
 
 				<div class="p-2">
 					{{ form_widget(form.openDays[loop.index0].vars.form.open) }}
 				</div>
 
-				<div id="{{ 'open-close-%s'|format(hour.vars.value.dayOfWeek) }}">
+				<div id="{{ 'open-close-%s'|format(loop.index0) }}">
 
 					<div class="flex items-center gap-4 p-2">
 						<div class="text-lightText mx-2">Service du midi</div>
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 
-					<div id="{{ 'noon-%s'|format(hour.vars.value.dayOfWeek) }}">
+					<div id="{{ 'noon-%s'|format(loop.index0) }}">
 						<span class="text-lightText">Horaire</span>
 						<div class="grid grid-cols-2 gap-2 mb-2">
 							{{ form_widget(hour.vars.form.noonStart,
@@ -57,7 +57,7 @@
 						</div>
 					</div>
 
-					<div id="{{ 'evening-%s'|format(hour.vars.value.dayOfWeek) }}">
+					<div id="{{ 'evening-%s'|format(loop.index0) }}">
 						<span class="text-lightText">Horaire</span>
 						<div class="grid grid-cols-2 gap-2">
 							{{ form_widget(hour.vars.form.eveningStart,
@@ -78,7 +78,6 @@
 		</button>
 	</div>
 
-	{{ form_row(form._token) }}
-	{{ form_end(form, {render_rest: false}) }}
+	{{ form_end(form) }}
 
 </form>

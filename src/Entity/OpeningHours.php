@@ -44,7 +44,7 @@ class OpeningHours
         return $this->noonStart;
     }
 
-    public function setNoonStart(DateTimeInterface $noonStart): self
+    public function setNoonStart(?DateTimeInterface $noonStart): self
     {
         $this->noonStart = $noonStart;
 
@@ -56,7 +56,7 @@ class OpeningHours
         return $this->noonEnd;
     }
 
-    public function setNoonEnd(DateTimeInterface $noonEnd): self
+    public function setNoonEnd(?DateTimeInterface $noonEnd): self
     {
         $this->noonEnd = $noonEnd;
 
@@ -68,7 +68,7 @@ class OpeningHours
         return $this->eveningStart;
     }
 
-    public function setEveningStart(DateTimeInterface $eveningStart): self
+    public function setEveningStart(?DateTimeInterface $eveningStart): self
     {
         $this->eveningStart = $eveningStart;
 
@@ -80,7 +80,7 @@ class OpeningHours
         return $this->eveningEnd;
     }
 
-    public function setEveningEnd(DateTimeInterface $eveningEnd): self
+    public function setEveningEnd(?DateTimeInterface $eveningEnd): self
     {
         $this->eveningEnd = $eveningEnd;
 
