@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Horaires{% endblock %}
+
+{% block body %}
+
+	<div class="max-w-4xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+
+		<div class="w-fit mx-auto text-center mb-8">
+			<span class="material-symbols-outlined title-icon text-textColor">schedule</span>
+			<h1 class="textH1">Horaires</h1>
+		</div>
+
+		<div class="card grid grid-cols-4 gap-2 text-lightText">
+			{% for openDay in restaurant.openDays %}
+				<div class="border border-2 border-lightBg rounded p-2">
+					<div class="underline underline-offset-4 mb-4">{{ openDay.dayOfWeek|dayOfWeek }}</div>
+					<div class="{{ openDay.open ? 'text-valid' : 'text-warning' }} text-center mb-4
+							border-b border-b-2 border-b-lightBg">
+						{{ openDay.open ? 'Ouvert' : 'Fermé' }}
+					</div>
+					{% if openDay.open %}
+
+						{% if openDay.noonService and openDay.eveningService %}
+							<div class="flex justify-evenly mb-4">
+								<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
+								<span>à</span>
+								<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
+							</div>
+							<div class="text-center mb-4">et de</div>
+							<div class="flex justify-evenly mb-4">
+								<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
+								<span>à</span>
+								<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
+							</div>
+						{% elseif openDay.noonService %}
+							<div class="text-center mb-4">Uniquement de</div>
+							<div class="flex justify-evenly mb-4">
+								<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
+								<span>à</span>
+								<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
+							</div>
+						{% elseif openDay.eveningService %}
+							<div class="text-center mb-4">Uniquement de</div>
+							<div class="flex justify-evenly mb-4">
+								<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
+								<span>à</span>
+								<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
+							</div>
+						{% endif %}
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+
+	</div>
+
+{% endblock %}

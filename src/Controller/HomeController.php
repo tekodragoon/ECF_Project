@@ -80,4 +80,22 @@ class HomeController extends AbstractController
             'restaurant' => $restaurant,
         ]);
     }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    #[Route('/schedule', name: 'app_home_schedule')]
+    public function schedule(RestaurantRepository $repository): Response
+    {
+        $restaurant = $repository->findRestaurant();
+        if (!$restaurant) {
+            throw $this->createNotFoundException(
+                'Les données du restaurant sont introuvables. Contacter le support.'
+            );
+        }
+
+        return $this->render('home/schedule.html.twig', [
+            'restaurant' => $restaurant,
+        ]);
+    }
 }
