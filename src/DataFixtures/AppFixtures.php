@@ -10,6 +10,7 @@ use App\Entity\OpeningHours;
 use App\Entity\Recipe;
 use App\Entity\RecipeCategory;
 use App\Entity\Restaurant;
+use App\Entity\Table;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -80,6 +81,22 @@ class AppFixtures extends Fixture
             $restaurant->addOpenHour($openHour);
             $restaurant->addOpenDay($openDay);
         }
+
+        // Create base tables
+
+        for ($i = 0; $i < 15; $i++) {
+            $table = new Table();
+            if ($i < 8) {
+                $seats = 4;
+            } elseif ($i < 13) {
+                $seats = 6;
+            } else {
+                $seats = 8;
+            }
+            $table->setSeats($seats);
+            $restaurant->addTable($table);
+        }
+
         $manager->persist($restaurant);
 
         // Create exercice recipes (Creating base menu)

@@ -22,10 +22,14 @@ class Restaurant
     #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: OpeningDays::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $openDays;
 
+    #[ORM\OneToMany(mappedBy: 'restaurant', targetEntity: Table::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $tables;
+
     public function __construct()
     {
         $this->openHours = new ArrayCollection();
         $this->openDays = new ArrayCollection();
+        $this->tables = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,5 +130,35 @@ class Restaurant
         $start = $this->openHours[$this->today()]->getEveningStart()->format('H\hi');
         $end = $this->openHours[$this->today()]->getEveningEnd()->format('H\hi');
         return $start.' à '.$end;
+    }
+
+    /**
+     * @return Collection<int, Table>
+     */
+    public function getTables(): Collection
+    {
+        return $this->tables;
+    }
+
+    public function addTable(Table $table): self
+    {
+        if (!$this->tables->contains($table)) {
+            $this->tables->add($table);
+            $table->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTable(Table $table): self
+    {
+        if ($this->tables->removeElement($table)) {
+            // set the owning side to null (unless already changed)
+            if ($table->getRestaurant() === $this) {
+                $table->setRestaurant(null);
+            }
+        }
+
+        return $this;
     }
 }
