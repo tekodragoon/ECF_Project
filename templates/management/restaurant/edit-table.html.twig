@@ -5,10 +5,14 @@
 
 	<div class="card">
 		{{ form_start(form) }}
-		<div class="grid grid-cols-3 gap-2">
+		<div class="grid grid-cols-3 gap-4">
 			{% for table in form.tables %}
-				<div class="flex justify-center items-center">
-					{{ form_widget(table) }}
+				<div class="flex justify-center items-center gap-2">
+					<div class="number-input">
+						{{ form_widget(table) }}
+						<span class="number-button number-plus text-lightText">+</span>
+						<span class="number-button number-minus text-lightText">-</span>
+					</div>
 					<button class="icon-btn btn-danger mb-6">
 						<span class="material-symbols-rounded">delete</span>
 					</button>

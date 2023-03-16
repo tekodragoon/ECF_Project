@@ -283,3 +283,47 @@ select {
         top: 100px;
     }
 }
+
+/* -------------------------------------------------------------INPUT NUMBER */
+
+.number-input input {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.number-input input[type=number]::-webkit-inner-spin-button,
+.number-input input[type=number]::-webkit-outer-spin-button
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.number-input {
+    position: relative;
+}
+
+.number-button {
+    position: absolute;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    background-color: #647295;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number-plus {
+    top: 6px;
+    border-radius: 0 0.25rem 0 0;
+}
+
+.number-minus {
+    top: 30px;
+    border-radius: 0 0 0.25rem 0;
+}
+
+
