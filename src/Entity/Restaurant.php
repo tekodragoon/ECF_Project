@@ -161,4 +161,20 @@ class Restaurant
 
         return $this;
     }
+
+    public function getTableKeyValue(): array
+    {
+        $result = array();
+
+        foreach ($this->tables as $table) {
+            $key = $table->getSeats();
+            if (array_key_exists($key, $result)) {
+                $result[$key] += 1;
+            } else {
+                $result[$key] = 1;
+            }
+        }
+
+        return $result;
+    }
 }

@@ -14,6 +14,7 @@ use App\Form\GalleryImageType;
 use App\Form\MenuType;
 use App\Form\RecipeType;
 use App\Form\RestaurantType;
+use App\Form\TableRestaurantType;
 use App\Form\UserRoleType;
 use App\Model\ActiveMenu;
 use App\Model\ActiveMenuGroup;
@@ -599,6 +600,26 @@ class ManagementController extends AbstractController
         }
 
         return $this->render('management/restaurant/edit-opening.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    #[Route('/manage-seats', name: 'app_management_manage-seats-restaurant')]
+    public function manageSeatsRestaurant(Request $request, RestaurantRepository $repository):Response
+    {
+        $restaurant = $repository->findRestaurant();
+        if (!$restaurant) {
+            throw $this->createNotFoundException(
+                'Les données du restaurant sont introuvables. Contacter le support.'
+            );
+        }
+        $form = $this->createForm(TableRestaurantType::class, $restaurant);
+        $form->handleRequest($request);
+
+        return $this->render('management/restaurant/edit-table.html.twig', [
             'form' => $form->createView(),
         ]);
     }

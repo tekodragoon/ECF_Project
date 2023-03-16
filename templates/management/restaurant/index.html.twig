@@ -51,4 +51,18 @@
 		</div>
 	</div>
 
+	{#	GESTION DES TABLES #}
+
+	<div class="card text-lightText">
+		<div class="textH2">Gestion de la salle</div>
+		{% for key, value in restaurant.tableKeyValue %}
+			<div class="p-2">{{ value }} table{{ value > 1 ? 's' : ''}} pour {{ key }} personnes.</div>
+		{% endfor %}
+		<div class="flex justify-end items-center my-2">
+			<button class="btn" hx-get="{{ path('app_management_manage-seats-restaurant') }}">
+				Éditer
+			</button>
+		</div>
+	</div>
+
 </div>
