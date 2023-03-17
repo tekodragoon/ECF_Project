@@ -1,3 +1,6 @@
+{% block javascripts %}
+	{{ encore_entry_script_tags('numberInput') }}
+{% endblock %}
 <div hx-target="this" hx-swap="outerHTML" id="rest-seats-gestion">
 	{{ include('_flash-message.html.twig') }}
 

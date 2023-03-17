@@ -306,7 +306,7 @@ select {
 
 .number-button {
     position: absolute;
-    right: 0;
+    right: 2px;
     width: 24px;
     height: 24px;
     background-color: #647295;
@@ -318,12 +318,12 @@ select {
 
 .number-plus {
     top: 6px;
-    border-radius: 0 0.25rem 0 0;
+    border-radius: 0 2px 0 0;
 }
 
 .number-minus {
     top: 30px;
-    border-radius: 0 0 0.25rem 0;
+    border-radius: 0 0 2px 0;
 }
 
 
