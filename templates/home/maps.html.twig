@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Itinéraire{% endblock %}
+
+{% block body %}
+
+	<div class="max-w-4xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+
+		<div class="w-fit mx-auto text-center mb-8">
+			<span class="material-symbols-outlined title-icon text-textColor">map</span>
+			<h1 class="textH1">Où nous trouver ?</h1>
+		</div>
+
+		<div class="card flex justify-center items-center" id="map">
+			<iframe
+					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.204672273207!2d5.91936831598561!3d45.566322579102305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478ba8f93acee8c3%3A0x3eae69856627da60!2s17%20Pl.%20du%208%20Mai%201945%2C%2073000%20Chamb%C3%A9ry!5e0!3m2!1sfr!2sfr!4v1679154057100!5m2!1sfr!2sfr"
+					width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"></iframe>
+		</div>
+
+	</div>
+
+{% endblock %}

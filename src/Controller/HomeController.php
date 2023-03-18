@@ -98,4 +98,10 @@ class HomeController extends AbstractController
             'restaurant' => $restaurant,
         ]);
     }
+
+    #[Route('/maps', name: 'app_home_show-maps')]
+    public function showMaps():Response
+    {
+        return $this->render('home/maps.html.twig');
+    }
 }
