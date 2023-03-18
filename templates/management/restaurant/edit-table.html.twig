@@ -10,7 +10,7 @@
 	<form
 			class="card"
 			hx-post="{{ path('app_management_manage-seats-restaurant') }}"
-			hx-target="this"
+			hx-target="#rest-seats-gestion"
 			hx-swap="outerHTML"
 	>
 		{{ form_start(form) }}
@@ -34,6 +34,12 @@
 			        class="btn-icon-right btn-new"
 			        data-collection="#tables">
 				Ajouter une table<span class="material-symbols-outlined">add</span>
+			</button>
+		</div>
+
+		<div class="flex justify-center items-center">
+			<button class="btn-icon-right btn-valid">
+				Sauvegarder<span class="material-symbols-rounded">save</span>
 			</button>
 		</div>
 

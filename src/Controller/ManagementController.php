@@ -619,6 +619,12 @@ class ManagementController extends AbstractController
         $form = $this->createForm(TableRestaurantType::class, $restaurant);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $repository->save($restaurant, true);
+            $this->addFlash('success', 'Informations sur les tables mises à jour.');
+            return $this->redirectToRoute('app_management_manage-restaurant');
+        }
+
         return $this->render('management/restaurant/edit-table.html.twig', [
             'form' => $form->createView(),
         ]);
