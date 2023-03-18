@@ -1,27 +1,42 @@
 {% block javascripts %}
 	{{ encore_entry_script_tags('numberInput') }}
+	{{ encore_entry_script_tags('formElem') }}
 {% endblock %}
 <div hx-target="this" hx-swap="outerHTML" id="rest-seats-gestion">
 	{{ include('_flash-message.html.twig') }}
 
 	{{ include('_back-button.html.twig', {path: path('app_management_manage-restaurant')}) }}
 
-	<div class="card">
+	<form
+			class="card"
+			hx-post="{{ path('app_management_manage-seats-restaurant') }}"
+			hx-target="this"
+			hx-swap="outerHTML"
+	>
 		{{ form_start(form) }}
-		<div class="grid grid-cols-3 gap-4">
-			{% for table in form.tables %}
-				<div class="flex justify-center items-center gap-2">
-					<div class="number-input">
-						{{ form_widget(table) }}
-						<span class="number-button number-plus text-lightText">+</span>
-						<span class="number-button number-minus text-lightText">-</span>
-					</div>
-					<button class="icon-btn btn-danger mb-6">
-						<span class="material-symbols-rounded">delete</span>
-					</button>
-				</div>
-			{% endfor %}
+
+		<div
+				id="tables"
+				data-prototype="{{ include('management/restaurant/_edit-table.html.twig', {table: form.tables.vars
+				.prototype})|e('html_attr') }}"
+				data-index="{{ form.tables|length > 0 ? form.tables|last.vars.name + 1 : 0 }}"
+		>
+			<div class="grid grid-cols-3 gap-4" id="table-holder">
+				{% for table in form.tables %}
+					{{ include('management/restaurant/_edit-table.html.twig', {table: table}) }}
+				{% endfor %}
+			</div>
+
 		</div>
+
+		<div class="flex justify-end mb-6">
+			<button type="button"
+			        class="btn-icon-right btn-new"
+			        data-collection="#tables">
+				Ajouter une table<span class="material-symbols-outlined">add</span>
+			</button>
+		</div>
+
 		{{ form_end(form) }}
-	</div>
+	</form>
 </div>
