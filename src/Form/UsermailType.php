@@ -14,9 +14,9 @@ class UsermailType extends AbstractType
     {
         $builder
             ->add('usermail', EmailType::class, [
-                'label' => 'Inscrivez vous à notre newsletter et restez informés des prochains évènements',
+                'label' => 'Subscribe to our newsletter and stay informed of upcoming events.',
                 'attr' => [
-                    'placeholder' => 'Votre email...'
+                    'placeholder' => 'Your email...'
                 ]
             ])
         ;

@@ -5,7 +5,7 @@
 
 	<div class="card">
 
-		<div class="textH2 text-white mb-4">Liste des convives</div>
+		<div class="textH2 text-white mb-4">Guests list</div>
 
 		{% set path = path('app_account_edit_user-guest', {id: app.user.id}) %}
 		{{ include('account/_guest-field.html.twig', {
@@ -33,7 +33,7 @@
 
 		<div class="flex justify-end">
 			<button hx-get="{{ path('app_account_add_guest') }}" class="btn-icon-right">
-				Ajouter <span class="material-symbols-rounded button-icon">Add</span>
+				Add<span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>
 

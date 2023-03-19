@@ -17,18 +17,18 @@ class UserType extends AbstractType
     {
         $builder
             ->add('lastname', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Lastname',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez renseigner votre nom.'
+                        'message' => 'Please, fill with your lastname.'
                     ])
                 ]
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Prénom',
+                'label' => 'Firstname',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez renseigner votre prénom.'
+                        'message' => 'Please, fill with your firstname.'
                     ])
                 ]
             ])
@@ -36,7 +36,7 @@ class UserType extends AbstractType
                 'label' => 'Email',
                 'constraints' => [
                     new Email([
-                        'message' => 'Veuillez renseigner une adresse valide.'
+                        'message' => 'Please, fill with a valid email address.'
                     ])
                 ]
             ])

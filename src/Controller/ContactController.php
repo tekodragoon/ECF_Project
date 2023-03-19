@@ -30,10 +30,10 @@ class ContactController extends AbstractController
                 ->html( '<p>'.$message->getContent().'</p>');
             try {
                 $mailer->send($email);
-                $this->addFlash('success', 'Votre message a bien été envoyé.');
+                $this->addFlash('success', 'Your message has been send.');
             } catch (TransportExceptionInterface $e) {
                 //TODO: log error
-                $this->addFlash('error', 'Un problème est survenu.');
+                $this->addFlash('error', 'A problem has occurred.');
             }
             $this->redirectToRoute('app_contact');
         }

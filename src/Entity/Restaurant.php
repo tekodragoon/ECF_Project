@@ -121,7 +121,7 @@ class Restaurant
     {
         $start = $this->openHours[$this->today()]->getNoonStart()->format('H\hi');
         $end = $this->openHours[$this->today()]->getNoonEnd()->format('H\hi');
-        return $start.' à '.$end;
+        return $start.' to '.$end;
     }
 
     public function isEveningServiceToday(): bool
@@ -133,7 +133,7 @@ class Restaurant
     {
         $start = $this->openHours[$this->today()]->getEveningStart()->format('H\hi');
         $end = $this->openHours[$this->today()]->getEveningEnd()->format('H\hi');
-        return $start.' à '.$end;
+        return $start.' to '.$end;
     }
 
     /**

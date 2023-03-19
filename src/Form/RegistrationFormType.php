@@ -21,12 +21,12 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email([
-                        'message' => 'Veuillez renseigner une adresse valide.'
+                        'message' => 'Please enter a valid address.'
                     ])
                 ]
             ])
             ->add('allowNewsletter', CheckboxType::class, [
-                'label' => "Cochez cette case si vous souhaitez recevoir notre newsletter.",
+                'label' => "Check this box if you wish to receive our newsletter.",
                 'required' => false,
             ])
             ->add('plainPassword', PasswordType::class, [
@@ -36,11 +36,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Entrez un mot de passe',
+                        'message' => 'Please, enter a password',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => '{{ limit }} caractères au minimum.',
+                        'minMessage' => '{{ limit }} character minimum.',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

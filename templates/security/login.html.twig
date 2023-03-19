@@ -7,7 +7,7 @@
 		<form method="post">
 			<div class="w-fit mx-auto text-center mb-8">
 				<span class="material-symbols-rounded title-icon text-textColor">person</span>
-				<h1 class="textH1">Connectez vous</h1>
+				<h1 class="textH1">Login</h1>
 			</div>
 
 			{% if error %}
@@ -23,21 +23,20 @@
 			<div class="card">
 
 				<div class="mb-6">
-					<label class="block text-lightText" for="inputEmail">Votre email</label>
+					<label class="block text-lightText" for="inputEmail">Email</label>
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="mt-1 w-full rounded p-2
 			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
 					       autocomplete="email" required autofocus>
 				</div>
 
 				<div class="mb-6">
-					<label class="block text-lightText" for="inputPassword">Votre mot de passe</label>
+					<label class="block text-lightText" for="inputPassword">Password</label>
 					<input type="password" name="password" id="inputPassword" class="mt-1 w-full rounded p-2
 			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
 					       autocomplete="current-password"
 					       required>
 					<div class="flex justify-end gap-1 mt-1">
-						<span class="text-lightText">Mot de passe</span>
-						<a class="textLink" href="#">oublié ?</a>
+						<a class="textLink" href="#">Forgot your password ?</a>
 					</div>
 				</div>
 
@@ -59,15 +58,15 @@
 
 				<div class="flex w-full justify-center">
 					<button class="btn" type="submit">
-						Se connecter
+						Connect
 					</button>
 				</div>
 
 			</div>
 
 			<div class="mb-6">
-				<p>Pas encore de compte chez nous ?</p>
-				<a class="textLink" href="{{ path("app_register") }}">Inscrivez-vous ici</a>
+				<p>Not registered yet ?</p>
+				<a class="textLink" href="{{ path("app_register") }}">Register here</a>
 			</div>
 
 		</form>

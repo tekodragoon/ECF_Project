@@ -7,22 +7,22 @@
 
 		<div class="w-fit mx-auto text-center mb-8">
 			<span class="material-symbols-rounded title-icon text-textColor">person</span>
-			<h1 class="textH1">Inscrivez vous</h1>
+			<h1 class="textH1">Register</h1>
 		</div>
 
 		<div class="card">
 
 			{{ form_start(registrationForm) }}
 			{{ form_row(registrationForm.email, {
-				label: 'Votre email'
+				label: 'Email'
 			}) }}
 			{{ form_row(registrationForm.allowNewsletter) }}
 			{{ form_row(registrationForm.plainPassword, {
-				label: 'Votre mot de passe'
+				label: 'Password'
 			}) }}
 
 			<div class="flex w-full justify-center">
-				<button type="submit" class="btn">S'inscrire</button>
+				<button type="submit" class="btn">Register</button>
 			</div>
 
 			{{ form_end(registrationForm) }}
@@ -30,8 +30,8 @@
 		</div>
 
 		<div class="mt-3">
-			<p>Vous êtes déjà client chez nous,</p>
-			<a class="textLink" href="{{ path("app_login") }}">cliquez ici</a>
+			<p>Already have an account,</p>
+			<a class="textLink" href="{{ path("app_login") }}">click here</a>
 		</div>
 	</div>
 {% endblock %}

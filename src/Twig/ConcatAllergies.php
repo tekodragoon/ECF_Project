@@ -21,7 +21,7 @@ class ConcatAllergies extends AbstractExtension
      */
     public function concatAllergies(PersistentCollection $allergies): string
     {
-        if(count($allergies) == 0) return 'Aucune allergie.';
+        if(count($allergies) == 0) return 'No allergy.';
 
         $str = '';
         foreach ($allergies as $allergy) {

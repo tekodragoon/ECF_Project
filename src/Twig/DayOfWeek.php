@@ -17,13 +17,13 @@ class DayOfWeek extends AbstractExtension
     public function dayOfWeek(string $day):string
     {
         $days = [
-            0 => 'Lundi',
-            1 => 'Mardi',
-            2 => 'Mercredi',
-            3 => 'Jeudi',
-            4 => 'Vendredi',
-            5 => 'Samedi',
-            6 => 'Dimanche'
+            0 => 'Monday',
+            1 => 'Tuesday',
+            2 => 'Wednesday',
+            3 => 'Thursday',
+            4 => 'Friday',
+            5 => 'Saturday',
+            6 => 'Sunday'
         ];
         return $days[$day];
     }

@@ -21,7 +21,7 @@ class ActiveMenuType extends AbstractType
                 'required' => false,
             ])
             ->add('active', CheckboxType::class, [
-                'label' => 'Actif',
+                'label' => 'Active',
                 'required' => false,
             ])
         ;

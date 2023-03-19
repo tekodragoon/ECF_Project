@@ -14,7 +14,7 @@ class OpeningHoursType extends AbstractType
     {
         $builder
             ->add('noonStart', TimeType::class, [
-                'label' => 'Midi ouverture',
+                'label' => 'Noon opening',
                 'hours' => [
                     10, 11, 12, 13, 14, 15,
                 ],
@@ -23,7 +23,7 @@ class OpeningHoursType extends AbstractType
                 ],
             ])
             ->add('noonEnd', TimeType::class, [
-                'label' => 'Midi fermeture',
+                'label' => 'Noon closed',
                 'hours' => [
                     11, 12, 13, 14, 15, 16,
                 ],
@@ -32,7 +32,7 @@ class OpeningHoursType extends AbstractType
                 ],
             ])
             ->add('eveningStart', TimeType::class, [
-                'label' => 'Soir ouverture',
+                'label' => 'Evening opening',
                 'hours' => [
                     18, 19, 20,
                 ],
@@ -41,7 +41,7 @@ class OpeningHoursType extends AbstractType
                 ],
             ])
             ->add('eveningEnd', TimeType::class, [
-                'label' => 'Soir fermeture',
+                'label' => 'Evening closed',
                 'hours' => [
                     21, 22, 23,
                 ],

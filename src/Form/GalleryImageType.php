@@ -42,12 +42,12 @@ class GalleryImageType extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg'
                         ],
-                        'mimeTypesMessage' => 'Fichier .jpeg uniquement.'
+                        'mimeTypesMessage' => '.jpeg file only.'
                     ])
                 ]
             ])
             ->add('name', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Name'
             ])
         ;
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -58,7 +58,7 @@ class GalleryImageType extends AbstractType
             }
 
             $form->add('recipe', EntityType::class, [
-                'label' => 'Recette',
+                'label' => 'Recipe',
                 'required' => false,
                 'class' => Recipe::class,
                 'placeholder' => '',

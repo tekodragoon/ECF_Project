@@ -10,34 +10,34 @@
 			<div class="border border-2 border-lightBg rounded p-2">
 				<div class="underline underline-offset-4">{{ openDay.dayOfWeek|dayOfWeek }}</div>
 				<div class="{{ openDay.open ? 'text-valid' : 'text-warning' }}">
-					{{ openDay.open ? 'Ouvert' : 'Fermé' }}
+					{{ openDay.open ? 'Open' : 'Closed' }}
 				</div>
 				{% if openDay.open %}
 					<div class="flex justify-between">
-						<span>Service le midi:</span>
+						<span>Noon service:</span>
 						<span class="{{ openDay.noonService ? 'text-valid' : 'text-warning' }}">
-							{{ openDay.noonService ? 'Oui' : 'Non' }}
+							{{ openDay.noonService ? 'Yes' : 'No' }}
 						</span>
 					</div>
 					<div class="flex justify-evenly">
 						{% if openDay.noonService %}
 							<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
-							<span>-</span>
+							<span>to</span>
 							<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
 						{% else %}
 							<span>-</span>
 						{% endif %}
 					</div>
 					<div class="flex justify-between">
-						<span>Service le soir:</span>
+						<span>Evening service:</span>
 						<span class="{{ openDay.eveningService ? 'text-valid' : 'text-warning' }}">
-							{{ openDay.eveningService ? 'Oui' : 'Non' }}
+							{{ openDay.eveningService ? 'Yes' : 'No' }}
 						</span>
 					</div>
 					<div class="flex justify-evenly">
 						{% if openDay.eveningService %}
 							<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
-							<span>-</span>
+							<span>to</span>
 							<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
 						{% else %}
 							<span>-</span>
@@ -47,20 +47,20 @@
 			</div>
 		{% endfor %}
 		<div class="flex justify-center items-center">
-			<button class="btn" hx-get="{{ path('app_management_open-restaurant') }}">Éditer</button>
+			<button class="btn" hx-get="{{ path('app_management_open-restaurant') }}">Edit</button>
 		</div>
 	</div>
 
 	{#	GESTION DES TABLES #}
 
 	<div class="card text-lightText">
-		<div class="textH2">Gestion de la salle</div>
+		<div class="textH2">Manage restaurant room</div>
 		{% for key, value in restaurant.tableKeyValue %}
-			<div class="p-2">{{ value }} table{{ value > 1 ? 's' : ''}} pour {{ key }} personnes.</div>
+			<div class="p-2">{{ value }} table{{ value > 1 ? 's' : ''}} for {{ key }} person{{ key > 1 ? 's' : '' }}.</div>
 		{% endfor %}
 		<div class="flex justify-end items-center my-2">
 			<button class="btn" hx-get="{{ path('app_management_manage-seats-restaurant') }}">
-				Éditer
+				Edit
 			</button>
 		</div>
 	</div>

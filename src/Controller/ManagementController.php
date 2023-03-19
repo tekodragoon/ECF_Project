@@ -87,13 +87,13 @@ class ManagementController extends AbstractController
                     $menu->setActive($menuItem->isActive());
                     $menuRepository->save($menu, true);
                 }
-                $this->addFlash('success', 'Modifications enregistrées.');
+                $this->addFlash('success', 'Changes saved.');
             } else {
                 if ($menuGroup->getActivesCount() > 3) {
-                    $this->addFlash('error', 'Il y a trop de menus actifs. Sélectionnez-en au maximum 3.');
+                    $this->addFlash('error', 'Too many active menus. Activate up to 3.');
                 }
                 if ($menuGroup->getActivesCount() == 0) {
-                    $this->addFlash('error', 'Aucun menus actifs. Sélectionnez-en au minimum 1.');
+                    $this->addFlash('error', 'No active menu. Activate at least one.');
                 }
             }
             return $this->redirectToRoute('app_management_menu');
@@ -113,7 +113,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
-            $this->addFlash('success', 'Modifications enregistrées.');
+            $this->addFlash('success', 'Changes saved.');
 
             return $this->redirectToRoute('app_management_menu');
         }
@@ -135,7 +135,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
-            $this->addFlash('success', $menu->getTitle() . ' a été créer.');
+            $this->addFlash('success', $menu->getTitle() . ' created.');
 
             return $this->redirectToRoute('app_management_menu');
         }
@@ -143,7 +143,7 @@ class ManagementController extends AbstractController
         return $this->render('management/menu/edit-menu.html.twig', [
             'form' => $form->createView(),
             'path' => $this->generateUrl('app_management_add_menu'),
-            'buttonTitle' => 'Ajouter',
+            'buttonTitle' => 'Add',
         ]);
     }
 
@@ -171,7 +171,7 @@ class ManagementController extends AbstractController
     {
         $name = $menu->getTitle();
         $menuRepo->remove($menu, true);
-        $this->addFlash('success', 'Le menu ' . $name . ' a bien été supprimé.');
+        $this->addFlash('success', 'Menu ' . $name . ' deleted.');
 
         return $this->redirectToRoute('app_management_menu');
     }
@@ -199,7 +199,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
-            $this->addFlash('success', $recipe->getName() . ' mis à jour.');
+            $this->addFlash('success', $recipe->getName() . ' updated.');
 
             return $this->redirectToRoute('app_management_recipe');
         }
@@ -221,7 +221,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
-            $this->addFlash('success', $recipe->getName() . ' a été ajoutée.');
+            $this->addFlash('success', $recipe->getName() . ' added.');
 
             return $this->redirectToRoute('app_management_recipe');
         }
@@ -256,7 +256,7 @@ class ManagementController extends AbstractController
     {
         $name = $recipe->getName();
         $repository->remove($recipe, true);
-        $this->addFlash('success', $name . ' a bien été supprimé.');
+        $this->addFlash('success', $name . ' deleted.');
 
         return $this->redirectToRoute('app_management_recipe');
     }
@@ -284,7 +284,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
-            $this->addFlash('success', 'Catégorie mise à jour.');
+            $this->addFlash('success', 'Category updated.');
 
             return $this->redirectToRoute('app_management_recipe-category');
         }
@@ -316,7 +316,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
-            $this->addFlash('success', $category->getName() . ' a été ajouté.');
+            $this->addFlash('success', $category->getName() . ' added.');
 
             return $this->redirectToRoute('app_management_recipe-category');
         }
@@ -365,7 +365,7 @@ class ManagementController extends AbstractController
             }
         }
 
-        $this->addFlash('success', 'La catégorie ' . $name . ' a bien été supprimé.');
+        $this->addFlash('success', 'Category ' . $name . ' deleted.');
 
         return $this->redirectToRoute('app_management_recipe-category');
     }
@@ -387,7 +387,7 @@ class ManagementController extends AbstractController
             foreach ($categoryGroup->categories as $category) {
                 $categoryRepository->save($category, true);
             }
-            $this->addFlash('success', 'L\'ordre des catégories a bien été enregistré.');
+            $this->addFlash('success', 'Category order saved.');
 
             return $this->redirectToRoute('app_management_recipe-category');
         }
@@ -450,7 +450,7 @@ class ManagementController extends AbstractController
 
         // suppression de l'image en bdd
         $repository->remove($image, true);
-        $this->addFlash('success', 'L\'image a été correctement supprimé.');
+        $this->addFlash('success', 'Image deleted.');
 
         return $this->redirectToRoute('app_management_gallery');
     }
@@ -500,7 +500,7 @@ class ManagementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles([$userRole->getRole()]);
             $repository->save($user, true);
-            $this->addFlash('success', 'Role mis à jour');
+            $this->addFlash('success', 'Role updated');
             return $this->redirectToRoute('app_management_users');
         }
 
@@ -530,7 +530,7 @@ class ManagementController extends AbstractController
     public function removeUser(User $user, UserRepository $repository): Response
     {
         $repository->remove($user, true);
-        $this->addFlash('success', 'Utilisateur supprimé.');
+        $this->addFlash('success', 'User deleted.');
         return $this->redirectToRoute('app_management_users');
     }
 
@@ -548,7 +548,7 @@ class ManagementController extends AbstractController
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvables. Contacter le support.'
+                'Restaurant\'s data can\'t be found. Contact support.'
             );
         }
 
@@ -566,7 +566,7 @@ class ManagementController extends AbstractController
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvables. Contacter le support.'
+                'Restaurant\'s data can\'t be found. Contact support.'
             );
         }
         $form = $this->createForm(RestaurantType::class, $restaurant);
@@ -595,7 +595,7 @@ class ManagementController extends AbstractController
                 }
             }
             $repository->save($restaurant, true);
-            $this->addFlash('success', 'Modifications enregistrées');
+            $this->addFlash('success', 'Changes saved');
             return $this->redirectToRoute('app_management_manage-restaurant');
         }
 
@@ -613,7 +613,7 @@ class ManagementController extends AbstractController
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvables. Contacter le support.'
+                'Restaurant\'s data can\'t be found. Contact support.'
             );
         }
         $form = $this->createForm(TableRestaurantType::class, $restaurant);
@@ -621,7 +621,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($restaurant, true);
-            $this->addFlash('success', 'Informations sur les tables mises à jour.');
+            $this->addFlash('success', 'Table\'s informations updated.');
             return $this->redirectToRoute('app_management_manage-restaurant');
         }
 

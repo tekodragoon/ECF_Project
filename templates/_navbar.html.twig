@@ -7,17 +7,17 @@
 				</a>
 			</div>
 			<div class="flex px-3 py-2 gap-4">
-				<a class="text-lightText" href="#">Réservation</a>
-				<a class="text-lightText" href="{{ path('app_gallery') }}">Galerie</a>
-				<a class="text-lightText" href="{{ path('app_menu') }}">Carte</a>
+				<a class="text-lightText" href="#">Booking</a>
+				<a class="text-lightText" href="{{ path('app_gallery') }}">Gallery</a>
+				<a class="text-lightText" href="{{ path('app_menu') }}">Menu</a>
 				<a class="text-lightText" href="{{ path('app_contact') }}">Contact</a>
 				{% if is_granted('ROLE_ADMIN') %}
-					<a class="text-lightText" href="{{ path('app_management') }}">Gestion</a>
+					<a class="text-lightText" href="{{ path('app_management') }}">Manage</a>
 				{% else %}
 					<a
 							class="text-lightText"
 							href="{{ app.user ? path('app_account') : path('app_login') }}">
-						{{ app.user ? 'Compte' : 'Connexion' }}
+						{{ app.user ? 'Account' : 'Login' }}
 					</a>
 				{% endif %}
 			</div>

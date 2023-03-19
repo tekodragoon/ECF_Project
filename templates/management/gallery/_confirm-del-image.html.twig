@@ -1,8 +1,8 @@
 <div hx-target="this" hx-swap="outerHTML" class="toggle delete flex-col p-2">
-	<p class="text-white">Êtes-vous sûr(e)?</p>
+	<p class="text-white">Are you sure?</p>
 	<button
 			hx-target="#gallery-gestion"
 			hx-get="{{ path('app_management_remove-image', {id: id}) }}"
-			class="btn btn-danger">Oui</button>
-	<button hx-get="{{ path('app_management_delete-image', {id: id}) }}" class="btn btn-cancel">Non</button>
+			class="btn btn-danger w-20">Yes</button>
+	<button hx-get="{{ path('app_management_delete-image', {id: id}) }}" class="btn btn-cancel w-20">No</button>
 </div>

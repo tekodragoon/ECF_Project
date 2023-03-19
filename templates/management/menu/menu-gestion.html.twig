@@ -5,7 +5,7 @@
 
 	<div class="card">
 
-		<div class="textH2 text-white mb-4">Liste des menus</div>
+		<div class="textH2 text-white mb-4">Menus</div>
 
 		<form
 				hx-post="{{ path('app_management_menu') }}"
@@ -31,7 +31,7 @@
 
 			<div class="flex justify-end">
 				<button type="submit" class="btn-icon-right btn-valid">
-					Sauvegarder <span class="material-symbols-outlined button-icon">Save</span>
+					Save <span class="material-symbols-outlined button-icon">Save</span>
 				</button>
 			</div>
 
@@ -42,13 +42,13 @@
 
 	<div class="card">
 
-		<div class="textH2 text-white mb-4">Édition des menus</div>
+		<div class="textH2 text-white mb-4">Menu edition</div>
 
 		{% for menu in menus %}
 			<div class="mb-4">
 				<div class="text-white border-2 border-secondary rounded p-2">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-4">Nom du menu:</div>
+						<div class="w-28 inline-block underline underline-offset-4">Name:</div>
 						<span class="mr-2">{{ menu.title }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
@@ -58,12 +58,12 @@
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-4">Prix:</div>
+						<div class="w-28 inline-block underline underline-offset-4">Price:</div>
 						<span class="mr-2">{{ menu.price }}€</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div>
-						<span class="w-28 inline-block underline underline-offset-4">Formules:</span>
+						<span class="w-28 inline-block underline underline-offset-4">Formulas:</span>
 						{% set forms = concatFormulas(menu.formulas) %}
 						<span>{{ forms }}</span>
 					</div>
@@ -80,7 +80,7 @@
 
 		<div class="flex justify-end">
 			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
-				Ajouter un menu <span class="material-symbols-rounded button-icon">Add</span>
+				Add a menu <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>
 	</div>

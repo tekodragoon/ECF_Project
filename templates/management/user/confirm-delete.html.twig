@@ -4,14 +4,14 @@
 			hx-target="#user-gestion"
 			hx-swap="outerHTML"
 			hx-get="{{ path('app_management_remove-user', {id: id}) }}"
-			class="btn btn-danger">
-		Oui
+			class="btn btn-danger w-20">
+		Yes
 	</button>
 	<button
 			hx-target=".{{ 'userId-%s'|format(id) }}"
 			hx-swap="innerHTML"
 			hx-get="{{ path('app_management_show-user-information', {id: id}) }}"
-			class="btn btn-cancel">
-		Non
+			class="btn btn-cancel w-20">
+		No
 	</button>
 </div>

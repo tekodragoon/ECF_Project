@@ -37,7 +37,7 @@ class HomeController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $repo->save($mail, true);
-                $this->addFlash('success', 'Votre inscription à notre newsletter a bien été effectuée.');
+                $this->addFlash('success', 'You successfully subscribe to our newsletter.');
             } else {
                 $errors = $validator->validate($mail);
                 $messages = [];
@@ -73,7 +73,7 @@ class HomeController extends AbstractController
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvables. Contacter le support.'
+                'Restaurant\'s data can\'t be found. Contact support.'
             );
         }
         return $this->render('_schedule.html.twig', [
@@ -90,7 +90,7 @@ class HomeController extends AbstractController
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
-                'Les données du restaurant sont introuvables. Contacter le support.'
+                'Restaurant\'s data can\'t be found. Contact support.'
             );
         }
 

@@ -5,18 +5,18 @@
 		hx-swap="outerHTML">
 	{{ form_start(form) }}
 	{{ form_row(form.lastname, {
-		label: 'Nom'
+		label: 'Lastname'
 	}) }}
 	{{ form_row(form.firstname, {
-		label: 'Prénom'
+		label: 'Firstname'
 	}) }}
 	{{ form_row(form.email, {
 		label: 'Email'
 	}) }}
 
 	<div class="flex w-full justify-center gap-6">
-		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_show') }}">Annuler</button>
-		<button type="submit" class="btn btn-valid">Modifier</button>
+		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_show') }}">Cancel</button>
+		<button type="submit" class="btn btn-valid">Modify</button>
 	</div>
 
 	{{ form_end(form) }}

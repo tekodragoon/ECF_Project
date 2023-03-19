@@ -42,7 +42,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Modifications enregistrées.');
+            $this->addFlash('success', 'Changes have been saved.');
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -71,7 +71,7 @@ class AccountController extends AbstractController
                 ));
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash('success', 'Votre mot de passe a bien été changé.');
+            $this->addFlash('success', 'Your password has been changed.');
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -94,7 +94,7 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repo->save($user, true);
-            $this->addFlash('success', 'Modifications enregistrées.');
+            $this->addFlash('success', 'Changes have been saved.');
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -103,7 +103,7 @@ class AccountController extends AbstractController
             'path' => $this->generateUrl('app_account_edit_user-guest', [
                 'id' => $user->getId(),
             ]),
-            'buttonTitle' => 'Modifier',
+            'buttonTitle' => 'Modify',
         ]);
     }
 
@@ -116,7 +116,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $repo->save($guest, true);
             $this->addFlash('success',
-                'Les modifications concernant ' . $guest->getFirstname() . ' ont bien été enregistrées.');
+                'Changes on ' . $guest->getFirstname() . ' have been saved.');
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -125,7 +125,7 @@ class AccountController extends AbstractController
             'path' => $this->generateUrl('app_account_edit_guest', [
                 'id' => $guest->getId(),
             ]),
-            'buttonTitle' => 'Modifier',
+            'buttonTitle' => 'Modify',
         ]);
     }
 
@@ -140,14 +140,14 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $guestRepo->save($guest, true);
-            $this->addFlash('success', $guest->getFirstname() . ' a bien été rajouté.');
+            $this->addFlash('success', $guest->getFirstname() . ' added.');
             return $this->redirectToRoute('app_account_guests');
         }
 
         return $this->render('account/edit_guest.html.twig', [
             'form' => $form->createView(),
             'path' => $this->generateUrl('app_account_add_guest'),
-            'buttonTitle' => 'Ajouter',
+            'buttonTitle' => 'Add',
         ]);
     }
 
@@ -156,7 +156,7 @@ class AccountController extends AbstractController
     {
         $name = $guest->getFirstname();
         $guestRepo->remove($guest, true);
-        $this->addFlash('success', $name . ' a bien été supprimé.');
+        $this->addFlash('success', $name . ' deleted.');
         return $this->redirectToRoute('app_account_guests');
     }
 

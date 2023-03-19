@@ -1,13 +1,13 @@
 <div class="border-2 border-secondary rounded mb-6 p-3">
 	<p class="w-full text-white text-center border-b border-secondary p-2 mb-2">
 		{% if index == 0 %}
-		Vos informations
+		Your informations
 		{% else %}
-		Convive n°{{ index }}
+		Guest n°{{ index }}
 		{% endif %}
 	</p>
 	<p class="text-white">{{ firstname }}</p>
-	<p class="text-white">{{ adult ? 'Adulte' : 'Enfant' }}</p>
+	<p class="text-white">{{ adult ? 'Adult' : 'Child' }}</p>
 	{% set all = concatAllergies(allergies) %}
 	<p class="text-white">
 		{{ all }}

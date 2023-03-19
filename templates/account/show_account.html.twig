@@ -1,17 +1,17 @@
+{{ include('_flash-message.html.twig') }}
+
 <div hx-target="this" hx-swap="outerHTML"
 		class="card">
-	{{ include('_flash-message.html.twig') }}
 
-	{# TODO: Changer le design pour aligner les champs texte #}
-	{% set value = app.user.lastname ?? 'Non renseigné' %}
+	{% set value = app.user.lastname ?? 'Not specified' %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Nom',
+		field_name: 'Lastname',
 		field_value: value,
 		last: false,
 	}) }}
-	{% set value = app.user.firstname ?? 'Non renseigné' %}
+	{% set value = app.user.firstname ?? 'Not specified' %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Prénom',
+		field_name: 'Firstname',
 		field_value: value,
 		last: false,
 	}) }}
@@ -23,16 +23,16 @@
 	}) }}
 	{% set path = path('app_account_edit_pwd') %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Mot de passe',
+		field_name: 'Password',
 		field_value: '******',
 		field_path: path,
 		last: false,
 	}) }}
 	{% set path = path('app_account_guests') %}
 	{% set guests = app.user.guests.count + 1 %}
-	{% set value = "%s personnes"|format(guests) %}
+	{% set value = "#{guests} person#{guests > 1 ? 's' : ''}" %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Convives',
+		field_name: 'Guests',
 		field_value: value,
 		field_path: path,
 		last: true,

@@ -16,7 +16,7 @@ class MenuType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Nom'
+                'label' => 'Name'
             ])
             ->add('description', TextType::class, [
                 'label' => 'Description',
@@ -31,7 +31,7 @@ class MenuType extends AbstractType
                 'allow_delete' => true,
             ])
             ->add('price', NumberType::class, [
-                'label' => 'Prix'
+                'label' => 'Price'
             ])
         ;
     }

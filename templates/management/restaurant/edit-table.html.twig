@@ -15,6 +15,8 @@
 	>
 		{{ form_start(form) }}
 
+		<div class="textH2 text-lightText mb-4">Tables</div>
+
 		<div
 				id="tables"
 				data-prototype="{{ include('management/restaurant/_edit-table.html.twig', {table: form.tables.vars
@@ -33,13 +35,13 @@
 			<button type="button"
 			        class="btn-icon-right btn-new"
 			        data-collection="#tables">
-				Ajouter une table<span class="material-symbols-outlined">add</span>
+				Add a table<span class="material-symbols-outlined">add</span>
 			</button>
 		</div>
 
 		<div class="flex justify-center items-center">
 			<button class="btn-icon-right btn-valid">
-				Sauvegarder<span class="material-symbols-rounded">save</span>
+				Save<span class="material-symbols-rounded">save</span>
 			</button>
 		</div>
 

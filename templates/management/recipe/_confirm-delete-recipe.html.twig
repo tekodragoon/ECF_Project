@@ -1,11 +1,11 @@
 <div hx-target="this" hx-swap="outerHTML" class="flex flex-col justify-center items-center">
-	<p class="p-2 text-white">Êtes-vous sûr(e)?</p>
+	<p class="p-2 text-white">Are you sure?</p>
 	<div class="flex p-2">
 		<button hx-target="#recipe-gestion" hx-get="{{ path('app_management_rem_recipe', {id: id}) }}"
-		        class="btn btn-danger">Oui
+		        class="btn btn-danger w-20">Yes
 		</button>
 		<button
 				hx-get="{{ path('app_management_manage_recipe', {id: id}) }}"
-				class="btn btn-cancel">Non</button>
+				class="btn btn-cancel w-20">No</button>
 	</div>
 </div>
