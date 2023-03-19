@@ -117,11 +117,14 @@ class Restaurant
         return $this->openDays[$this->today()]->isNoonService();
     }
 
-    public function getNoonServiceSchedule(): string
+    public function getStartNoonServiceSchedule(): string
     {
-        $start = $this->openHours[$this->today()]->getNoonStart()->format('H\hi');
-        $end = $this->openHours[$this->today()]->getNoonEnd()->format('H\hi');
-        return $start.' to '.$end;
+        return $this->openHours[$this->today()]->getNoonStart()->format('H\hi');
+    }
+
+    public function getEndNoonServiceSchedule(): string
+    {
+        return $this->openHours[$this->today()]->getNoonEnd()->format('H\hi');
     }
 
     public function isEveningServiceToday(): bool
@@ -129,11 +132,14 @@ class Restaurant
         return $this->openDays[$this->today()]->isEveningService();
     }
 
-    public function getEveningServiceSchedule(): string
+    public function getStartEveningServiceSchedule(): string
     {
-        $start = $this->openHours[$this->today()]->getEveningStart()->format('H\hi');
-        $end = $this->openHours[$this->today()]->getEveningEnd()->format('H\hi');
-        return $start.' to '.$end;
+        return $this->openHours[$this->today()]->getEveningStart()->format('H\hi');
+    }
+
+    public function getEndEveningServiceSchedule(): string
+    {
+        return $this->openHours[$this->today()]->getEveningEnd()->format('H\hi');
     }
 
     /**
