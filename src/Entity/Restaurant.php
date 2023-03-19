@@ -100,7 +100,11 @@ class Restaurant
     public function today(): int
     {
         date_default_timezone_set('Europe/Paris');
-        return date('w') - 1;
+        $date = date('w')-1;
+        if ($date < 0) {
+            $date = 6;
+        }
+        return $date;
     }
 
     public function isOpenToday(): bool
