@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Route('/{_locale}')]
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]

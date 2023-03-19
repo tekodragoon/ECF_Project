@@ -1,15 +1,17 @@
-{{ "now"|date("D, F d, Y", "Europe/Paris") }}
-{#{{ restaurant.today }}#}
+{{ "now"|format_datetime('medium', 'none') }}
 {% if restaurant.openToday %}
-	<p>We are open</p>
+	<p>{% trans %}info.open{% endtrans%}</p>
 	{% if restaurant.noonServiceToday and restaurant.eveningServiceToday %}
-		<p>from {{ restaurant.getNoonServiceSchedule }} and from {{ restaurant.getEveningServiceSchedule }}</p>
+		<p>{% trans %}info.from{% endtrans %} {{ restaurant.getNoonServiceSchedule }} {% trans %}info.andf{% endtrans %} {{
+			restaurant
+			.getEveningServiceSchedule
+			}}</p>
 	{% elseif restaurant.noonServiceToday %}
-		<p>only from {{ restaurant.getNoonServiceSchedule }}</p>
+		<p>{% trans %}info.onlf{% endtrans %} {{ restaurant.getNoonServiceSchedule }}</p>
 	{% elseif restaurant.eveningServiceToday %}
-		<p>only from {{ restaurant.getEveningServiceSchedule }}</p>
+		<p>{% trans %}info.onlf{% endtrans %} {{ restaurant.getEveningServiceSchedule }}</p>
 	{% endif %}
 {% else %}
-	<p>We are closed today.</p>
+	<p>{% trans %}info.clos{% endtrans %}</p>
 {% endif %}
-<a href="{{ path('app_home_schedule') }}" class="textLink">See all schedules.</a>
+<a href="{{ path('app_home_schedule') }}" class="textLink">{% trans %}info.schd{% endtrans %}</a>

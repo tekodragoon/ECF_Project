@@ -12,6 +12,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/{_locale}')]
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]

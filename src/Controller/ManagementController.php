@@ -38,7 +38,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_ADMIN')]
-#[Route('/manager')]
+#[Route('/{_locale}/manager')]
 class ManagementController extends AbstractController
 {
     #[Route('/', name: 'app_management')]
