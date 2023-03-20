@@ -6,3 +6,12 @@ info:
   clos: Nous sommes fermé aujourd'hui.
   schd: Voir toutes les horaires.
   to: à
+
+nav:
+  book: Réservation
+  gall: Galerie
+  menu: Carte
+  ctct: Contact
+  mang: Gestion
+  acnt: Compte
+  logn: Connexion

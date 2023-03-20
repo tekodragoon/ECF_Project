@@ -33,17 +33,21 @@
 				</div>
 			</div>
 			<div class="flex px-3 py-2 gap-4">
-				<a class="text-lightText" href="#">Booking</a>
-				<a class="text-lightText" href="{{ path('app_gallery') }}">Gallery</a>
-				<a class="text-lightText" href="{{ path('app_menu') }}">Menu</a>
-				<a class="text-lightText" href="{{ path('app_contact') }}">Contact</a>
+				<a class="text-lightText" href="#">{% trans %}nav.book{% endtrans %}</a>
+				<a class="text-lightText" href="{{ path('app_gallery') }}">{% trans %}nav.gall{% endtrans %}</a>
+				<a class="text-lightText" href="{{ path('app_menu') }}">{% trans %}nav.menu{% endtrans %}</a>
+				<a class="text-lightText" href="{{ path('app_contact') }}">{% trans %}nav.ctct{% endtrans %}</a>
 				{% if is_granted('ROLE_ADMIN') %}
-					<a class="text-lightText" href="{{ path('app_management') }}">Manage</a>
+					<a class="text-lightText" href="{{ path('app_management') }}">{% trans %}nav.mang{% endtrans %}</a>
 				{% else %}
 					<a
 							class="text-lightText"
 							href="{{ app.user ? path('app_account') : path('app_login') }}">
-						{{ app.user ? 'Account' : 'Login' }}
+						{% if app.user %}
+						{% trans %}nav.acnt{% endtrans %}
+						{% else %}
+							{% trans %}nav.logn{% endtrans %}
+						{% endif %}
 					</a>
 				{% endif %}
 			</div>

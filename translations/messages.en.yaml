@@ -6,3 +6,12 @@ info:
   clos: We are closed today.
   schd: See all schedules.
   to: to
+
+nav:
+  book: Booking
+  gall: Gallery
+  menu: Menu
+  ctct: Contact
+  mang: Manage
+  acnt: Account
+  logn: Login
