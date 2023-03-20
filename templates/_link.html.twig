@@ -1,13 +1,16 @@
 <div class="mx-auto max-w-7xl p-2 sm:px-6 lg:px-8">
 	<div class="flex justify-center items-center gap-4 sm:gap-7 lg:gap-10">
 		<button class="vertical-btn">
-			<span class="material-symbols-outlined vertical-icon">Calendar_today</span>Booking
+			<span class="material-symbols-outlined vertical-icon">Calendar_today</span>
+			{% trans %}nav.book{% endtrans %}
 		</button>
 		<button class="vertical-btn">
-			<span class="material-symbols-rounded vertical-icon">Phone</span>Call us
+			<span class="material-symbols-rounded vertical-icon">Phone</span>
+			{% trans %}nav.call{% endtrans %}
 		</button>
 		<a class="vertical-btn" href="{{ path('app_home_show-maps') }}">
-			<span class="material-symbols-outlined vertical-icon">Map</span>Find us
+			<span class="material-symbols-outlined vertical-icon">Map</span>
+			{% trans %}nav.map{% endtrans %}
 		</a>
 	</div>
 </div>
