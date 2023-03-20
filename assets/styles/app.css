@@ -326,4 +326,9 @@ select {
     border-radius: 0 0 2px 0;
 }
 
+/* -------------------------------------------------------------------NAVBAR */
 
+.flag {
+    height: 32px;
+    cursor: pointer;
+}

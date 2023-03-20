@@ -32,6 +32,7 @@ Encore
     .addEntry('gallery', './assets/gallery.js')
     .addEntry('open', './assets/open.js')
     .addEntry('numberInput', './assets/numberInput.js')
+    .addEntry('flag', './assets/lang.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

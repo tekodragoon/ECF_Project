@@ -1,10 +1,36 @@
+{% block javascript %}
+{{ encore_entry_script_tags('flag') }}
+{% endblock %}
+
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+{% set lang = app.request.locale == 'fr' ? 'fr.png' : 'en.png' %}
+{% set img = 'build/images/%s'|format(lang) %}
+{% set flag = app.request.locale == 'fr' ? 'drapeau français' : 'english flag' %}
+{% set langName = app.request.locale|locale_name(app.request.locale) %}
+
 <nav class="bg-darkBg fixed inset-x-0 top-0 z-20">
 	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
 		<div class="flex items-center justify-between">
-			<div>
+			<div class="flex items-center gap-4">
 				<a href="{{ path('app_home') }}" class="cursor-pointer">
 					<img src="{{ asset('build/images/Logo.png') }}" alt="logo" class="h-20 px-3 py-2">
 				</a>
+				<div class="flex flex-col gap-1">
+					<img class="flag" src="{{ asset(img) }}" alt="{{ flag }}" id="cur-flag">
+					<a class="hidden" href="{{ path(route, params|merge({ _locale: 'en' })) }}" id="en-flag">
+						<img class="flag"
+						     src="{{ asset('build/images/en.png') }}"
+						     alt="english flag">
+					</a>
+					<a class="hidden" href="{{ path(route, params|merge({ _locale: 'fr' })) }}" id="fr-flag">
+						<img class="flag"
+						     src="{{ asset('build/images/fr.png') }}"
+						     alt="drapeau français" id="fr-flag">
+					</a>
+				</div>
 			</div>
 			<div class="flex px-3 py-2 gap-4">
 				<a class="text-lightText" href="#">Booking</a>
