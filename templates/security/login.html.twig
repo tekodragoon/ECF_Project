@@ -1,13 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connection{% endblock %}
+{% block title %}
+	{% trans %}title.connect{% endtrans %}
+{% endblock %}
 
 {% block body %}
 	<div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
 		<form method="post">
 			<div class="w-fit mx-auto text-center mb-8">
 				<span class="material-symbols-rounded title-icon text-textColor">person</span>
-				<h1 class="textH1">Login</h1>
+				<h1 class="textH1">
+					{% trans %}h1.login{% endtrans %}
+				</h1>
 			</div>
 
 			{% if error %}
@@ -16,27 +20,33 @@
 
 			{% if app.user %}
 				<div class="w-fit mx-auto mb-8">
-					You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+					{% trans %}message.log{% endtrans %} {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">
+						{% trans %}link.logout{% endtrans %}
+					</a>
 				</div>
 			{% endif %}
 
 			<div class="card">
 
 				<div class="mb-6">
-					<label class="block text-lightText" for="inputEmail">Email</label>
+					<label class="block text-lightText" for="inputEmail">
+						{% trans %}form.email{% endtrans %}
+					</label>
 					<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="mt-1 w-full rounded p-2
 			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
 					       autocomplete="email" required autofocus>
 				</div>
 
 				<div class="mb-6">
-					<label class="block text-lightText" for="inputPassword">Password</label>
+					<label class="block text-lightText" for="inputPassword">
+						{% trans %}form.password{% endtrans %}
+					</label>
 					<input type="password" name="password" id="inputPassword" class="mt-1 w-full rounded p-2
 			bg-white border-black border-2 outline-none focus:ring focus:ring-1 focus:ring-secondary focus:border-secondary"
 					       autocomplete="current-password"
 					       required>
 					<div class="flex justify-end gap-1 mt-1">
-						<a class="textLink" href="#">Forgot your password ?</a>
+						<a class="textLink" href="#">{% trans %}message.forgot{% endtrans %}</a>
 					</div>
 				</div>
 
@@ -58,15 +68,17 @@
 
 				<div class="flex w-full justify-center">
 					<button class="btn" type="submit">
-						Connect
+						{% trans %}button.connect{% endtrans %}
 					</button>
 				</div>
 
 			</div>
 
 			<div class="mb-6">
-				<p>Not registered yet ?</p>
-				<a class="textLink" href="{{ path("app_register") }}">Register here</a>
+				<p>{% trans %}message.register{% endtrans %}</p>
+				<a class="textLink" href="{{ path("app_register") }}">
+					{% trans %}link.register{% endtrans %}
+				</a>
 			</div>
 
 		</form>

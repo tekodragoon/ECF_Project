@@ -24,3 +24,23 @@ foot:
 
 button:
   back: Back
+  connect: Connect
+
+title:
+  connect: Connection
+
+h1:
+  login: Login
+
+link:
+  logout: Logout
+  register: Register here
+
+message:
+  log: You are logged in as
+  forgot: Forgot your password ?
+  register: Not registered yet ?
+
+form:
+  email: Email
+  password: Password

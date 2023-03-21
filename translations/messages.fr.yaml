@@ -24,3 +24,23 @@ foot:
 
 button:
   back: Retour
+  connect: Se Connecter
+
+title:
+  connect: Connexion
+
+h1:
+  login: Se connecter
+
+link:
+  logout: Se déconnecter
+  register: Inscrivez-vous ici
+
+message:
+  log: Connecter en tant que
+  forgot: Mot de passe oublié ?
+  register: Si vous n'êtes pas encore inscrit
+
+form:
+  email: Email
+  password: Mot de passe
