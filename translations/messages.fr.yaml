@@ -21,3 +21,6 @@ nav:
 foot:
   right: Tous droits réservés
   made: Réalisé par
+
+button:
+  back: Retour
