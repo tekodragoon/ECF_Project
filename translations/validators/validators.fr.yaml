@@ -1,0 +1,5 @@
+forms:
+  user:
+    email: Veuillez entrer une adresse mail valide.
+    passNotBlank: Un mot de passe est obligatoire.
+    passTooShort: Votre mot de passe doit avoir 8 caractères au minimum.

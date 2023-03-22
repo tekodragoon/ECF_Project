@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}
+	{% trans %}title.register{% endtrans %}
+{% endblock %}
 
 {% block body %}
 	<div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
 
 		<div class="w-fit mx-auto text-center mb-8">
 			<span class="material-symbols-rounded title-icon text-textColor">person</span>
-			<h1 class="textH1">Register</h1>
+			<h1 class="textH1">{% trans %}h1.register{% endtrans %}</h1>
 		</div>
 
 		<div class="card">
 
 			{{ form_start(registrationForm) }}
-			{{ form_row(registrationForm.email, {
-				label: 'Email'
-			}) }}
+			{{ form_row(registrationForm.email) }}
 			{{ form_row(registrationForm.allowNewsletter) }}
-			{{ form_row(registrationForm.plainPassword, {
-				label: 'Password'
-			}) }}
+			{{ form_row(registrationForm.plainPassword) }}
 
 			<div class="flex w-full justify-center">
-				<button type="submit" class="btn">Register</button>
+				<button type="submit" class="btn">
+					{% trans %}button.register{% endtrans %}
+				</button>
 			</div>
 
 			{{ form_end(registrationForm) }}
@@ -30,8 +30,10 @@
 		</div>
 
 		<div class="mt-3">
-			<p>Already have an account,</p>
-			<a class="textLink" href="{{ path("app_login") }}">click here</a>
+			<p>{% trans %}message.account{% endtrans %}</p>
+			<a class="textLink" href="{{ path("app_login") }}">
+				{% trans %}link.click{% endtrans %}
+			</a>
 		</div>
 	</div>
 {% endblock %}

@@ -25,22 +25,28 @@ foot:
 button:
   back: Retour
   connect: Se Connecter
+  register: S'inscrire
 
 title:
   connect: Connexion
+  register: Inscription
 
 h1:
   login: Se connecter
+  register: S'inscrire
 
 link:
   logout: Se déconnecter
   register: Inscrivez-vous ici
+  click: Cliquez ici
 
 message:
   log: Connecter en tant que
   forgot: Mot de passe oublié ?
   register: Si vous n'êtes pas encore inscrit
+  account: Si vous avez déjà un compte,
 
 form:
   email: Email
   password: Mot de passe
+  allowNews: Cochez cette case si vous souhaitez recevoir notre newsletter.

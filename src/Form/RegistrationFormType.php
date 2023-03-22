@@ -19,30 +19,31 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label' => 'form.email',
                 'constraints' => [
                     new Email([
-                        'message' => 'Please enter a valid address.'
+                        'message' => 'forms.user.email',
                     ])
                 ]
             ])
             ->add('allowNewsletter', CheckboxType::class, [
-                'label' => "Check this box if you wish to receive our newsletter.",
+                'label' => 'form.allowNews',
                 'required' => false,
             ])
             ->add('plainPassword', PasswordType::class, [
+                'label' => 'form.password',
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please, enter a password',
+                        'message' => 'forms.user.passNotBlank',
                     ]),
                     new Length([
                         'min' => 8,
-                        'minMessage' => '{{ limit }} character minimum.',
-                        // max length allowed by Symfony for security reasons
                         'max' => 4096,
+                        'minMessage' => 'forms.user.passTooShort',
                     ]),
                 ],
             ])

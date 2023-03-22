@@ -25,22 +25,28 @@ foot:
 button:
   back: Back
   connect: Connect
+  register: Register
 
 title:
   connect: Connection
+  register: Register
 
 h1:
   login: Login
+  register: Register
 
 link:
   logout: Logout
   register: Register here
+  click: Click here
 
 message:
   log: You are logged in as
   forgot: Forgot your password ?
   register: Not registered yet ?
+  account: Already have an account,
 
 form:
   email: Email
   password: Password
+  allowNews: Check this box if you wish to receive our newsletter.

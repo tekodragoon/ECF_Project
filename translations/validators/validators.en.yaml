@@ -1,0 +1,5 @@
+forms:
+  user:
+    email: Please enter a valid address.
+    passNotBlank: Please enter a password.
+    passTooShort: Password must be at least 8 characters long.
