@@ -34,6 +34,7 @@ title:
   menu: Menu
   map: Map
   schedule: Schedule
+  gallery: Gallery
 
 h1:
   login: Login
@@ -41,6 +42,7 @@ h1:
   menu: Menu
   map: Where to find us ?
   schedule: Schedule
+  gallery: Gallery
 
 link:
   logout: Logout

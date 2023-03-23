@@ -34,6 +34,7 @@ title:
   menu: Carte
   map: Itinéraire
   schedule: Horaires
+  gallery: Galerie
 
 h1:
   login: Se connecter
@@ -41,6 +42,7 @@ h1:
   menu: Carte
   map: Où nous trouver ?
   schedule: Horaires
+  gallery: Galerie
 
 link:
   logout: Se déconnecter

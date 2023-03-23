@@ -216,12 +216,11 @@ select {
 
 .gallery-span {
     position: absolute;
-    text-align: center;
+    text-align: start;
     width: fit-content;
     max-width: 24rem;
-    top: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0.5rem;
+    left: 0.5rem;
 }
 
 .gallery > span {
