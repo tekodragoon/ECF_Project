@@ -33,12 +33,14 @@ title:
   register: Inscription
   menu: Carte
   map: Itinéraire
+  schedule: Horaires
 
 h1:
   login: Se connecter
   register: S'inscrire
   menu: Carte
   map: Où nous trouver ?
+  schedule: Horaires
 
 link:
   logout: Se déconnecter
@@ -56,6 +58,8 @@ message:
   follow: Suivez nous sur
   mailok: Il y a déjà un utilisateur enregistré avec cet email.
   mailsuccess: Vous êtes bien inscrit à notre newsletter.
+  open: ouvert
+  closed: fermé
 
 form:
   email: Email

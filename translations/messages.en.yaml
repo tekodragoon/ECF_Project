@@ -33,12 +33,14 @@ title:
   register: Register
   menu: Menu
   map: Map
+  schedule: Schedule
 
 h1:
   login: Login
   register: Register
   menu: Menu
   map: Where to find us ?
+  schedule: Schedule
 
 link:
   logout: Logout
@@ -56,6 +58,8 @@ message:
   follow: Follow us on
   mailok: There is already a registered user with this email.
   mailsuccess: You successfully subscribe to our newsletter.
+  open: open
+  closed: closed
 
 form:
   email: Email

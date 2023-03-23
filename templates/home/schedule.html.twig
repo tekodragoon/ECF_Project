@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Horaires{% endblock %}
+{% block title %}
+	{% trans %}title.schedule{% endtrans %}
+{% endblock %}
 
 {% block body %}
 
@@ -8,43 +10,50 @@
 
 		<div class="w-fit mx-auto text-center mb-8">
 			<span class="material-symbols-outlined title-icon text-textColor">schedule</span>
-			<h1 class="textH1">Schedules</h1>
+			<h1 class="textH1">
+				{% trans %}h1.schedule{% endtrans %}
+			</h1>
 		</div>
 
 		<div class="card grid grid-cols-4 gap-2 text-lightText">
 			{% for openDay in restaurant.openDays %}
 				<div class="border border-2 border-lightBg rounded p-2">
-					<div class="underline underline-offset-4 mb-4">{{ openDay.dayOfWeek|dayOfWeek }}</div>
+					{% set day = app.request.locale == 'fr' ? openDay.dayOfWeek|frDayOfWeek : openDay.dayOfWeek|dayOfWeek %}
+					<div class="underline underline-offset-4 mb-4">{{ day }}</div>
 					<div class="{{ openDay.open ? 'text-valid' : 'text-warning' }} text-center mb-4
 							border-b border-b-2 border-b-lightBg">
-						{{ openDay.open ? 'Open' : 'Closed' }}
+						{% if openDay.open %}
+							{% trans %}message.open{% endtrans %}
+						{% else %}
+							{% trans %}message.closed{% endtrans %}
+						{% endif %}
 					</div>
 					{% if openDay.open %}
 
 						{% if openDay.noonService and openDay.eveningService %}
 							<div class="flex justify-evenly mb-4">
 								<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
-								<span>to</span>
+								<span>{% trans %}info.to{% endtrans %}</span>
 								<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
 							</div>
-							<div class="text-center mb-4">and from</div>
+							<div class="text-center mb-4">{% trans %}info.andf{% endtrans %}</div>
 							<div class="flex justify-evenly mb-4">
 								<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
-								<span>to</span>
+								<span>{% trans %}info.to{% endtrans %}</span>
 								<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
 							</div>
 						{% elseif openDay.noonService %}
-							<div class="text-center mb-4">Only from</div>
+							<div class="text-center mb-4">{% trans %}info.onlf{% endtrans %}</div>
 							<div class="flex justify-evenly mb-4">
 								<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
-								<span>to</span>
+								<span>{% trans %}info.to{% endtrans %}</span>
 								<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
 							</div>
 						{% elseif openDay.eveningService %}
-							<div class="text-center mb-4">Only from</div>
+							<div class="text-center mb-4">{% trans %}info.onlf{% endtrans %}</div>
 							<div class="flex justify-evenly mb-4">
 								<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
-								<span>to</span>
+								<span>{% trans %}info.to{% endtrans %}</span>
 								<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
 							</div>
 						{% endif %}
