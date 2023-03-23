@@ -3,10 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Mailing;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UsermailType extends AbstractType
 {
@@ -14,10 +17,10 @@ class UsermailType extends AbstractType
     {
         $builder
             ->add('usermail', EmailType::class, [
-                'label' => 'Subscribe to our newsletter and stay informed of upcoming events.',
+                'label' => 'form.usermail',
                 'attr' => [
-                    'placeholder' => 'Your email...'
-                ]
+                    'placeholder' => 'placeholder.usermail',
+                ],
             ])
         ;
     }

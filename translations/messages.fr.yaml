@@ -26,6 +26,7 @@ button:
   back: Retour
   connect: Se Connecter
   register: S'inscrire
+  seemore: Voir Plus
 
 title:
   connect: Connexion
@@ -47,8 +48,18 @@ message:
   forgot: Mot de passe oublié ?
   register: Si vous n'êtes pas encore inscrit
   account: Si vous avez déjà un compte,
+  whoWe: Qui sommes nous ?
+  reasons: 3 raisons de venir découvrir notre cuisine
+  reason: Raison
+  follow: Suivez nous sur
+  mailok: Il y a déjà un utilisateur enregistré avec cet email.
+  mailsuccess: Vous êtes bien inscrit à notre newsletter.
 
 form:
   email: Email
   password: Mot de passe
   allowNews: Cochez cette case si vous souhaitez recevoir notre newsletter.
+  usermail: Inscrivez-vous à notre newsletter et restez informés des prochains évènements et promotions.
+
+placeholder:
+  usermail: Votre email...

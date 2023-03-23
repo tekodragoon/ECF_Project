@@ -18,6 +18,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}')]
 class HomeController extends AbstractController
@@ -30,6 +31,7 @@ class HomeController extends AbstractController
         GalleryImageRepository $imagesRepository,
         ParameterBagInterface $bag,
         MessageBusInterface $bus,
+        TranslatorInterface $translator,
     ): Response
     {
         $mail = new Mailing();
@@ -39,7 +41,8 @@ class HomeController extends AbstractController
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $repo->save($mail, true);
-                $this->addFlash('success', 'You successfully subscribe to our newsletter.');
+                $message = $translator->trans('message.mailsuccess');
+                $this->addFlash('success', $message);
             } else {
                 $errors = $validator->validate($mail);
                 $messages = [];

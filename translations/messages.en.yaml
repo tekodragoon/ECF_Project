@@ -26,6 +26,7 @@ button:
   back: Back
   connect: Connect
   register: Register
+  seemore: See More
 
 title:
   connect: Connection
@@ -47,8 +48,18 @@ message:
   forgot: Forgot your password ?
   register: Not registered yet ?
   account: Already have an account,
+  whoWe: Who are we ?
+  reasons: 3 reasons to come and discover our cuisine
+  reason: Reason
+  follow: Follow us on
+  mailok: There is already a registered user with this email.
+  mailsuccess: You successfully subscribe to our newsletter.
 
 form:
   email: Email
   password: Password
   allowNews: Check this box if you wish to receive our newsletter.
+  usermail: Subscribe to our newsletter and stay informed of upcoming events.
+
+placeholder:
+  usermail: Your email...

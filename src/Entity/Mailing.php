@@ -5,9 +5,10 @@ namespace App\Entity;
 use App\Repository\MailingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MailingRepository::class)]
-#[UniqueEntity(fields: ['usermail'], message: 'Il y a déjà un utilisateur enregistré avec cet email')]
+#[UniqueEntity(fields: ['usermail'], message: 'forms.mail.unique')]
 
 class Mailing
 {
@@ -17,6 +18,7 @@ class Mailing
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Email(message: 'forms.mail.usermail')]
     private ?string $usermail = null;
 
     public function getId(): ?int

@@ -3,3 +3,7 @@ forms:
     email: Please enter a valid address.
     passNotBlank: Please enter a password.
     passTooShort: Password must be at least 8 characters long.
+  mail:
+    notBlank: Please provide an email address.
+    usermail: Please enter a valid address.
+    unique: There is already a user with this email address.
