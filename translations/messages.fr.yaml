@@ -32,11 +32,13 @@ title:
   connect: Connexion
   register: Inscription
   menu: Carte
+  map: Itinéraire
 
 h1:
   login: Se connecter
   register: S'inscrire
   menu: Carte
+  map: Où nous trouver ?
 
 link:
   logout: Se déconnecter

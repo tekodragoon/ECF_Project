@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Itinéraire{% endblock %}
+{% block title %}
+	{% trans %}title.map{% endtrans %}
+{% endblock %}
 
 {% block body %}
 
@@ -8,7 +10,9 @@
 
 		<div class="w-fit mx-auto text-center mb-8">
 			<span class="material-symbols-outlined title-icon text-textColor">map</span>
-			<h1 class="textH1">Where to find us ?</h1>
+			<h1 class="textH1">
+				{% trans %}h1.map{% endtrans %}
+			</h1>
 		</div>
 
 		<div class="card flex justify-center items-center" id="map">

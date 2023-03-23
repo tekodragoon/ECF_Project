@@ -32,11 +32,13 @@ title:
   connect: Connection
   register: Register
   menu: Menu
+  map: Map
 
 h1:
   login: Login
   register: Register
   menu: Menu
+  map: Where to find us ?
 
 link:
   logout: Logout
