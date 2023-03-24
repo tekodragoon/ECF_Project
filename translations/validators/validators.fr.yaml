@@ -7,3 +7,8 @@ forms:
     notBlank: Veuilles indiquer une adresse mail.
     usermail: Veuillez entrer une adresse mail valide.
     unique: Il y a déjà un utilisateur enregistré avec cet email.
+  contact:
+    name: Veuillez entrer votre nom.
+    email: Veuillez entrer une adresse mail valide.
+    message: Veuillez entrer un message.
+    subject: Veuillez entrer un sujet.

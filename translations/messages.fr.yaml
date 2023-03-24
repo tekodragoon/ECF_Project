@@ -27,6 +27,7 @@ button:
   connect: Se Connecter
   register: S'inscrire
   seemore: Voir Plus
+  send: Envoyer
 
 title:
   connect: Connexion
@@ -35,6 +36,7 @@ title:
   map: Itinéraire
   schedule: Horaires
   gallery: Galerie
+  contact: Contact
 
 h1:
   login: Se connecter
@@ -43,6 +45,7 @@ h1:
   map: Où nous trouver ?
   schedule: Horaires
   gallery: Galerie
+  contact: Contactez nous
 
 link:
   logout: Se déconnecter
@@ -62,6 +65,8 @@ message:
   mailsuccess: Vous êtes bien inscrit à notre newsletter.
   open: ouvert
   closed: fermé
+  sended: Votre message a bien été envoyé.
+  problem: Une erreur est survenue, veuillez réessayer plus tard.
 
 form:
   email: Email
@@ -71,3 +76,9 @@ form:
 
 placeholder:
   usermail: Votre email...
+
+contact:
+  name: Votre Nom
+  email: Votre Email
+  subject: Sujet
+  message: Message

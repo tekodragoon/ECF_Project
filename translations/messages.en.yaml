@@ -27,6 +27,7 @@ button:
   connect: Connect
   register: Register
   seemore: See More
+  send: Send
 
 title:
   connect: Connection
@@ -35,6 +36,7 @@ title:
   map: Map
   schedule: Schedule
   gallery: Gallery
+  contact: Contact
 
 h1:
   login: Login
@@ -43,6 +45,7 @@ h1:
   map: Where to find us ?
   schedule: Schedule
   gallery: Gallery
+  contact: Contact us
 
 link:
   logout: Logout
@@ -62,6 +65,8 @@ message:
   mailsuccess: You successfully subscribe to our newsletter.
   open: open
   closed: closed
+  sended: Your message has been sent.
+  problem: There was a problem with your submission. Please complete the form and try again.
 
 form:
   email: Email
@@ -71,3 +76,9 @@ form:
 
 placeholder:
   usermail: Your email...
+
+contact:
+  name: Your Name
+  email: Your Email
+  message: Message
+  subject: Subject

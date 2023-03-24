@@ -11,12 +11,13 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}')]
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request, MailerInterface $mailer): Response
+    public function index(Request $request, MailerInterface $mailer, TranslatorInterface $translator): Response
     {
         $message = new Message();
         $form = $this->createForm(ContactType::class, $message);
@@ -31,10 +32,10 @@ class ContactController extends AbstractController
                 ->html( '<p>'.$message->getContent().'</p>');
             try {
                 $mailer->send($email);
-                $this->addFlash('success', 'Your message has been send.');
+                $this->addFlash('success', $translator->trans('message.sended'));
             } catch (TransportExceptionInterface $e) {
                 //TODO: log error
-                $this->addFlash('error', 'A problem has occurred.');
+                $this->addFlash('error', $translator->trans('message.problem'));
             }
             $this->redirectToRoute('app_contact');
         }
