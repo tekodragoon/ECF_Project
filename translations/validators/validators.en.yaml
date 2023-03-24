@@ -1,5 +1,7 @@
 forms:
   user:
+    lastname: Please enter your lastname.
+    firstname: Please enter your firstname.
     email: Please enter a valid address.
     passNotBlank: Please enter a password.
     passTooShort: Password must be at least 8 characters long.
@@ -12,3 +14,6 @@ forms:
     email: Please enter a valid address.
     message: Please enter a message.
     subject: Please enter a subject.
+  password:
+    oldBad: Current password incorrect
+    badConfirm: Passwords do not match.

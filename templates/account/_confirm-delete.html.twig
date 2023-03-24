@@ -1,8 +1,8 @@
 <div hx-target="this" hx-swap="outerHTML" class="flex gap-2 items-center">
-	<p class="text-white">Are you sure?</p>
+	<p class="text-white">{{ 'message.sure'|trans }}</p>
 	<button hx-target="#show-guest" hx-get="{{ path('app_account_rem_guest', {id: id}) }}"
-	        class="btn btn-danger w-20">Yes</button>
+	        class="btn btn-danger w-20">{{ 'button.yes'|trans }}</button>
 	<button
 			hx-get="{{ path('app_del-guest', {id: id}) }}"
-			class="btn btn-cancel w-20">No</button>
+			class="btn btn-cancel w-20">{{ 'button.no'|trans }}</button>
 </div>

@@ -28,6 +28,13 @@ button:
   register: S'inscrire
   seemore: Voir Plus
   send: Envoyer
+  cancel: Annuler
+  modify: Modifier
+  add: Ajouter
+  allergy: Ajouter une allergie
+  save: Sauvegarder
+  yes: Oui
+  no: Non
 
 title:
   connect: Connexion
@@ -37,6 +44,7 @@ title:
   schedule: Horaires
   gallery: Galerie
   contact: Contact
+  account: Compte
 
 h1:
   login: Se connecter
@@ -46,6 +54,8 @@ h1:
   schedule: Horaires
   gallery: Galerie
   contact: Contactez nous
+  account: Votre compte
+  guest: Liste des convives
 
 link:
   logout: Se déconnecter
@@ -67,6 +77,16 @@ message:
   closed: fermé
   sended: Votre message a bien été envoyé.
   problem: Une erreur est survenue, veuillez réessayer plus tard.
+  noSpec: Non spécifié
+  person: personne
+  info: Vos informations
+  guest: Convive
+  sure: Êtes vous sûr(e) ?
+  changes: Vos modifications ont été sauvegardées.
+  passChanges: Votre mot de passe a été mis à jour.
+  changesOn: Les informations concernant %value% sont sauvegardées.
+  userAdded: '%user% a été ajouté.'
+  userRemoved: '%user% a été supprimé.'
 
 form:
   email: Email
@@ -82,3 +102,15 @@ contact:
   email: Votre Email
   subject: Sujet
   message: Message
+
+account:
+  lastname: Nom
+  firstname: Prénom
+  email: Email
+  password: Mot de passe
+  guest: Convives
+
+password:
+  old: Mot de passe actuel
+  new: Nouveau mot de passe
+  confirm: Confirmer votre nouveau mot de passe

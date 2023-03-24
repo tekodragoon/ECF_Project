@@ -15,30 +15,30 @@ class PasswordEditType extends AbstractType
     {
         $builder
             ->add('oldPassword', PasswordType::class, [
-                'label' => 'Current password',
+                'label' => 'password.old',
                 'constraints' => [
                     new UserPassword([
-                        'message' => 'Current password incorrect',
+                        'message' => 'forms.password.oldBad',
                     ])
                 ]
             ])
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'New password',
+                    'label' => 'password.new',
                     'constraints' => [
                         new Length([
                             'min' => 8,
-                            'minMessage' => '{{ limit }} character minimum.',
+                            'minMessage' => 'forms.user.passTooShort',
                             // max length allowed by Symfony for security reasons
                             'max' => 4096,
                         ]),
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'Verification',
+                    'label' => 'password.confirm',
                 ],
-                'invalid_message' => 'Incorrect verification.',
+                'invalid_message' => 'forms.password.badConfirm',
             ]);
     }
 }

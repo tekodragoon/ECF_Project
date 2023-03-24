@@ -17,26 +17,26 @@ class UserType extends AbstractType
     {
         $builder
             ->add('lastname', TextType::class, [
-                'label' => 'Lastname',
+                'label' => 'account.lastname',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please, fill with your lastname.'
+                        'message' => 'forms.user.lastname'
                     ])
                 ]
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'Firstname',
+                'label' => 'account.firstname',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please, fill with your firstname.'
+                        'message' => 'forms.user.firstname'
                     ])
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'account.email',
                 'constraints' => [
                     new Email([
-                        'message' => 'Please, fill with a valid email address.'
+                        'message' => 'forms.user.email'
                     ])
                 ]
             ])

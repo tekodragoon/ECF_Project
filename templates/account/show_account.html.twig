@@ -3,36 +3,37 @@
 <div hx-target="this" hx-swap="outerHTML"
 		class="card">
 
-	{% set value = app.user.lastname ?? 'Not specified' %}
+	{% set value = app.user.lastname ?? 'message.noSpec'|trans %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Lastname',
+		field_name: 'account.lastname'|trans,
 		field_value: value,
 		last: false,
 	}) }}
-	{% set value = app.user.firstname ?? 'Not specified' %}
+	{% set value = app.user.firstname ?? 'message.noSpec'|trans %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Firstname',
+		field_name: 'account.firstname'|trans,
 		field_value: value,
 		last: false,
 	}) }}
 	{% set value = app.user.email %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Email',
+		field_name: 'account.email'|trans,
 		field_value: value,
 		last: false,
 	}) }}
 	{% set path = path('app_account_edit_pwd') %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Password',
+		field_name: 'account.password'|trans,
 		field_value: '******',
 		field_path: path,
 		last: false,
 	}) }}
 	{% set path = path('app_account_guests') %}
 	{% set guests = app.user.guests.count + 1 %}
-	{% set value = "#{guests} person#{guests > 1 ? 's' : ''}" %}
+	{% set person = 'message.person'|trans %}
+	{% set value = "#{guests} #{person}#{guests > 1 ? 's' : ''}" %}
 	{{ include('account/_field.html.twig', {
-		field_name: 'Guests',
+		field_name: 'account.guest'|trans,
 		field_value: value,
 		field_path: path,
 		last: true,

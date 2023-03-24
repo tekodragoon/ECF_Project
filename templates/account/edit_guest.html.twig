@@ -29,13 +29,15 @@
 		<button type="button"
 		        class="btn-icon-right btn-new"
 		        data-collection="#allergies">
-			Add a allergy<span class="material-symbols-outlined">add</span>
+			{{ 'button.allergy'|trans }}<span class="material-symbols-outlined">add</span>
 		</button>
 	</div>
 
 	<div class="flex w-full justify-center gap-6">
-		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_guests') }}">Cancel</button>
-		<button type="submit" class="btn btn-valid">{{ buttonTitle ?? 'Save' }}</button>
+		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_guests') }}">
+			{{ 'button.cancel'|trans }}
+		</button>
+		<button type="submit" class="btn btn-valid">{{ buttonTitle ?? 'button.save'|trans }}</button>
 	</div>
 
 	{{ form_widget(form._token) }}

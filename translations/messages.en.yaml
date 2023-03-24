@@ -28,6 +28,13 @@ button:
   register: Register
   seemore: See More
   send: Send
+  cancel: Cancel
+  modify: Modify
+  add: Add
+  allergy: Add an allergy
+  save: Save
+  yes: Yes
+  no: No
 
 title:
   connect: Connection
@@ -37,6 +44,7 @@ title:
   schedule: Schedule
   gallery: Gallery
   contact: Contact
+  account: Account
 
 h1:
   login: Login
@@ -46,6 +54,8 @@ h1:
   schedule: Schedule
   gallery: Gallery
   contact: Contact us
+  account: Your Account
+  guest: Guests list
 
 link:
   logout: Logout
@@ -67,6 +77,16 @@ message:
   closed: closed
   sended: Your message has been sent.
   problem: There was a problem with your submission. Please complete the form and try again.
+  noSpec: Not specified
+  person: person
+  info: Your Informations
+  guest: Guest
+  sure: Are you sure ?
+  changes: Your changes have been saved.
+  passChanges: Your password has been changed.
+  changesOn: Changes on %value% has been saved.
+  userAdded: '%user% added.'
+  userRemoved: '%user% deleted.'
 
 form:
   email: Email
@@ -82,3 +102,15 @@ contact:
   email: Your Email
   message: Message
   subject: Subject
+
+account:
+  lastname: Lastname
+  firstname: Firstname
+  email: Email
+  password: Password
+  guest: Guests
+
+password:
+  old: Current Password
+  new: New Password
+  confirm: Confirm Password

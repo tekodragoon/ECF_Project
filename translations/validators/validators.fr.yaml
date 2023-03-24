@@ -1,5 +1,7 @@
 forms:
   user:
+    lastname: Veuillez entrer votre nom.
+    firstname: Veuillez entrer votre prénom.
     email: Veuillez entrer une adresse mail valide.
     passNotBlank: Un mot de passe est obligatoire.
     passTooShort: Votre mot de passe doit avoir 8 caractères au minimum.
@@ -12,3 +14,6 @@ forms:
     email: Veuillez entrer une adresse mail valide.
     message: Veuillez entrer un message.
     subject: Veuillez entrer un sujet.
+  password:
+    oldBad: Mot de passe actuel incorrect
+    badConfirm: Les mots de passe ne correspondent pas.

@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatableMessage;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}/account')]
 class AccountController extends AbstractController
@@ -33,7 +35,7 @@ class AccountController extends AbstractController
     }
 
     #[Route('/edit', name: 'app_account_edit')]
-    public function editAccount(Request $request, EntityManagerInterface $em): Response
+    public function editAccount(Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
@@ -42,7 +44,7 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Changes have been saved.');
+            $this->addFlash('success', $translator->trans('message.changes'));
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -56,7 +58,9 @@ class AccountController extends AbstractController
         Request                     $request,
         EntityManagerInterface      $manager,
         UserRepository              $repo,
-        UserPasswordHasherInterface $hasher): Response
+        UserPasswordHasherInterface $hasher,
+        TranslatorInterface $translator,
+    ): Response
     {
         $form = $this->createForm(PasswordEditType::class);
         $form->handleRequest($request);
@@ -71,7 +75,7 @@ class AccountController extends AbstractController
                 ));
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash('success', 'Your password has been changed.');
+            $this->addFlash('success', $translator->trans('message.passChanges'));
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -87,14 +91,14 @@ class AccountController extends AbstractController
     }
 
     #[Route('/edit-user-guest/{id}', name: 'app_account_edit_user-guest')]
-    public function editUserGuest(Request $request, User $user, UserRepository $repo): Response
+    public function editUserGuest(Request $request, User $user, UserRepository $repo, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(UserGuestType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repo->save($user, true);
-            $this->addFlash('success', 'Changes have been saved.');
+            $this->addFlash('success', $translator->trans('message.changes'));
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -103,20 +107,19 @@ class AccountController extends AbstractController
             'path' => $this->generateUrl('app_account_edit_user-guest', [
                 'id' => $user->getId(),
             ]),
-            'buttonTitle' => 'Modify',
+            'buttonTitle' => $translator->trans('button.modify'),
         ]);
     }
 
     #[Route('/edit-guest/{id}', name: 'app_account_edit_guest')]
-    public function editGuest(Request $request, Guest $guest, GuestRepository $repo): Response
+    public function editGuest(Request $request, Guest $guest, GuestRepository $repo, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(GuestType::class, $guest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repo->save($guest, true);
-            $this->addFlash('success',
-                'Changes on ' . $guest->getFirstname() . ' have been saved.');
+            $this->addFlash('success', $translator->trans('message.changesOn', ['%value%' => $guest->getFirstname()]));
             return $this->redirectToRoute('app_account_guests');
         }
 
@@ -125,12 +128,16 @@ class AccountController extends AbstractController
             'path' => $this->generateUrl('app_account_edit_guest', [
                 'id' => $guest->getId(),
             ]),
-            'buttonTitle' => 'Modify',
+            'buttonTitle' => $translator->trans('button.modify'),
         ]);
     }
 
     #[Route('/add-guest', name: 'app_account_add_guest')]
-    public function addGuest(Request $request, GuestRepository $guestRepo, UserRepository $userRepo): Response
+    public function addGuest(Request $request,
+                             GuestRepository $guestRepo,
+                             UserRepository $userRepo,
+                             TranslatorInterface $translator
+    ): Response
     {
         $guest = new Guest();
         $user = $userRepo->findOneBy(['email' => $this->getUser()->getUserIdentifier()]);
@@ -140,23 +147,27 @@ class AccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $guestRepo->save($guest, true);
-            $this->addFlash('success', $guest->getFirstname() . ' added.');
+            $this->addFlash('success', $translator->trans('message.userAdded', ['%user%' => $guest->getFirstname()]));
             return $this->redirectToRoute('app_account_guests');
         }
 
         return $this->render('account/edit_guest.html.twig', [
             'form' => $form->createView(),
             'path' => $this->generateUrl('app_account_add_guest'),
-            'buttonTitle' => 'Add',
+            'buttonTitle' => $translator->trans('button.add'),
         ]);
     }
 
     #[Route('/remove-guest/{id}', name: 'app_account_rem_guest')]
-    public function removeGuest(Request $request, Guest $guest, GuestRepository $guestRepo): Response
+    public function removeGuest(Request $request,
+                                Guest $guest,
+                                GuestRepository $guestRepo,
+                                TranslatorInterface $translator
+    ): Response
     {
         $name = $guest->getFirstname();
         $guestRepo->remove($guest, true);
-        $this->addFlash('success', $name . ' deleted.');
+        $this->addFlash('success', $translator->trans('message.userRemoved', ['%user%' => $name]));
         return $this->redirectToRoute('app_account_guests');
     }
 
