@@ -47,6 +47,8 @@ button:
     addFormula: Ajouter une formule
     addRecipe: Ajouter une recette
     addCategory: Ajouter une catégorie
+    edit: Éditer
+    addTable: Ajouter une table
 
 title:
     connect: Connexion
@@ -75,6 +77,8 @@ h1:
     menuEdit: Edition des menus
     categories: Catégories
     categoryOrder: Ordre des catégories
+    manageRoom: Gestion de la salle
+    manageTable: Gestion des tables
 
 link:
     logout: Se déconnecter
@@ -98,6 +102,8 @@ message:
     problem: Une erreur est survenue, veuillez réessayer plus tard.
     noSpec: Non spécifié
     person: personne
+    for: pour
+    table: table
     info: Vos informations
     guest: Convive
     sure: Êtes vous sûr(e) ?
@@ -118,6 +124,15 @@ message:
     elementRemoved: '%element% a été supprimé.'
     categoryOrder: L'ordre des catégories à été mis à jour.
     roleUpdated: Rôle de l'utilisateur mis à jour
+    noonService: Service du midi
+    eveningService: Service du soir
+    opening: Ouverture
+    service: Service
+    noService: Aucun service
+    noonOpening: Ouverture du midi
+    noonClosing: Fermeture du midi
+    eveningOpening: Ouverture du soir
+    eveningClosing: Fermeture du soir
 
 form:
     email: Email

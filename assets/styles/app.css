@@ -316,12 +316,12 @@ select {
 }
 
 .number-plus {
-    top: 6px;
+    top: 10px;
     border-radius: 0 2px 0 0;
 }
 
 .number-minus {
-    top: 30px;
+    top: 34px;
     border-radius: 0 0 2px 0;
 }
 

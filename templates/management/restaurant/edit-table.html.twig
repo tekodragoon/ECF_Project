@@ -15,7 +15,7 @@
 	>
 		{{ form_start(form) }}
 
-		<div class="textH2 text-lightText mb-4">Tables</div>
+		<div class="textH2 text-lightText mb-4">{{ 'h1.manageTable'|trans }}</div>
 
 		<div
 				id="tables"
@@ -35,13 +35,13 @@
 			<button type="button"
 			        class="btn-icon-right btn-new"
 			        data-collection="#tables">
-				Add a table<span class="material-symbols-outlined">add</span>
+				{{ 'button.addTable'|trans }}<span class="material-symbols-outlined">add</span>
 			</button>
 		</div>
 
 		<div class="flex justify-center items-center">
 			<button class="btn-icon-right btn-valid">
-				Save<span class="material-symbols-rounded">save</span>
+				{{ 'button.save'|trans }}<span class="material-symbols-rounded">save</span>
 			</button>
 		</div>
 

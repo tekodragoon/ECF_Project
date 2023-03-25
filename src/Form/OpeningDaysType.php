@@ -14,24 +14,24 @@ class OpeningDaysType extends AbstractType
     {
         $builder
             ->add('open', ChoiceType::class, [
-                'label' => 'Opening',
+                'label' => 'message.opening',
                 'choices' => [
-                    'Open' => true,
-                    'Closed' => false,
+                    'message.open' => true,
+                    'message.closed' => false,
                 ]
             ])
             ->add('noonService', ChoiceType::class, [
-                'label' => 'Noon Service',
+                'label' => 'message.noonService',
                 'choices' => [
-                    'Service' => true,
-                    'No service' => false,
+                    'message.service' => true,
+                    'message.noService' => false,
                 ]
             ])
             ->add('eveningService', ChoiceType::class, [
-                'label' => 'Evening Service',
+                'label' => 'message.eveningService',
                 'choices' => [
-                    'Service' => true,
-                    'No service' => false,
+                    'message.service' => true,
+                    'message.noService' => false,
                 ]
             ])
         ;

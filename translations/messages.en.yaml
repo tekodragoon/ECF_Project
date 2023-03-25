@@ -47,6 +47,8 @@ button:
     addFormula: Add a formula
     addRecipe: Add a recipe
     addCategory: Add a category
+    edit: Edit
+    addTable: Add a table
 
 title:
     connect: Connection
@@ -75,6 +77,8 @@ h1:
     menuEdit: Menu edition
     categories: Categories
     categoryOrder: Categories order
+    manageRoom: Manage restaurant room
+    manageTable: Manage tables
 
 link:
     logout: Logout
@@ -98,6 +102,8 @@ message:
     problem: There was a problem with your submission. Please complete the form and try again.
     noSpec: Not specified
     person: person
+    for: for
+    table: table
     info: Your Informations
     guest: Guest
     sure: Are you sure ?
@@ -118,6 +124,15 @@ message:
     elementRemoved: '%element% deleted.'
     categoryOrder: Categories order updated.
     roleUpdated: User role updated.
+    noonService: Noon service
+    eveningService: Evening service
+    opening: Opening
+    service: Service
+    noService: No service
+    noonOpening: Noon opening
+    noonClosing: Noon closing
+    eveningOpening: Evening opening
+    eveningClosing: Evening closing
 
 form:
     email: Email

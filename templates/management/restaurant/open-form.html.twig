@@ -34,14 +34,14 @@
 				<div id="{{ 'open-close-%s'|format(loop.index0) }}">
 
 					<div class="flex items-center gap-4 p-2">
-						<div class="text-lightText mx-2">Noon service</div>
+						<div class="text-lightText mx-2">{{ 'message.noonService'|trans }}</div>
 						<div class="flex-grow">
 							{{ form_widget(form.openDays[loop.index0].vars.form.noonService) }}
 						</div>
 					</div>
 
 					<div id="{{ 'noon-%s'|format(loop.index0) }}">
-						<span class="text-lightText">Schedule</span>
+						<span class="text-lightText">{{ 'h1.schedule'|trans }}</span>
 						<div class="grid grid-cols-2 gap-2 mb-2">
 							{{ form_widget(hour.vars.form.noonStart,
 								{'attr': {'class': 'flex items-center gap-4 bg-lightBg p-2 rounded mb-1'}}) }}
@@ -51,14 +51,14 @@
 					</div>
 
 					<div class="flex items-center gap-4 p-2">
-						<div class="text-lightText mx-2">Evening service</div>
+						<div class="text-lightText mx-2">{{ 'message.eveningService'|trans }}</div>
 						<div class="flex-grow">
 							{{ form_widget(form.openDays[loop.index0].vars.form.eveningService) }}
 						</div>
 					</div>
 
 					<div id="{{ 'evening-%s'|format(loop.index0) }}">
-						<span class="text-lightText">Schedule</span>
+						<span class="text-lightText">{{ 'h1.schedule'|trans }}</span>
 						<div class="grid grid-cols-2 gap-2">
 							{{ form_widget(hour.vars.form.eveningStart,
 								{'attr': {'class': 'flex items-center gap-4 bg-lightBg p-2 rounded mb-1'}}) }}
@@ -74,7 +74,7 @@
 
 	<div class="flex justify-center">
 		<button type="submit" class="btn-icon-right btn-valid">
-			Save <span class="material-symbols-outlined button-icon">Save</span>
+			{{ 'button.save'|trans }} <span class="material-symbols-outlined button-icon">Save</span>
 		</button>
 	</div>
 
