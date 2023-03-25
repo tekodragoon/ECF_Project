@@ -46,6 +46,7 @@ button:
     addMenu: Ajouter un menu
     addFormula: Ajouter une formule
     addRecipe: Ajouter une recette
+    addCategory: Ajouter une catégorie
 
 title:
     connect: Connexion
@@ -72,6 +73,8 @@ h1:
     picture: Images
     menuList: Menus
     menuEdit: Edition des menus
+    categories: Catégories
+    categoryOrder: Ordre des catégories
 
 link:
     logout: Se déconnecter
@@ -110,9 +113,10 @@ message:
     menuRemoved: Le menu %menu% a été supprimé.
     noAllergy: Aucune allergie.
     noFormula: Aucune formule.
-    recipeUpdated: '%recipe% a été mis à jour.'
-    recipeAdded: '%recipe% a été ajouté.'
-    recipeRemoved: '%recipe% a été supprimé.'
+    elementUpdated: '%element% a été mis à jour.'
+    elementAdded: '%element% a été ajouté.'
+    elementRemoved: '%element% a été supprimé.'
+    categoryOrder: L'ordre des catégories à été mis à jour.
 
 form:
     email: Email

@@ -46,6 +46,7 @@ button:
     addMenu: Add a menu
     addFormula: Add a formula
     addRecipe: Add a recipe
+    addCategory: Add a category
 
 title:
     connect: Connection
@@ -72,6 +73,8 @@ h1:
     picture: Pictures
     menuList: Menus
     menuEdit: Menu edition
+    categories: Categories
+    categoryOrder: Categories order
 
 link:
     logout: Logout
@@ -110,9 +113,10 @@ message:
     menuRemoved: Menu %menu% has been deleted.
     noAllergy: No allergy
     noFormula: No formula
-    recipeUpdated: '%recipe% updated.'
-    recipeAdded: '%recipe% added.'
-    recipeRemoved: '%recipe% deleted.'
+    elementUpdated: '%element% updated.'
+    elementAdded: '%element% added.'
+    elementRemoved: '%element% deleted.'
+    categoryOrder: Categories order updated.
 
 form:
     email: Email

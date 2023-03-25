@@ -200,7 +200,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
-            $this->addFlash('success', $translator->trans('message.recipeUpdated', ['%recipe%' => $recipe->getName()]));
+            $this->addFlash('success', $translator->trans('message.elementUpdated', ['%element%' => $recipe->getName()]));
 
             return $this->redirectToRoute('app_management_recipe');
         }
@@ -222,7 +222,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
-            $this->addFlash('success', $translator->trans('message.recipeAdded', ['%recipe%' => $recipe->getName()]));
+            $this->addFlash('success', $translator->trans('message.elementAdded', ['%element%' => $recipe->getName()]));
 
             return $this->redirectToRoute('app_management_recipe');
         }
@@ -257,7 +257,7 @@ class ManagementController extends AbstractController
     {
         $name = $recipe->getName();
         $repository->remove($recipe, true);
-        $this->addFlash('success', $translator->trans('message.recipeRemoved', ['%recipe%' => $name]));
+        $this->addFlash('success', $translator->trans('message.elementRemoved', ['%element%' => $name]));
 
         return $this->redirectToRoute('app_management_recipe');
     }
@@ -278,14 +278,18 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/edit-category/{id}', name: 'app_management_edit_category')]
-    public function editCategory(Request $request, RecipeCategory $category, RecipeCategoryRepository $categoryRepository): Response
+    public function editCategory(Request $request,
+                                 RecipeCategory $category,
+                                 RecipeCategoryRepository $categoryRepository,
+                                 TranslatorInterface $translator,
+    ): Response
     {
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
-            $this->addFlash('success', 'Category updated.');
+            $this->addFlash('success', $translator->trans('message.elementUpdated', ['%element%' => $category->getName()]));
 
             return $this->redirectToRoute('app_management_recipe-category');
         }
@@ -307,7 +311,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/add-category', name: 'app_management_add_category')]
-    public function addCategory(Request $request, RecipeCategoryRepository $categoryRepository): Response
+    public function addCategory(Request $request, RecipeCategoryRepository $categoryRepository, TranslatorInterface $translator): Response
     {
         $category = new RecipeCategory();
         $categories = $categoryRepository->findAll();
@@ -317,7 +321,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categoryRepository->save($category, true);
-            $this->addFlash('success', $category->getName() . ' added.');
+            $this->addFlash('success', $translator->trans('message.elementAdded', ['%element%' => $category->getName()]));
 
             return $this->redirectToRoute('app_management_recipe-category');
         }
@@ -350,7 +354,10 @@ class ManagementController extends AbstractController
 
     // Remove category and redirect to recipe gestion
     #[Route('/remove-category/{id}', name: 'app_management_rem_category')]
-    public function removeCategory(RecipeCategory $category, RecipeCategoryRepository $categoryRepository): Response
+    public function removeCategory(RecipeCategory $category,
+                                   RecipeCategoryRepository $categoryRepository,
+                                   TranslatorInterface $translator,
+    ): Response
     {
         $name = $category->getName();
         $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
@@ -366,13 +373,16 @@ class ManagementController extends AbstractController
             }
         }
 
-        $this->addFlash('success', 'Category ' . $name . ' deleted.');
+        $this->addFlash('success', $translator->trans('message.elementRemoved', ['%element%' => $name]));
 
         return $this->redirectToRoute('app_management_recipe-category');
     }
 
     #[Route('/category-order', name: 'app_management_reorder_category')]
-    public function reorderCategory(Request $request, RecipeCategoryRepository $categoryRepository): Response
+    public function reorderCategory(Request $request,
+                                    RecipeCategoryRepository $categoryRepository,
+                                    TranslatorInterface $translator
+    ): Response
     {
         $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
         $categoryGroup = new CategoryGroup();
@@ -388,7 +398,7 @@ class ManagementController extends AbstractController
             foreach ($categoryGroup->categories as $category) {
                 $categoryRepository->save($category, true);
             }
-            $this->addFlash('success', 'Category order saved.');
+            $this->addFlash('success', $translator->trans('message.categoryOrder'));
 
             return $this->redirectToRoute('app_management_recipe-category');
         }
