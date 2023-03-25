@@ -5,7 +5,7 @@
 
 	<div class="card">
 
-		<div class="textH2 text-white mb-4">Menus</div>
+		<div class="textH2 text-white mb-4">{{ 'h1.menuList'|trans }}</div>
 
 		<form
 				hx-post="{{ path('app_management_menu') }}"
@@ -31,7 +31,7 @@
 
 			<div class="flex justify-end">
 				<button type="submit" class="btn-icon-right btn-valid">
-					Save <span class="material-symbols-outlined button-icon">Save</span>
+					{{ 'button.save'|trans }} <span class="material-symbols-outlined button-icon">Save</span>
 				</button>
 			</div>
 
@@ -42,28 +42,36 @@
 
 	<div class="card">
 
-		<div class="textH2 text-white mb-4">Menu edition</div>
+		<div class="textH2 text-white mb-4">{{ 'h1.menuEdit'|trans }}</div>
 
 		{% for menu in menus %}
 			<div class="mb-4">
 				<div class="text-white border-2 border-secondary rounded p-2">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-4">Name:</div>
+						<div class="w-28 inline-block underline underline-offset-4">
+							{{ 'menu.name'|trans }}:
+						</div>
 						<span class="mr-2">{{ menu.title }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-4">Description:</div>
+						<div class="w-28 inline-block underline underline-offset-4">
+							{{ 'menu.description'|trans }}:
+						</div>
 						<span class="mr-2">{{ menu.description }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
-						<div class="w-28 inline-block underline underline-offset-4">Price:</div>
+						<div class="w-28 inline-block underline underline-offset-4">
+							{{ 'menu.price'|trans }}:
+						</div>
 						<span class="mr-2">{{ menu.price }}€</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div>
-						<span class="w-28 inline-block underline underline-offset-4">Formulas:</span>
+						<span class="w-28 inline-block underline underline-offset-4">
+							{{ 'menu.formulas'|trans }}:
+						</span>
 						{% set forms = concatFormulas(menu.formulas) %}
 						<span>{{ forms }}</span>
 					</div>
@@ -80,7 +88,7 @@
 
 		<div class="flex justify-end">
 			<button hx-get="{{ path('app_management_add_menu') }}" class="btn-icon-left">
-				Add a menu <span class="material-symbols-rounded button-icon">Add</span>
+				{{ 'button.addMenu'|trans }} <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>
 	</div>

@@ -1,6 +1,8 @@
 <div hx-target="this" hx-swap="outerHTML" class="flex items-center">
-	<p class="text-white">Are you sure?</p>
+	<p class="text-white">{{ 'message.sure'|trans }}</p>
 	<button hx-target="#menu-gestion" hx-get="{{ path('app_management_rem_menu', {id: id}) }}"
-	        class="btn btn-danger w-20">yes</button>
-	<button hx-get="{{ path('app_management_delete_menu', {id: id}) }}" class="btn btn-cancel w-20">No</button>
+	        class="btn btn-danger w-20">{{ 'button.yes'|trans }}</button>
+	<button hx-get="{{ path('app_management_delete_menu', {id: id}) }}" class="btn btn-cancel w-20">
+		{{ 'button.no'|trans }}
+	</button>
 </div>

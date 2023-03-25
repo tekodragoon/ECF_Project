@@ -43,6 +43,8 @@ button:
     restaurant: Restaurant
     addPicture: Ajouter une image
     upload: Envoyer
+    addMenu: Ajouter un menu
+    addFormula: Ajouter une formule
 
 title:
     connect: Connexion
@@ -67,6 +69,8 @@ h1:
     guest: Liste des convives
     manage: Gestion
     picture: Images
+    menuList: Menus
+    menuEdit: Edition des menus
 
 link:
     logout: Se déconnecter
@@ -99,12 +103,19 @@ message:
     userAdded: '%user% a été ajouté.'
     userRemoved: '%user% a été supprimé.'
     pictureRemoved: L'image a été supprimée.
+    tooManyMenu: Trop de menus actifs. Activez-en 3 au maximum.
+    tooLessMenu: Aucun menu actif. Activez-en au moins un.
+    menuCreated: '%menu% a été crée.'
+    menuRemoved: Le menu %menu% a été supprimé.
+    noAllergy: Aucune allergie.
+    noFormula: Aucune formule.
 
 form:
     email: Email
     password: Mot de passe
     allowNews: Cochez cette case si vous souhaitez recevoir notre newsletter.
     usermail: Inscrivez-vous à notre newsletter et restez informés des prochains évènements et promotions.
+    formula: Formule
 
 placeholder:
     usermail: Votre email...
@@ -130,3 +141,23 @@ password:
 picture:
     name: Nom
     recipe: Recette
+
+menu:
+    name: Nom
+    description: Description
+    price: Prix
+    formulas: Formules
+
+menuForm:
+    name: Nom
+    description: Description
+    price: Prix
+
+week:
+    monday: Lundi
+    tuesday: Mardi
+    wednesday: Mercredi
+    thursday: Jeudi
+    friday: Vendredi
+    saturday: Samedi
+    sunday: Dimanche

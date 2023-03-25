@@ -65,7 +65,7 @@ class ManagementController extends AbstractController
      * @throws NonUniqueResultException
      */
     #[Route('/manage-menu', name: 'app_management_menu')]
-    public function menu(Request $request, MenuRepository $menuRepository): Response
+    public function menu(Request $request, MenuRepository $menuRepository, TranslatorInterface $translator): Response
     {
         $menus = $menuRepository->findAll();
         $menuGroup = new ActiveMenuGroup();
@@ -88,13 +88,13 @@ class ManagementController extends AbstractController
                     $menu->setActive($menuItem->isActive());
                     $menuRepository->save($menu, true);
                 }
-                $this->addFlash('success', 'Changes saved.');
+                $this->addFlash('success', $translator->trans('message.changes'));
             } else {
                 if ($menuGroup->getActivesCount() > 3) {
-                    $this->addFlash('error', 'Too many active menus. Activate up to 3.');
+                    $this->addFlash('error', $translator->trans('message.tooManyMenu'));
                 }
                 if ($menuGroup->getActivesCount() == 0) {
-                    $this->addFlash('error', 'No active menu. Activate at least one.');
+                    $this->addFlash('error', $translator->trans('message.tooLessMenu'));
                 }
             }
             return $this->redirectToRoute('app_management_menu');
@@ -107,14 +107,14 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/edit-menu/{id}', name: 'app_management_edit_menu')]
-    public function editMenu(Request $request, Menu $menu, MenuRepository $menuRepository): Response
+    public function editMenu(Request $request, Menu $menu, MenuRepository $menuRepository, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(MenuType::class, $menu);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
-            $this->addFlash('success', 'Changes saved.');
+            $this->addFlash('success', $translator->trans('message.changes'));
 
             return $this->redirectToRoute('app_management_menu');
         }
@@ -128,7 +128,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/add-menu', name: 'app_management_add_menu')]
-    public function addMenu(Request $request, MenuRepository $menuRepository): Response
+    public function addMenu(Request $request, MenuRepository $menuRepository, TranslatorInterface $translator): Response
     {
         $menu = new Menu();
         $form = $this->createForm(MenuType::class, $menu);
@@ -136,7 +136,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $menuRepository->save($menu, true);
-            $this->addFlash('success', $menu->getTitle() . ' created.');
+            $this->addFlash('success', $translator->trans('message.menuCreated', ['%menu%' => $menu->getTitle()]));
 
             return $this->redirectToRoute('app_management_menu');
         }
@@ -144,7 +144,7 @@ class ManagementController extends AbstractController
         return $this->render('management/menu/edit-menu.html.twig', [
             'form' => $form->createView(),
             'path' => $this->generateUrl('app_management_add_menu'),
-            'buttonTitle' => 'Add',
+            'buttonTitle' => $translator->trans('button.add'),
         ]);
     }
 
@@ -168,11 +168,11 @@ class ManagementController extends AbstractController
 
     // Remove menu and redirect to menu gestion
     #[Route('/remove-menu/{id}', name: 'app_management_rem_menu')]
-    public function removeGuest(Menu $menu, MenuRepository $menuRepo): Response
+    public function removeGuest(Menu $menu, MenuRepository $menuRepo, TranslatorInterface $translator): Response
     {
         $name = $menu->getTitle();
         $menuRepo->remove($menu, true);
-        $this->addFlash('success', 'Menu ' . $name . ' deleted.');
+        $this->addFlash('success', $translator->trans('message.menuRemoved', ['%menu%' => $name]));
 
         return $this->redirectToRoute('app_management_menu');
     }

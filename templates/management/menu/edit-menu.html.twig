@@ -31,13 +31,15 @@
 		<button type="button"
 		        class="btn-icon-left btn-new"
 		        data-collection="#formulas">
-			Add a formula <span class="material-symbols-outlined">Add</span>
+			{{ 'button.addFormula'|trans }} <span class="material-symbols-outlined">Add</span>
 		</button>
 	</div>
 
 	<div class="flex justify-center gap-6">
-		<button type="button" class="btn btn-cancel w-40" hx-get="{{ path('app_management_menu') }}">Cancel</button>
-		<button type="submit" class="btn btn-valid w-40">{{ buttonTitle ?? 'Save' }}</button>
+		<button type="button" class="btn btn-cancel w-40" hx-get="{{ path('app_management_menu') }}">
+			{{ 'button.cancel'|trans }}
+		</button>
+		<button type="submit" class="btn btn-valid w-40">{{ buttonTitle ?? 'button.save'|trans }}</button>
 	</div>
 
 	{{ form_widget(form._token) }}

@@ -14,7 +14,7 @@ class FormulaType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Formula',
+                'label' => 'form.formula',
             ])
         ;
     }

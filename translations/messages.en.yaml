@@ -43,6 +43,8 @@ button:
     restaurant: Restaurant
     addPicture: Add a picture
     upload: Upload
+    addMenu: Add a menu
+    addFormula: Add a formula
 
 title:
     connect: Connection
@@ -67,6 +69,8 @@ h1:
     guest: Guests list
     manage: Manage
     picture: Pictures
+    menuList: Menus
+    menuEdit: Menu edition
 
 link:
     logout: Logout
@@ -99,12 +103,19 @@ message:
     userAdded: '%user% added.'
     userRemoved: '%user% deleted.'
     pictureRemoved: Picture deleted.
+    tooManyMenu: Too many active menus. Activate up to 3.
+    tooLessMenu: No active menu. Activate at least one.
+    menuCreated: '%menu% created.'
+    menuRemoved: Menu %menu% has been deleted.
+    noAllergy: No allergy
+    noFormula: No formula
 
 form:
     email: Email
     password: Password
     allowNews: Check this box if you wish to receive our newsletter.
     usermail: Subscribe to our newsletter and stay informed of upcoming events.
+    formula: Formula
 
 placeholder:
     usermail: Your email...
@@ -130,3 +141,23 @@ password:
 picture:
     name: Name
     recipe: Recipe
+
+menu:
+    name: Name
+    description: Description
+    price: Price
+    formulas: Formulas
+
+menuForm:
+    name: Name
+    description: Description
+    price: Price
+
+week:
+    monday: Monday
+    tuesday: Tuesday
+    wednesday: Wednesday
+    thursday: Thursday
+    friday: Friday
+    saturday: Saturday
+    sunday: Sunday
