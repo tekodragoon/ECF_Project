@@ -193,14 +193,14 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/edit-recipe/{id}', name: 'app_management_edit-recipe')]
-    public function editRecipe(Request $request, Recipe $recipe, RecipeRepository $repository): Response
+    public function editRecipe(Request $request, Recipe $recipe, RecipeRepository $repository, TranslatorInterface $translator): Response
     {
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
-            $this->addFlash('success', $recipe->getName() . ' updated.');
+            $this->addFlash('success', $translator->trans('message.recipeUpdated', ['%recipe%' => $recipe->getName()]));
 
             return $this->redirectToRoute('app_management_recipe');
         }
@@ -214,7 +214,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/add-recipe', name: 'app_management_add-recipe')]
-    public function addRecipe(Request $request, RecipeRepository $repository): Response
+    public function addRecipe(Request $request, RecipeRepository $repository, TranslatorInterface $translator): Response
     {
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
@@ -222,7 +222,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($recipe, true);
-            $this->addFlash('success', $recipe->getName() . ' added.');
+            $this->addFlash('success', $translator->trans('message.recipeAdded', ['%recipe%' => $recipe->getName()]));
 
             return $this->redirectToRoute('app_management_recipe');
         }
@@ -253,11 +253,11 @@ class ManagementController extends AbstractController
 
     // Remove recipe and redirect to recipe gestion
     #[Route('/remove-recipe/{id}', name: 'app_management_rem_recipe')]
-    public function removeRecipe(Recipe $recipe, RecipeRepository $repository): Response
+    public function removeRecipe(Recipe $recipe, RecipeRepository $repository, TranslatorInterface $translator): Response
     {
         $name = $recipe->getName();
         $repository->remove($recipe, true);
-        $this->addFlash('success', $name . ' deleted.');
+        $this->addFlash('success', $translator->trans('message.recipeRemoved', ['%recipe%' => $name]));
 
         return $this->redirectToRoute('app_management_recipe');
     }

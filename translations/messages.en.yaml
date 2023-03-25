@@ -45,6 +45,7 @@ button:
     upload: Upload
     addMenu: Add a menu
     addFormula: Add a formula
+    addRecipe: Add a recipe
 
 title:
     connect: Connection
@@ -109,6 +110,9 @@ message:
     menuRemoved: Menu %menu% has been deleted.
     noAllergy: No allergy
     noFormula: No formula
+    recipeUpdated: '%recipe% updated.'
+    recipeAdded: '%recipe% added.'
+    recipeRemoved: '%recipe% deleted.'
 
 form:
     email: Email
@@ -161,3 +165,9 @@ week:
     friday: Friday
     saturday: Saturday
     sunday: Sunday
+
+recipe:
+    name: Name
+    description: Description
+    price: Price
+    category: Category

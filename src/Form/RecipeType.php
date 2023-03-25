@@ -30,13 +30,13 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Name'
+                'label' => 'recipe.name'
             ])
             ->add('description', TextType::class, [
-                'label' => 'Description'
+                'label' => 'recipe.description'
             ])
             ->add('price', NumberType::class, [
-                'label' => 'Price'
+                'label' => 'recipe.price'
             ])
         ;
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -47,7 +47,7 @@ class RecipeType extends AbstractType
             }
 
             $form->add('category', EntityType::class, [
-                'label' => 'Category',
+                'label' => 'recipe.category',
                 'class' => RecipeCategory::class,
                 'placeholder' => '',
                 'choices' => $categories

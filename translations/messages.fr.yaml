@@ -45,6 +45,7 @@ button:
     upload: Envoyer
     addMenu: Ajouter un menu
     addFormula: Ajouter une formule
+    addRecipe: Ajouter une recette
 
 title:
     connect: Connexion
@@ -109,6 +110,9 @@ message:
     menuRemoved: Le menu %menu% a été supprimé.
     noAllergy: Aucune allergie.
     noFormula: Aucune formule.
+    recipeUpdated: '%recipe% a été mis à jour.'
+    recipeAdded: '%recipe% a été ajouté.'
+    recipeRemoved: '%recipe% a été supprimé.'
 
 form:
     email: Email
@@ -161,3 +165,9 @@ week:
     friday: Vendredi
     saturday: Samedi
     sunday: Dimanche
+
+recipe:
+    name: Nom
+    description: Description
+    price: Prix
+    category: Catégorie
