@@ -1,16 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion{% endblock %}
+{% block title %}
+	{% trans %}title.manage{% endtrans %}
+{% endblock %}
 
 {% block body %}
 	<div class="max-w-3xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
 		<div class="absolute z-10">
-			<a class="textLink" href="{{ path('app_logout') }}">Logout</a>
+			<a class="textLink" href="{{ path('app_logout') }}">
+				{% trans %}link.logout{% endtrans %}
+			</a>
 		</div>
 
 		<div class="w-fit mx-auto text-center mb-8">
 			<span class="material-symbols-rounded title-icon text-textColor">settings</span>
-			<h1 class="textH1">Manage</h1>
+			<h1 class="textH1">
+				{% trans %}h1.manage{% endtrans %}
+			</h1>
 		</div>
 
 		{% include('management/section.html.twig') %}

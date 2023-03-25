@@ -5,12 +5,12 @@
 
 	<div class="card">
 
-		<div class="textH2 text-white mb-4">Images</div>
+		<div class="textH2 text-white mb-4">{{ 'h1.picture'|trans }}</div>
 
 		<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
 
 			{% for image in images %}
-				<div class="relative flex justify-end bg-white rounded-md p-1">
+				<div class="relative flex flex-col items-end bg-white rounded-md p-1">
 					<div class="toggle visibility"
 					     hx-get="{{ path('app_management_toggle-visibility', {id: image.id}) }}">
 						{% if image.visible %}
@@ -20,9 +20,12 @@
 						{% endif %}
 					</div>
 					{{ include('management/gallery/_delete-image.html.twig', {id: image.id}) }}
-					<img class="rounded-md"
+					<img class="rounded-md w-fit"
 					     src="{{ asset("build/images/gallery/#{image.filename}")|imagine_filter('thumb') }}"
 					     alt="{{ image.name }}">
+					<div class="text-start w-full">
+						{{ image.name }}
+					</div>
 				</div>
 			{% endfor %}
 
@@ -32,7 +35,7 @@
 			<button
 					hx-get="{{ path('app_management_add-image') }}"
 					class="btn-icon-right">
-				Add an image <span class="material-symbols-rounded button-icon">Add</span>
+				{{ 'button.addPicture'|trans }} <span class="material-symbols-rounded button-icon">Add</span>
 			</button>
 		</div>
 

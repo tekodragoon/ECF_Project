@@ -3,21 +3,21 @@
 		hx-target="this"
 		hx-swap="outerHTML">
 	<button class="btn" hx-get="{{ path('app_management_gallery') }}">
-		Gallery
+		{{ 'button.gallery'|trans }}
 	</button>
 	<button class="btn" hx-get="{{ path('app_management_menu') }}">
-		Menus
+		{{ 'button.menu'|trans }}
 	</button>
 	<button class="btn" hx-get="{{ path('app_management_recipe') }}">
-		Recipes
+		{{ 'button.recipes'|trans }}
 	</button>
 	<button class="btn" hx-get="{{ path('app_management_recipe-category') }}">
-		Categories
+		{{ 'button.categories'|trans }}
 	</button>
 	<button class="btn" hx-get="{{ path('app_management_users') }}">
-		Users
+		{{ 'button.users'|trans }}
 	</button>
 	<button class="btn" hx-get="{{ path('app_management_manage-restaurant') }}">
-		Restaurant
+		{{ 'button.restaurant'|trans }}
 	</button>
 </div>

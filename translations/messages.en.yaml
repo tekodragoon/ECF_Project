@@ -1,116 +1,132 @@
 info:
-  open: We are open
-  from: from
-  andf: and from
-  onlf: only from
-  clos: We are closed today.
-  schd: See all schedules.
-  to: to
+    open: We are open
+    from: from
+    andf: and from
+    onlf: only from
+    clos: We are closed today.
+    schd: See all schedules.
+    to: to
 
 nav:
-  book: Booking
-  gall: Gallery
-  menu: Menu
-  ctct: Contact
-  mang: Manage
-  acnt: Account
-  logn: Login
-  call: Call Us
-  map: Find Us
+    book: Booking
+    gall: Gallery
+    menu: Menu
+    ctct: Contact
+    mang: Manage
+    acnt: Account
+    logn: Login
+    call: Call Us
+    map: Find Us
 
 foot:
-  right: All right reserved
-  made: Made by
+    right: All right reserved
+    made: Made by
 
 button:
-  back: Back
-  connect: Connect
-  register: Register
-  seemore: See More
-  send: Send
-  cancel: Cancel
-  modify: Modify
-  add: Add
-  allergy: Add an allergy
-  save: Save
-  yes: Yes
-  no: No
+    back: Back
+    connect: Connect
+    register: Register
+    seemore: See More
+    send: Send
+    cancel: Cancel
+    modify: Modify
+    add: Add
+    allergy: Add an allergy
+    save: Save
+    yes: Yes
+    no: No
+    gallery: Gallery
+    menu: Menus
+    recipes: Recipes
+    categories: Categories
+    users: Users
+    restaurant: Restaurant
+    addPicture: Add a picture
+    upload: Upload
 
 title:
-  connect: Connection
-  register: Register
-  menu: Menu
-  map: Map
-  schedule: Schedule
-  gallery: Gallery
-  contact: Contact
-  account: Account
+    connect: Connection
+    register: Register
+    menu: Menu
+    map: Map
+    schedule: Schedule
+    gallery: Gallery
+    contact: Contact
+    account: Account
+    manage: Manage
 
 h1:
-  login: Login
-  register: Register
-  menu: Menu
-  map: Where to find us ?
-  schedule: Schedule
-  gallery: Gallery
-  contact: Contact us
-  account: Your Account
-  guest: Guests list
+    login: Login
+    register: Register
+    menu: Menu
+    map: Where to find us ?
+    schedule: Schedule
+    gallery: Gallery
+    contact: Contact us
+    account: Your Account
+    guest: Guests list
+    manage: Manage
+    picture: Pictures
 
 link:
-  logout: Logout
-  register: Register here
-  click: Click here
+    logout: Logout
+    register: Register here
+    click: Click here
 
 message:
-  log: You are logged in as
-  forgot: Forgot your password ?
-  register: Not registered yet ?
-  account: Already have an account,
-  whoWe: Who are we ?
-  reasons: 3 reasons to come and discover our cuisine
-  reason: Reason
-  follow: Follow us on
-  mailok: There is already a registered user with this email.
-  mailsuccess: You successfully subscribe to our newsletter.
-  open: open
-  closed: closed
-  sended: Your message has been sent.
-  problem: There was a problem with your submission. Please complete the form and try again.
-  noSpec: Not specified
-  person: person
-  info: Your Informations
-  guest: Guest
-  sure: Are you sure ?
-  changes: Your changes have been saved.
-  passChanges: Your password has been changed.
-  changesOn: Changes on %value% has been saved.
-  userAdded: '%user% added.'
-  userRemoved: '%user% deleted.'
+    log: You are logged in as
+    forgot: Forgot your password ?
+    register: Not registered yet ?
+    account: Already have an account,
+    whoWe: Who are we ?
+    reasons: 3 reasons to come and discover our cuisine
+    reason: Reason
+    follow: Follow us on
+    mailok: There is already a registered user with this email.
+    mailsuccess: You successfully subscribe to our newsletter.
+    open: open
+    closed: closed
+    sended: Your message has been sent.
+    problem: There was a problem with your submission. Please complete the form and try again.
+    noSpec: Not specified
+    person: person
+    info: Your Informations
+    guest: Guest
+    sure: Are you sure ?
+    changes: Your changes have been saved.
+    passChanges: Your password has been changed.
+    changesOn: Changes on %value% has been saved.
+    userAdded: '%user% added.'
+    userRemoved: '%user% deleted.'
+    pictureRemoved: Picture deleted.
 
 form:
-  email: Email
-  password: Password
-  allowNews: Check this box if you wish to receive our newsletter.
-  usermail: Subscribe to our newsletter and stay informed of upcoming events.
+    email: Email
+    password: Password
+    allowNews: Check this box if you wish to receive our newsletter.
+    usermail: Subscribe to our newsletter and stay informed of upcoming events.
 
 placeholder:
-  usermail: Your email...
+    usermail: Your email...
 
 contact:
-  name: Your Name
-  email: Your Email
-  message: Message
-  subject: Subject
+    name: Your Name
+    email: Your Email
+    message: Message
+    subject: Subject
 
 account:
-  lastname: Lastname
-  firstname: Firstname
-  email: Email
-  password: Password
-  guest: Guests
+    lastname: Lastname
+    firstname: Firstname
+    email: Email
+    password: Password
+    guest: Guests
 
 password:
-  old: Current Password
-  new: New Password
-  confirm: Confirm Password
+    old: Current Password
+    new: New Password
+    confirm: Confirm Password
+
+picture:
+    name: Name
+    recipe: Recipe

@@ -107,7 +107,7 @@
     }
 
     .delete {
-        @apply absolute bottom-1 left-1
+        @apply absolute top-10 left-1
     }
 }
 

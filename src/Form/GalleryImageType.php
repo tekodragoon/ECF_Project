@@ -47,7 +47,7 @@ class GalleryImageType extends AbstractType
                 ]
             ])
             ->add('name', TextType::class, [
-                'label' => 'Name'
+                'label' => 'picture.name'
             ])
         ;
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -58,7 +58,7 @@ class GalleryImageType extends AbstractType
             }
 
             $form->add('recipe', EntityType::class, [
-                'label' => 'Recipe',
+                'label' => 'picture.recipe',
                 'required' => false,
                 'class' => Recipe::class,
                 'placeholder' => '',

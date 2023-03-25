@@ -36,6 +36,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted('ROLE_ADMIN')]
 #[Route('/{_locale}/manager')]
@@ -442,6 +443,7 @@ class ManagementController extends AbstractController
         GalleryImage           $image,
         GalleryImageRepository $repository,
         CacheManager           $cacheManager,
+        TranslatorInterface   $translator,
     ): Response
     {
         // suppression du cache
@@ -450,7 +452,7 @@ class ManagementController extends AbstractController
 
         // suppression de l'image en bdd
         $repository->remove($image, true);
-        $this->addFlash('success', 'Image deleted.');
+        $this->addFlash('success', $translator->trans('message.pictureRemoved'));
 
         return $this->redirectToRoute('app_management_gallery');
     }
