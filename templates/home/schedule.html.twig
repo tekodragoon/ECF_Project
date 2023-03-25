@@ -18,8 +18,7 @@
 		<div class="card grid grid-cols-4 gap-2 text-lightText">
 			{% for openDay in restaurant.openDays %}
 				<div class="border border-2 border-lightBg rounded p-2">
-					{% set day = app.request.locale == 'fr' ? openDay.dayOfWeek|frDayOfWeek : openDay.dayOfWeek|dayOfWeek %}
-					<div class="underline underline-offset-4 mb-4">{{ day }}</div>
+					<div class="underline underline-offset-4 mb-4">{{ openDay.dayOfWeek|dayOfWeek }}</div>
 					<div class="{{ openDay.open ? 'text-valid' : 'text-warning' }} text-center mb-4
 							border-b border-b-2 border-b-lightBg">
 						{% if openDay.open %}

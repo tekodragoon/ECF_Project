@@ -2,11 +2,17 @@
 
 namespace App\Twig;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class DayOfWeek extends AbstractExtension
 {
+    private TranslatorInterface $translator;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     public function getFilters():array
     {
         return [
@@ -18,27 +24,13 @@ class DayOfWeek extends AbstractExtension
     public function dayOfWeek(int $day):string
     {
         $days = [
-            0 => 'Monday',
-            1 => 'Tuesday',
-            2 => 'Wednesday',
-            3 => 'Thursday',
-            4 => 'Friday',
-            5 => 'Saturday',
-            6 => 'Sunday'
-        ];
-        return $days[$day];
-    }
-
-    public function frDayOfWeek(int $day):string
-    {
-        $days = [
-            0 => 'Lundi',
-            1 => 'Mardi',
-            2 => 'Mercredi',
-            3 => 'Jeudi',
-            4 => 'Vendredi',
-            5 => 'Samedi',
-            6 => 'Dimanche'
+            0 => $this->translator->trans('week.monday'),
+            1 => $this->translator->trans('week.tuesday'),
+            2 => $this->translator->trans('week.wednesday'),
+            3 => $this->translator->trans('week.thursday'),
+            4 => $this->translator->trans('week.friday'),
+            5 => $this->translator->trans('week.saturday'),
+            6 => $this->translator->trans('week.sunday'),
         ];
         return $days[$day];
     }
