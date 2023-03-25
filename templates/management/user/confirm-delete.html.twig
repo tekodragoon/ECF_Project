@@ -1,17 +1,17 @@
 <div class="flex justify-evenly items-center p-2 mb-4 bg-darkBg border border-2 border-lightText rounded">
-	<p class="p-2 text-lightText">Êtes-vous sûr(e)?</p>
+	<p class="p-2 text-lightText">{{ 'message.sure'|trans }}</p>
 	<button
 			hx-target="#user-gestion"
 			hx-swap="outerHTML"
 			hx-get="{{ path('app_management_remove-user', {id: id}) }}"
 			class="btn btn-danger w-20">
-		Yes
+		{{ 'button.yes'|trans }}
 	</button>
 	<button
 			hx-target=".{{ 'userId-%s'|format(id) }}"
 			hx-swap="innerHTML"
 			hx-get="{{ path('app_management_show-user-information', {id: id}) }}"
 			class="btn btn-cancel w-20">
-		No
+		{{ 'button.no'|trans }}
 	</button>
 </div>

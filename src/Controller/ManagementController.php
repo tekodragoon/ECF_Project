@@ -502,7 +502,7 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/user-edit-role/{id}', name: 'app_management_update-user-role')]
-    public function updateUserRole(Request $request, User $user, UserRepository $repository): Response
+    public function updateUserRole(Request $request, User $user, UserRepository $repository, TranslatorInterface $translator): Response
     {
         $userRole = new UserRole();
         $userRole->setRole($user->getRoles()[0]);
@@ -512,7 +512,7 @@ class ManagementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles([$userRole->getRole()]);
             $repository->save($user, true);
-            $this->addFlash('success', 'Role updated');
+            $this->addFlash('success', $translator->trans('message.roleUpdated'));
             return $this->redirectToRoute('app_management_users');
         }
 
@@ -539,10 +539,11 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/remove-user/{id}', name: 'app_management_remove-user')]
-    public function removeUser(User $user, UserRepository $repository): Response
+    public function removeUser(User $user, UserRepository $repository, TranslatorInterface $translator): Response
     {
+        $name = $user->getFullName();
         $repository->remove($user, true);
-        $this->addFlash('success', 'User deleted.');
+        $this->addFlash('success', $translator->trans('message.userRemoved', ['%user%' => $name]));
         return $this->redirectToRoute('app_management_users');
     }
 

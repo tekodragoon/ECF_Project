@@ -117,6 +117,7 @@ message:
     elementAdded: '%element% added.'
     elementRemoved: '%element% deleted.'
     categoryOrder: Categories order updated.
+    roleUpdated: User role updated.
 
 form:
     email: Email
@@ -175,3 +176,11 @@ recipe:
     description: Description
     price: Price
     category: Category
+
+userGestionTitle:
+    email: Email
+    role: Role
+    action: Action
+
+role_admin: Administrator
+role_user: User

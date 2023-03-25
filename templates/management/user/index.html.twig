@@ -5,9 +5,9 @@
 
 	<div class="card">
 		<div class="grid grid-cols-4 text-center uppercase text-xl items-center text-lightText p-2 rounded mb-4">
-			<span class="p-2 col-span-2">Email</span>
-			<span class="p-2">Role</span>
-			<span class="p-2">Actions</span>
+			<span class="p-2 col-span-2">{{ 'userGestionTitle.email'|trans }}</span>
+			<span class="p-2">{{ 'userGestionTitle.role'|trans }}</span>
+			<span class="p-2">{{ 'userGestionTitle.action'|trans }}</span>
 		</div>
 		{% for user in users %}
 			<div class="{{ 'userId-%s'|format(user.id) }}">

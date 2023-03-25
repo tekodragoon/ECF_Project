@@ -2,11 +2,17 @@
 
 namespace App\Twig;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 class ShortRole extends AbstractExtension
 {
+    private TranslatorInterface $translator;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     public function getFilters(): array
     {
         return [
@@ -20,7 +26,6 @@ class ShortRole extends AbstractExtension
      */
     public function shortRole(string $role): string
     {
-        $str = str_replace('ROLE_', '', $role);
-        return ucfirst(strtolower($str));
+        return $this->translator->trans(strtolower($role));
     }
 }
