@@ -3,11 +3,17 @@
 namespace App\Twig;
 
 use Doctrine\ORM\PersistentCollection;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ConcatAllergies extends AbstractExtension
 {
+    private TranslatorInterface $translator;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
     public function getFunctions(): array
     {
         return [
@@ -21,7 +27,7 @@ class ConcatAllergies extends AbstractExtension
      */
     public function concatAllergies(PersistentCollection $allergies): string
     {
-        if(count($allergies) == 0) return 'No allergy.';
+        if(count($allergies) == 0) return $this->translator->trans('message.noAllergy');;
 
         $str = '';
         foreach ($allergies as $allergy) {

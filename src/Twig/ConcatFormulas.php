@@ -3,11 +3,18 @@
 namespace App\Twig;
 
 use Doctrine\ORM\PersistentCollection;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class ConcatFormulas extends AbstractExtension
 {
+    private TranslatorInterface $translator;
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     public function getFunctions(): array
     {
         return [
@@ -21,7 +28,7 @@ class ConcatFormulas extends AbstractExtension
      */
     public function concatFormulas(PersistentCollection $formulas): string
     {
-        if(count($formulas) == 0) return 'Aucune formule.';
+        if(count($formulas) == 0) return $this->translator->trans('message.noFormula');
 
         $str = '';
         foreach ($formulas as $form) {
