@@ -133,6 +133,7 @@ message:
     noonClosing: Noon closing
     eveningOpening: Evening opening
     eveningClosing: Evening closing
+    seats: Seats
 
 form:
     email: Email

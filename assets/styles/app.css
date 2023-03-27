@@ -325,6 +325,12 @@ select {
     border-radius: 0 0 2px 0;
 }
 
+.number-unit {
+    position: absolute;
+    right: 32px;
+    top: 22px;
+}
+
 /* -------------------------------------------------------------------NAVBAR */
 
 .flag {

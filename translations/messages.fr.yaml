@@ -133,6 +133,7 @@ message:
     noonClosing: Fermeture du midi
     eveningOpening: Ouverture du soir
     eveningClosing: Fermeture du soir
+    seats: Places
 
 form:
     email: Email
