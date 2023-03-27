@@ -337,3 +337,20 @@ select {
     height: 32px;
     cursor: pointer;
 }
+
+/* ---------------------------------------------------------------INPUT FILE */
+
+.hide-input {
+    width: 1px;
+    height: 1px;
+    z-index: -5;
+}
+
+.preview {
+    width: 100px;
+    max-height: 70px;
+}
+
+.preview img {
+    object-fit: contain;
+}

@@ -1,3 +1,7 @@
+{% block javascript %}
+{{ encore_entry_script_tags('upload') }}
+{% endblock %}
+
 <form
 		enctype="multipart/form-data"
 		hx-post="{{ path('app_management_add-image') }}"
@@ -9,7 +13,20 @@
 	<div class="card">
 		{{ form_start(form) }}
 
-		{{ form_row(form.imageFile) }}
+
+		<div class="text-lightText">{{ 'button.choose-file'|trans }}</div>
+		<div class="relative flex items-center justify-between my-1 w-full rounded p-3 bg-white border-black border-2 mb-6">
+			<div class="flex items-center gap-4">
+				<span class="text-textColor" id="filename">{{ 'message.noFile'|trans }}</span>
+				<div class="preview" id="image-preview"></div>
+			</div>
+			<button type="button" class="btn-icon-right" id="open-input">
+				{{ 'button.choose-file'|trans }} <span class="material-symbols-rounded">folder_open</span>
+			</button>
+			<div class="absolute top-0 left-0 hide-input">
+				{{ form_row(form.imageFile) }}
+			</div>
+		</div>
 
 		{{ form_row(form.name) }}
 		{{ form_row(form.recipe) }}

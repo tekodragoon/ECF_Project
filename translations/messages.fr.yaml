@@ -49,6 +49,7 @@ button:
     addCategory: Ajouter une catégorie
     edit: Éditer
     addTable: Ajouter une table
+    choose-file: Choisir un fichier
 
 title:
     connect: Connexion
@@ -134,6 +135,7 @@ message:
     eveningOpening: Ouverture du soir
     eveningClosing: Fermeture du soir
     seats: Places
+    noFile: Aucun fichier sélectionné
 
 form:
     email: Email
