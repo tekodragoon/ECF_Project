@@ -136,6 +136,8 @@ message:
     eveningClosing: Fermeture du soir
     seats: Places
     noFile: Aucun fichier sélectionné
+    inputNoName: Veuillez renseigner un nom ou sélectionner une recette.
+    jpegOnly: Seuls les fichiers JPEG sont acceptés.
 
 form:
     email: Email

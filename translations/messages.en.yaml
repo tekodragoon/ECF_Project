@@ -136,6 +136,8 @@ message:
     eveningClosing: Evening closing
     seats: Seats
     noFile: No file selected
+    inputNoName: You must provide a name or select a recipe.
+    jpegOnly: Only jpeg files are allowed.
 
 form:
     email: Email

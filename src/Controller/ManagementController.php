@@ -475,6 +475,12 @@ class ManagementController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $submittedData = $form->getData();
+
+            if ($submittedData->getName() === null) {
+                $name = $submittedData->getRecipe()->getName();
+                $galleryImage->setName($name);
+            }
 
             $repository->save($galleryImage, true);
 
