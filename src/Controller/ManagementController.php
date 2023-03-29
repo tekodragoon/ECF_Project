@@ -272,7 +272,7 @@ class ManagementController extends AbstractController
     {
         $categories = $categoryRepository->findBy([], ['listOrder' => 'ASC']);
 
-        return $this->render('management/recipe/category-gestion.html.twig', [
+        return $this->render('management/category/category-gestion.html.twig', [
             'categories' => $categories,
         ]);
     }
@@ -294,7 +294,7 @@ class ManagementController extends AbstractController
             return $this->redirectToRoute('app_management_recipe-category');
         }
 
-        return $this->render('management/recipe/_edit-category.html.twig', [
+        return $this->render('management/category/_edit-category.html.twig', [
             'form' => $form->createView(),
             'id' => $category->getId(),
         ]);
@@ -303,7 +303,7 @@ class ManagementController extends AbstractController
     #[Route('/show-category/{id}', name: 'app_management_show_category')]
     public function showCategory(RecipeCategory $category): Response
     {
-        return $this->render('management/recipe/_show-category.html.twig', [
+        return $this->render('management/category/_show-category.html.twig', [
             'id' => $category->getId(),
             'name' => $category->getName(),
             'allowDelete' => $category->allowDelete(),
@@ -326,7 +326,7 @@ class ManagementController extends AbstractController
             return $this->redirectToRoute('app_management_recipe-category');
         }
 
-        return $this->render('management/recipe/_add-category.html.twig', [
+        return $this->render('management/category/_add-category.html.twig', [
             'form' => $form->createView(),
             'next' => $category->getListOrder(),
         ]);
@@ -336,7 +336,7 @@ class ManagementController extends AbstractController
     #[Route('/confirm-delete-category/{id}', name: 'app_management_confirm_del_category')]
     public function confirmDeleteCategory(RecipeCategory $category): Response
     {
-        return $this->render('management/recipe/_confirm-delete-category.html.twig', [
+        return $this->render('management/category/_confirm-delete-category.html.twig', [
             'id' => $category->getId(),
             'allowDelete' => $category->allowDelete(),
         ]);
@@ -346,7 +346,7 @@ class ManagementController extends AbstractController
     #[Route('/manage-category/{id}', name: 'app_management_manage_category')]
     public function manageCategory(RecipeCategory $category): Response
     {
-        return $this->render('management/recipe/_manage-category.html.twig', [
+        return $this->render('management/category/_manage-category.html.twig', [
             'id' => $category->getId(),
             'allowDelete' => $category->allowDelete(),
         ]);
@@ -403,7 +403,7 @@ class ManagementController extends AbstractController
             return $this->redirectToRoute('app_management_recipe-category');
         }
 
-        return $this->render('management/recipe/category-order.html.twig', [
+        return $this->render('management/category/category-order.html.twig', [
             'categories' => $categories,
             'form' => $form->createView(),
         ]);
@@ -594,8 +594,8 @@ class ManagementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // check for close day
             foreach ($restaurant->getOpenDays() as $openDay) {
-                if (!$openDay->isOpen()) { // if restaurant close
-                    // set no service
+                if (!$openDay->isOpen()) { // if restaurant is close
+                    // setting no service
                     $openDay->setNoonService(false);
                     $openDay->setEveningService(false);
                 }

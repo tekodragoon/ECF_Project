@@ -2,7 +2,7 @@
 		hx-post="{{ path('app_management_edit_category', {id: id}) }}"
 		hx-target="#category-gestion"
 		hx-swap="outerHTML"
-		class="flex gap-4 items-center">
+		class="flex flex-grow gap-4 items-center">
 
 	{{ form_start(form) }}
 
@@ -14,6 +14,7 @@
 		<button
 				class="icon-btn btn-cancel"
 				hx-target=".{{ 'cat-%d'|format(id) }}"
+				hx-swap="innerHTML"
 				hx-get="{{ path('app_management_show_category', {id: id}) }}">
 			<span class="material-symbols-outlined">Cancel</span>
 		</button>

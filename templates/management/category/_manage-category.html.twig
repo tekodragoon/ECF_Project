@@ -2,6 +2,7 @@
 	<button
 			class="w-fit icon-btn"
 			hx-target="{{ '#cat-%d'|format(id) }}"
+			hx-swap="innerHTML"
 			hx-get="{{ path('app_management_edit_category', {id: id}) }}">
 		<span class="material-symbols-rounded">Edit</span>
 	</button>

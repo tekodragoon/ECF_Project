@@ -1,6 +1,4 @@
 <div
-		hx-target="this"
-		hx-swap="outerHTML"
 		id="{{ 'cat-%d'|format(id) }}"
 		class="flex gap-4 items-center">
 
@@ -8,7 +6,7 @@
 		{{ name }}
 	</div>
 
-	{{ include('management/recipe/_manage-category.html.twig', {
+	{{ include('management/category/_manage-category.html.twig', {
 		id: id,
 		allowDelete: allowDelete
 	}) }}
