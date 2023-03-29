@@ -1,3 +1,7 @@
+{% block javascript %}
+	{{ encore_entry_script_tags('cursor') }}
+{% endblock %}
+
 <form
 		hx-post="{{ path('app_management_edit_category', {id: id}) }}"
 		hx-target="#category-gestion"

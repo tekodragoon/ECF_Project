@@ -34,6 +34,7 @@ Encore
     .addEntry('numberInput', './assets/numberInput.js')
     .addEntry('flag', './assets/lang.js')
     .addEntry('upload', './assets/upload-file.js')
+    .addEntry('cursor', './assets/cursor.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
