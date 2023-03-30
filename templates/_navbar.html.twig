@@ -1,5 +1,6 @@
 {% block javascript %}
 {{ encore_entry_script_tags('flag') }}
+{{ encore_entry_script_tags('navmenu') }}
 {% endblock %}
 
 {% set route = app.request.attributes.get('_route') %}
@@ -13,7 +14,10 @@
 
 <nav class="bg-darkBg fixed inset-x-0 top-0 z-20">
 	<div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+
 		<div class="flex items-center justify-between">
+
+			{# Left Side #}
 			<div class="flex items-center gap-4">
 				<a href="{{ path('app_home') }}" class="cursor-pointer">
 					<img src="{{ asset('build/images/Logo.png') }}" alt="logo" class="h-20 px-3 py-2">
@@ -32,25 +36,32 @@
 					</a>
 				</div>
 			</div>
-			<div class="flex px-3 py-2 gap-4">
-				<a class="text-lightText" href="#">{% trans %}nav.book{% endtrans %}</a>
-				<a class="text-lightText" href="{{ path('app_gallery') }}">{% trans %}nav.gall{% endtrans %}</a>
-				<a class="text-lightText" href="{{ path('app_menu') }}">{% trans %}nav.menu{% endtrans %}</a>
-				<a class="text-lightText" href="{{ path('app_contact') }}">{% trans %}nav.ctct{% endtrans %}</a>
-				{% if is_granted('ROLE_ADMIN') %}
-					<a class="text-lightText" href="{{ path('app_management') }}">{% trans %}nav.mang{% endtrans %}</a>
-				{% else %}
-					<a
-							class="text-lightText"
-							href="{{ app.user ? path('app_account') : path('app_login') }}">
-						{% if app.user %}
-						{% trans %}nav.acnt{% endtrans %}
-						{% else %}
-							{% trans %}nav.logn{% endtrans %}
-						{% endif %}
-					</a>
-				{% endif %}
+
+			{# rigth side #}
+			<div class="relative text-end px-3 py-2">
+				<span class="material-symbols-outlined cursor-pointer text-lightText md:hidden" id="menu-toggle">menu</span>
+				<div class="absolute top-12 md:top-0 right-0 px-4 flex flex-col gap-4 bg-darkBg rounded md:flex-row">
+					<a class="navlink" href="#">{% trans %}nav.book{% endtrans %}</a>
+					<a class="navlink" href="{{ path('app_gallery') }}">{% trans %}nav.gall{% endtrans %}</a>
+					<a class="navlink" href="{{ path('app_menu') }}">{% trans %}nav.menu{% endtrans %}</a>
+					<a class="navlink" href="{{ path('app_contact') }}">{% trans %}nav.ctct{% endtrans %}</a>
+					{% if is_granted('ROLE_ADMIN') %}
+						<a class="navlink" href="{{ path('app_management') }}">{% trans %}nav.mang{% endtrans %}</a>
+					{% else %}
+						<a
+								class="navlink"
+								href="{{ app.user ? path('app_account') : path('app_login') }}">
+							{% if app.user %}
+								{% trans %}nav.acnt{% endtrans %}
+							{% else %}
+								{% trans %}nav.logn{% endtrans %}
+							{% endif %}
+						</a>
+					{% endif %}
+				</div>
 			</div>
+
 		</div>
+
 	</div>
 </nav>

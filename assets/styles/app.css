@@ -109,6 +109,14 @@
     .delete {
         @apply absolute top-10 left-1
     }
+
+    .navlink {
+        @apply text-lightText hidden md:inline
+    }
+
+    .navlink-show {
+        @apply text-lightText p-2 inline
+    }
 }
 
 body,
