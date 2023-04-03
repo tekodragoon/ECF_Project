@@ -41,20 +41,64 @@
 			<div class="relative text-end px-3 py-2">
 				<span class="material-symbols-outlined cursor-pointer text-lightText md:hidden" id="menu-toggle">menu</span>
 				<div class="absolute top-12 md:top-0 right-0 px-4 flex flex-col gap-4 bg-darkBg rounded md:flex-row">
-					<a class="navlink" href="#">{% trans %}nav.book{% endtrans %}</a>
-					<a class="navlink" href="{{ path('app_gallery') }}">{% trans %}nav.gall{% endtrans %}</a>
-					<a class="navlink" href="{{ path('app_menu') }}">{% trans %}nav.menu{% endtrans %}</a>
-					<a class="navlink" href="{{ path('app_contact') }}">{% trans %}nav.ctct{% endtrans %}</a>
+					<a
+							{% if route == 'app_booking' %}
+								class="navlink active"
+							{% else %}
+								class="navlink"
+							{% endif %}
+							href="#">
+						{{ 'nav.book'|trans }}
+					</a>
+					<a
+							{% if route == 'app_gallery' %}
+								class="navlink active"
+							{% else %}
+								class="navlink"
+							{% endif %}
+							href="{{ path('app_gallery') }}">
+						{{ 'nav.gall'|trans }}
+					</a>
+					<a
+							{% if route == 'app_menu' %}
+								class="navlink active"
+							{% else %}
+								class="navlink"
+							{% endif %}
+							href="{{ path('app_menu') }}">
+						{{ 'nav.menu'|trans }}
+					</a>
+					<a
+							{% if route == 'app_contact' %}
+								class="navlink active"
+							{% else %}
+								class="navlink"
+							{% endif %}
+							href="{{ path('app_contact') }}">
+						{{ 'nav.ctct'|trans }}
+					</a>
 					{% if is_granted('ROLE_ADMIN') %}
-						<a class="navlink" href="{{ path('app_management') }}">{% trans %}nav.mang{% endtrans %}</a>
+						<a
+								{% if route == 'app_management' %}
+									class="navlink active"
+								{% else %}
+									class="navlink"
+								{% endif %}
+								href="{{ path('app_management') }}">
+							{{ 'nav.mang'|trans }}
+						</a>
 					{% else %}
 						<a
-								class="navlink"
+								{% if route == 'app_account' or route == 'app_login' %}
+									class="navlink active"
+								{% else %}
+									class="navlink"
+								{% endif %}
 								href="{{ app.user ? path('app_account') : path('app_login') }}">
 							{% if app.user %}
-								{% trans %}nav.acnt{% endtrans %}
+								{{ 'nav.acnt'|trans }}
 							{% else %}
-								{% trans %}nav.logn{% endtrans %}
+								{{ 'nav.logn'|trans }}
 							{% endif %}
 						</a>
 					{% endif %}

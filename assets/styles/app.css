@@ -111,7 +111,11 @@
     }
 
     .navlink {
-        @apply text-lightText hidden md:inline
+        @apply text-lightText px-1 hidden md:inline
+    }
+
+    .active {
+        @apply underline underline-offset-4 bg-primary rounded
     }
 
     .navlink-show {
