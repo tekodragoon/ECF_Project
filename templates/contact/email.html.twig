@@ -1,0 +1,37 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.css')) %}
+	<wrapper class="header" bgcolor="#2B262D">
+		<container>
+			<row class="collapse">
+				<columns align="center" valign="middle" bgcolor="#2B262D">
+					<img class="img-title" src="{{ email.image('@images/Logo.png') }}" alt="Logo">
+				</columns>
+			</row>
+		</container>
+	</wrapper>
+	<container>
+		<spacer size="16"></spacer>
+		<row>
+			<columns>
+				<h1>Bonjour, {{ name }}</h1>
+				<p>Nous avons bien reçu votre message.</p>
+				<p>Nous vous répondrons dans les plus brefs délais.</p>
+			</columns>
+		</row>
+		<spacer size="16"></spacer>
+		<row>
+			<columns>
+				<p class="text-right">À très bientôt,</p>
+				<p class="text-right">L'équipe du Quai Antique</p>
+			</columns>
+		</row>
+		<spacer size="16"></spacer>
+		<row>
+			<columns>
+				<h3>Votre message</h3>
+				<p>Sujet: {{ subject }}</p>
+				<p>Message: </p>
+				<p>{{ message|nl2br }}</p>
+			</columns>
+		</row>
+	</container>
+{% endapply %}

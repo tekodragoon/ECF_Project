@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use App\Model\Message;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,11 +26,15 @@ class ContactController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //TODO: Change to TemplatedEmail
-            $email = (new Email())
+            $email = (new TemplatedEmail())
                 ->to($message->getEmail())
-                ->subject($message->getSubject())
-                ->text($message->getContent())
-                ->html( '<p>'.$message->getContent().'</p>');
+                ->subject('Confirmation de reception')
+                ->htmlTemplate('contact/email.html.twig')
+                ->context([
+                    'message' => $message->getContent(),
+                    'name' => $message->getName(),
+                    'subject' => $message->getSubject(),
+                ]);
             try {
                 $mailer->send($email);
                 $this->addFlash('success', $translator->trans('message.sended'));
