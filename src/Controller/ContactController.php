@@ -29,13 +29,24 @@ class ContactController extends AbstractController
             $email = (new TemplatedEmail())
                 ->to($message->getEmail())
                 ->subject('Confirmation de reception')
-                ->htmlTemplate('contact/email.html.twig')
+                ->htmlTemplate('contact/confirmEmailSent.html.twig')
                 ->context([
                     'message' => $message->getContent(),
                     'name' => $message->getName(),
                     'subject' => $message->getSubject(),
                 ]);
+            $messageEmail = (new TemplatedEmail())
+                ->to($this->getParameter('app.contact.email'))
+                ->subject('Quai Antique Contact')
+                ->htmlTemplate('contact/email.html.twig')
+                ->context([
+                    'message' => $message->getContent(),
+                    'name' => $message->getName(),
+                    'subject' => $message->getSubject(),
+                    'emailSender' => $message->getEmail(),
+                ]);
             try {
+                $mailer->send($messageEmail);
                 $mailer->send($email);
                 $this->addFlash('success', $translator->trans('message.sended'));
             } catch (TransportExceptionInterface $e) {

@@ -12,22 +12,25 @@
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<h1>Contact</h1>
-				<p>Message de <b>{{ name }}</b></p>
-				<p>Email de contact <b>{{ emailSender }}</b></p>
+				<h1>Bonjour, {{ name }}</h1>
+				<p>Nous avons bien reçu votre message.</p>
+				<p>Nous vous répondrons dans les plus brefs délais.</p>
 			</columns>
 		</row>
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<p><u>Message:</u> </p>
+				<p class="text-right">À très bientôt,</p>
+				<p class="text-right">L'équipe du Quai Antique</p>
+			</columns>
+		</row>
+		<spacer size="16"></spacer>
+		<row>
+			<columns>
+				<h3>Votre message</h3>
+				<p>Sujet: {{ subject }}</p>
+				<p>Message: </p>
 				<p>{{ message|nl2br }}</p>
-			</columns>
-		</row>
-		<spacer size="16"></spacer>
-		<row>
-			<columns>
-				<p>Envoyé le {{ "now"|date('j M Y') }}</p>
 			</columns>
 		</row>
 	</container>
