@@ -138,6 +138,7 @@ message:
     noFile: No file selected
     inputNoName: You must provide a name or select a recipe.
     jpegOnly: Only jpeg files are allowed.
+    confirmReceived: Your message has been received
 
 form:
     email: Email

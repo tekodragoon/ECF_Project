@@ -12,22 +12,38 @@
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
+				{% if locale == 'fr' %}
 				<h1>Contact</h1>
 				<p>Message de <b>{{ name }}</b></p>
-				<p>Email de contact <b>{{ emailSender }}</b></p>
+				<p>Email de contact: <b>{{ emailSender }}</b></p>
+				{% else %}
+				<h1>Contact</h1>
+				<p>Message from <b>{{ name }}</b></p>
+				<p>Contact email: <b>{{ emailSender }}</b></p>
+				{% endif %}
 			</columns>
 		</row>
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<p><u>Message:</u> </p>
+				{% if locale == 'fr' %}
+				<h4><u>Sujet:</u> {{ subject }}</h4>
+				<h4><u>Message:</u> </h4>
+				{% else %}
+				<h4><u>Subject:</u> {{ subject }}</h4>
+				<h4><u>Message:</u> </h4>
+				{% endif %}
 				<p>{{ message|nl2br }}</p>
 			</columns>
 		</row>
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<p>Envoyé le {{ "now"|date('j M Y') }}</p>
+				{% if locale == 'fr' %}
+				<p>Envoyé le <b>{{ "now"|date('j M Y') }}</b></p>
+				{% else %}
+				<p>Sent on <b>{{ "now"|date('M j Y') }}</b></p>
+				{% endif %}
 			</columns>
 		</row>
 	</container>

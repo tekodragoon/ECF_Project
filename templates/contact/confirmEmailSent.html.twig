@@ -12,24 +12,41 @@
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<h1>Bonjour, {{ name }}</h1>
-				<p>Nous avons bien reçu votre message.</p>
-				<p>Nous vous répondrons dans les plus brefs délais.</p>
+				{% if locale == 'fr' %}
+					<h1>Bonjour, {{ name }}</h1>
+					<p>Nous avons bien reçu votre message.</p>
+					<p>Nous vous répondrons dans les plus brefs délais.</p>
+				{% else %}
+					<h1>Hello, {{ name }}</h1>
+					<p>We have received your message.</p>
+					<p>We will answer you as quick as possible.</p>
+				{% endif %}
 			</columns>
 		</row>
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<p class="text-right">À très bientôt,</p>
-				<p class="text-right">L'équipe du Quai Antique</p>
+				{% if locale == 'fr' %}
+					<p class="text-right">À très bientôt,</p>
+					<p class="text-right">L'équipe du Quai Antique</p>
+				{% else %}
+					<p class="text-right">See you soon,</p>
+					<p class="text-right">The Quai Antique team</p>
+				{% endif %}
 			</columns>
 		</row>
 		<spacer size="16"></spacer>
 		<row>
 			<columns>
-				<h3>Votre message</h3>
-				<p>Sujet: {{ subject }}</p>
-				<p>Message: </p>
+				{% if locale == 'fr' %}
+					<h3>Votre message</h3>
+					<p>Sujet: {{ subject }}</p>
+					<p>Message: </p>
+				{% else %}
+					<h3>Your message</h3>
+					<p>Subject: {{ subject }}</p>
+					<p>Message: </p>
+				{% endif %}
 				<p>{{ message|nl2br }}</p>
 			</columns>
 		</row>
