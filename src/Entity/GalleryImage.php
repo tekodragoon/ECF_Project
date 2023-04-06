@@ -64,7 +64,7 @@ class GalleryImage
         return $this->filename;
     }
 
-    public function setFilename(string $filename): self
+    public function setFilename(?string $filename): self
     {
         $this->filename = $filename;
 
@@ -76,7 +76,7 @@ class GalleryImage
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -88,7 +88,7 @@ class GalleryImage
         return $this->visible;
     }
 
-    public function setVisible(bool $visible): self
+    public function setVisible(?bool $visible): self
     {
         $this->visible = $visible;
 

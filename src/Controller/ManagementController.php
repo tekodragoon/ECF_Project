@@ -468,7 +468,10 @@ class ManagementController extends AbstractController
     }
 
     #[Route('/add-image', name: 'app_management_add-image')]
-    public function addImage(Request $request, GalleryImageRepository $repository): Response
+    public function addImage(Request $request,
+                             GalleryImageRepository $repository,
+                             ParameterBagInterface $bag,
+                             MessageBusInterface $bus): Response
     {
         $galleryImage = new GalleryImage();
         $form = $this->createForm(GalleryImageType::class, $galleryImage);
@@ -483,6 +486,9 @@ class ManagementController extends AbstractController
             }
 
             $repository->save($galleryImage, true);
+
+            $cache = new WarmUpCacheService($bag, $bus);
+            $cache->createCacheImages();
 
             return $this->redirectToRoute('app_management_gallery');
         }
