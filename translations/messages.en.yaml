@@ -61,6 +61,7 @@ title:
     contact: Contact
     account: Account
     manage: Manage
+    reset: Reset Password
 
 h1:
     login: Login
@@ -80,6 +81,7 @@ h1:
     categoryOrder: Categories order
     manageRoom: Manage restaurant room
     manageTable: Manage tables
+    reset: Reset your password
 
 link:
     logout: Logout
@@ -139,6 +141,11 @@ message:
     inputNoName: You must provide a name or select a recipe.
     jpegOnly: Only jpeg files are allowed.
     confirmReceived: Your message has been received
+    emailrequest: Please enter the email address associated with your account to reset your password.
+    emailNotFound: No user found with this email address.
+    emailSent: An email has been sent to %email% with instructions to reset your password.
+    emailSubject: Reset your password
+    invalidToken: The token is invalid or has expired.
 
 form:
     email: Email

@@ -6,6 +6,9 @@
 
 {% block body %}
 	<div class="max-w-2xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+
+		{{ include('_flash-message.html.twig') }}
+
 		<form method="post">
 			<div class="w-fit mx-auto text-center mb-8">
 				<span class="material-symbols-rounded title-icon text-textColor">person</span>
@@ -46,7 +49,7 @@
 					       autocomplete="current-password"
 					       required>
 					<div class="flex justify-end gap-1 mt-1">
-						<a class="textLink" href="#">{% trans %}message.forgot{% endtrans %}</a>
+						<a class="textLink" href="{{ path('app_forgot_password_request') }}">{% trans %}message.forgot{% endtrans %}</a>
 					</div>
 				</div>
 

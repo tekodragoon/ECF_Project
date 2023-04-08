@@ -61,6 +61,7 @@ title:
     contact: Contact
     account: Compte
     manage: Gestion
+    reset: Réinitialisation du mot de passe
 
 h1:
     login: Se connecter
@@ -80,6 +81,7 @@ h1:
     categoryOrder: Ordre des catégories
     manageRoom: Gestion de la salle
     manageTable: Gestion des tables
+    reset: Réinitialiser votre mot de passe
 
 link:
     logout: Se déconnecter
@@ -139,6 +141,11 @@ message:
     inputNoName: Veuillez renseigner un nom ou sélectionner une recette.
     jpegOnly: Seuls les fichiers JPEG sont acceptés.
     confirmReceived: Votre message a bien été reçu
+    emailrequest: Veuillez entrer l'adresse e-mail associée à votre compte pour réinitialiser votre mot de passe.
+    emailNotFound: Aucun compte n'est associé à cette adresse e-mail.
+    emailSent: Un email contenant un lien de réinitialisation de mot de passe a été envoyé à %email%.
+    emailSubject: Réinitialisation de votre mot de passe
+    invalidToken: Le lien de réinitialisation de mot de passe est invalide ou a expiré.
 
 form:
     email: Email
