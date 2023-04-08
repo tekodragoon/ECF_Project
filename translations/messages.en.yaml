@@ -50,6 +50,8 @@ button:
     edit: Edit
     addTable: Add a table
     choose-file: Choose a file
+    editAdmin: Your Informations
+    changePassword: Change your password
 
 title:
     connect: Connection
@@ -146,6 +148,8 @@ message:
     emailSent: An email has been sent to %email% with instructions to reset your password.
     emailSubject: Reset your password
     invalidToken: The token is invalid or has expired.
+    welcome: Welcome
+    admin: Administrator
 
 form:
     email: Email

@@ -1,7 +1,20 @@
+{{ include('_flash-message.html.twig') }}
+
 <div
 		class="card grid grid-cols-2 gap-4"
 		hx-target="this"
 		hx-swap="outerHTML">
+	<div class="col-span-2 text-lightText p-2">
+		{% if app.user.firstname and app.user.lastname %}
+			{{ 'message.welcome'|trans }} {{ app.user.firstname }} {{ app.user.lastname }}
+		{% elseif app.user.firstname %}
+			{{ 'message.welcome'|trans }} {{ app.user.firstname }}
+		{% elseif app.user.lastname %}
+			{{ 'message.welcome'|trans }} {{ app.user.lastname }}
+		{% else %}
+			{{ 'message.welcome'|trans }} {{ 'message.admin'|trans }}
+		{% endif %}
+	</div>
 	<button class="btn" hx-get="{{ path('app_management_gallery') }}">
 		{{ 'button.gallery'|trans }}
 	</button>
@@ -19,5 +32,12 @@
 	</button>
 	<button class="btn" hx-get="{{ path('app_management_manage-restaurant') }}">
 		{{ 'button.restaurant'|trans }}
+	</button>
+	<div class="mb-4 col-span-2"></div>
+	<button class="btn" hx-get="{{ path('app_account_edit') }}">
+		{{ 'button.editAdmin'|trans }}
+	</button>
+	<button class="btn" hx-get="{{ path('app_account_edit_pwd') }}">
+		{{ 'button.changePassword'|trans }}
 	</button>
 </div>

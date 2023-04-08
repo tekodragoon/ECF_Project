@@ -15,7 +15,8 @@
 	}) }}
 
 	<div class="flex w-full justify-center gap-6">
-		<button type="button" class="btn btn-cancel" hx-get="{{ path('app_account_show') }}">
+		{% set path = app.user.roles[0] == "ROLE_ADMIN" ? path('app_management_action') : path('app_account_show') %}
+		<button type="button" class="btn btn-cancel" hx-get="{{ path }}">
 			{{ 'button.cancel'|trans }}
 		</button>
 		<button type="submit" class="btn btn-valid">

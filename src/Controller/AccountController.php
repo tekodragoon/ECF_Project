@@ -45,6 +45,11 @@ class AccountController extends AbstractController
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', $translator->trans('message.changes'));
+
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->redirectToRoute('app_management_action');
+            }
+
             return $this->redirectToRoute('app_account_show');
         }
 
@@ -76,6 +81,10 @@ class AccountController extends AbstractController
             $manager->persist($user);
             $manager->flush();
             $this->addFlash('success', $translator->trans('message.passChanges'));
+
+            if (in_array('ROLE_ADMIN', $user->getRoles())) {
+                return $this->redirectToRoute('app_management_action');
+            }
             return $this->redirectToRoute('app_account_show');
         }
 

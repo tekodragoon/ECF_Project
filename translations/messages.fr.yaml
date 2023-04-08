@@ -50,6 +50,8 @@ button:
     edit: Éditer
     addTable: Ajouter une table
     choose-file: Choisir un fichier
+    editAdmin: Vos Informations
+    changePassword: Changer de mot de passe
 
 title:
     connect: Connexion
@@ -146,6 +148,8 @@ message:
     emailSent: Un email contenant un lien de réinitialisation de mot de passe a été envoyé à %email%.
     emailSubject: Réinitialisation de votre mot de passe
     invalidToken: Le lien de réinitialisation de mot de passe est invalide ou a expiré.
+    welcome: Bienvenue
+    admin: Administrateur
 
 form:
     email: Email
