@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        transports:
+            async: 'sync://'
+            async_priority_high: 'sync://'
+            liip_imagine: 'sync://'
