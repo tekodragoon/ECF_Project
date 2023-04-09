@@ -64,6 +64,7 @@ title:
     account: Compte
     manage: Gestion
     reset: Réinitialisation du mot de passe
+    reservation: Réservation
 
 h1:
     login: Se connecter
@@ -84,6 +85,7 @@ h1:
     manageRoom: Gestion de la salle
     manageTable: Gestion des tables
     reset: Réinitialiser votre mot de passe
+    reservation: Réservation
 
 link:
     logout: Se déconnecter

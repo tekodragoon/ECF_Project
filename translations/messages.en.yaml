@@ -64,6 +64,7 @@ title:
     account: Account
     manage: Manage
     reset: Reset Password
+    reservation: Reservation
 
 h1:
     login: Login
@@ -84,6 +85,7 @@ h1:
     manageRoom: Manage restaurant room
     manageTable: Manage tables
     reset: Reset your password
+    reservation: Reservation
 
 link:
     logout: Logout
