@@ -11,24 +11,10 @@
 			<h1 class="textH1">{% trans %}h1.reservation{% endtrans %}</h1>
 		</div>
 
-		<div class="card text-lightText">
+		<div class="card text-lightText" id="booking-card">
 
-			<div class="flex justify-evenly items-center uppercase mb-4">
-				{{ current_date|format_datetime(locale=app.request.locale, pattern="MMMM Y") }}
-				<button class="btn"><</button>
-				<button class="btn">></button>
-			</div>
-
-			{% for i in 0..6 %}
-				{% set cur_date = current_date|date_modify("+#{i} day") %}
-				<div class="flex justify-evenly items-center mb-4">
-					{{ cur_date|format_datetime(locale=app.request.locale, pattern="dd MMMM") }}
-					<div>
-						<button class="btn">Midi</button>
-						<button class="btn">Soir</button>
-					</div>
-				</div>
-			{% endfor %}
+			{% set current_date = '%s-%s-%s'|format(year, month, day) %}
+			{{ include('booking/show-date.html.twig', { date: current_date }) }}
 
 		</div>
 

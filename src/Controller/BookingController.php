@@ -9,14 +9,31 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BookingController extends AbstractController
 {
-    #[Route('/reservation', name: 'app_booking')]
+    #[Route('/booking', name: 'app_booking')]
     public function index(): Response
     {
-        $date = date('Y-m-d',strtotime('last monday'));
-
+        $year = date('Y',strtotime('last monday'));
+        $month = date('m',strtotime('last monday'));
+        $day = date('d',strtotime('last monday'));
 
         return $this->render('booking/index.html.twig', [
-            'current_date' => $date,
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+        ]);
+    }
+
+    #[Route('/booking/{date}', name: 'app_booking_date')]
+    public function indexDate(string $date): Response
+    {
+        $year = date('Y',strtotime($date));
+        $month = date('m',strtotime($date));
+        $day = date('d',strtotime($date));
+
+        return $this->render('booking/show-date.html.twig', [
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
         ]);
     }
 }
