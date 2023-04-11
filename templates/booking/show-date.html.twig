@@ -1,17 +1,23 @@
+{% set current_date = '%s-%s-%s'|format(year, month, day) %}
+{% set prevWeek = current_date|date_modify('-7 day') %}
+{% set nextWeek = current_date|date_modify('+7 day') %}
+{% set pwYear = prevWeek|date('Y') %}
+{% set pwMonth = prevWeek|date('m') %}
+{% set pwDay = prevWeek|date('d') %}
+{% set nwYear = nextWeek|date('Y') %}
+{% set nwMonth = nextWeek|date('m') %}
+{% set nwDay = nextWeek|date('d') %}
+{% set strPrevWeek = '%s-%s-%s'|format(pwYear, pwMonth, pwDay) %}
+{% set strNextWeek = '%s-%s-%s'|format(nwYear, nwMonth, nwDay) %}
+
+{% set now = "now"|date('Y-m-d') %}
+{% set day = "now"|date('w') %}
+{% set weekStart = "now"|date_modify("-#{day} days")|date('Y-m-d') %}
+
 <div class="flex justify-evenly items-center uppercase mb-4">
-	{% set current_date = '%s-%s-%s'|format(year, month, day) %}
 	{{ current_date|format_datetime(locale=app.request.locale, pattern="MMMM Y") }}
-	{% set prevWeek = current_date|date_modify('-7 day') %}
-	{% set nextWeek = current_date|date_modify('+7 day') %}
-	{% set pwYear = prevWeek|date('Y') %}
-	{% set pwMonth = prevWeek|date('m') %}
-	{% set pwDay = prevWeek|date('d') %}
-	{% set nwYear = nextWeek|date('Y') %}
-	{% set nwMonth = nextWeek|date('m') %}
-	{% set nwDay = nextWeek|date('d') %}
-	{% set strPrevWeek = '%s-%s-%s'|format(pwYear, pwMonth, pwDay) %}
-	{% set strNextWeek = '%s-%s-%s'|format(nwYear, nwMonth, nwDay) %}
 	<button class="btn"
+	        {% if weekStart > strPrevWeek %} disabled {% endif %}
 	        hx-get="{{ path('app_booking_date', { date: strPrevWeek }) }}"
 	        hx-swap="innerHTML"
 	        hx-target="#booking-card">
@@ -25,18 +31,23 @@
 	</button>
 </div>
 
-{% set now = "now"|date('Y-m-d') %}
 
 {% for i in 0..6 %}
 	{% set cur_date = current_date|date_modify("+#{i} day") %}
-	<div class="flex justify-evenly items-center mb-4">
+	<div class="flex justify-evenly items-center gap-4 mb-4">
 		<span class="w-full text-center py-2 rounded border-2 border-lightText
-					{{ now == cur_date|date('Y-m-d') ? 'bg-secondary' : '' }}">
-		{{ cur_date|format_datetime(locale=app.request.locale, pattern="dd MMMM") }}
+					{{ now == cur_date|date('Y-m-d') ? 'bg-secondary' : '' }}
+					{{ now > cur_date|date('Y-m-d') ? 'bg-lightText text-gray-400' : '' }}
+		">
+		{{ cur_date|format_datetime(locale=app.request.locale, pattern="EE dd MMMM")|capitalize }}
 		</span>
 		<div class="flex">
-			<button class="btn">Midi</button>
-			<button class="btn">Soir</button>
+			<button class="btn" {% if now > cur_date|date('Y-m-d') %} disabled {% endif %}>
+				Midi
+			</button>
+			<button class="btn" {% if now > cur_date|date('Y-m-d') %} disabled {% endif %}>
+				Soir
+			</button>
 		</div>
 	</div>
 {% endfor %}
