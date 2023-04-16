@@ -11,8 +11,7 @@
 {% set strNextWeek = '%s-%s-%s'|format(nwYear, nwMonth, nwDay) %}
 
 {% set now = "now"|date('Y-m-d') %}
-{% set day = "now"|date('w') %}
-{% set weekStart = "now"|date_modify("-#{day} days")|date('Y-m-d') %}
+{% set weekStart = "now"|date_modify("monday this week")|date('Y-m-d') %}
 
 <div class="flex justify-evenly items-center uppercase mb-4">
 	{{ current_date|format_datetime(locale=app.request.locale, pattern="MMMM Y") }}
@@ -42,7 +41,9 @@
 		{{ cur_date|format_datetime(locale=app.request.locale, pattern="EE dd MMMM")|capitalize }}
 		</span>
 		<div class="flex">
-			<button class="btn" {% if now > cur_date|date('Y-m-d') %} disabled {% endif %}>
+			<button class="btn"
+					{% if now > cur_date|date('Y-m-d') %} disabled {% endif %}
+			>
 				Midi
 			</button>
 			<button class="btn" {% if now > cur_date|date('Y-m-d') %} disabled {% endif %}>
