@@ -14,7 +14,7 @@
 		<div class="card text-lightText" id="booking-card">
 
 			{% set current_date = '%s-%s-%s'|format(year, month, day) %}
-			{{ include('booking/show-date.html.twig', { date: current_date }) }}
+			{{ include('booking/show-date.html.twig', { date: current_date, bookings: bookings }) }}
 
 		</div>
 
