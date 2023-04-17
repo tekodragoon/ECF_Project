@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,25 @@ class ReservationRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findWeek(DateTime $date): array
+    {
+        $start = $date->format('Y-m-d');
+        $end = $date->modify('+6 days')->format('Y-m-d');
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.date BETWEEN :start AND :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->orderBy('r.date', 'ASC')
+            ->leftJoin('r.simpleUser', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.simpleGuests', 'g')
+            ->addSelect('g')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ReservationRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
@@ -18,14 +20,14 @@ class Reservation
     private ?DateTimeImmutable $date = null;
 
     #[ORM\Column]
-    private ?bool $service = null;
-
-    #[ORM\OneToOne(targetEntity: Table::class)]
-    private ?Table $reservedTable = null;
+    private ?bool $noonService = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?SimpleUser $simpleUser = null;
+
+    #[ORM\Column(type: Types::SIMPLE_ARRAY)]
+    private array $reservedTables = [];
 
     public function getId(): ?int
     {
@@ -44,26 +46,14 @@ class Reservation
         return $this;
     }
 
-    public function isService(): ?bool
+    public function isNoonService(): ?bool
     {
-        return $this->service;
+        return $this->noonService;
     }
 
-    public function setService(bool $service): self
+    public function setNoonService(bool $noonService): self
     {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    public function getReservedTable(): ?Table
-    {
-        return $this->reservedTable;
-    }
-
-    public function setReservedTable(?Table $reservedTable): self
-    {
-        $this->reservedTable = $reservedTable;
+        $this->noonService = $noonService;
 
         return $this;
     }
@@ -76,6 +66,20 @@ class Reservation
     public function setSimpleUser(SimpleUser $simpleUser): self
     {
         $this->simpleUser = $simpleUser;
+
+        return $this;
+    }
+
+    public function getReservedTables(): array
+    {
+        return $this->reservedTables;
+    }
+
+    public function addReservedTables(int $reservedTable): self
+    {
+        if (!in_array($reservedTable, $this->reservedTables, true)) {
+            $this->reservedTables[] = $reservedTable;
+        }
 
         return $this;
     }

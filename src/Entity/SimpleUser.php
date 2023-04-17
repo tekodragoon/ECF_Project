@@ -35,6 +35,7 @@ class SimpleUser
 
     public function __construct()
     {
+        $this->isRegistered = false;
         $this->simpleGuests = new ArrayCollection();
     }
 
