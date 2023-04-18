@@ -13,21 +13,23 @@
 {% set now = "now"|date('Y-m-d') %}
 {% set weekStart = "now"|date_modify("monday this week")|date('Y-m-d') %}
 
-<div class="flex justify-evenly items-center uppercase mb-4">
-	{{ current_date|format_datetime(locale=app.request.locale, pattern="MMMM Y") }}
-	<button class="btn"
-			{% if weekStart > strPrevWeek %} disabled {% endif %}
-			    hx-get="{{ path('app_booking_date', { date: strPrevWeek }) }}"
-			    hx-swap="innerHTML"
-			    hx-target="#booking-card">
-		<
-	</button>
-	<button class="btn"
-	        hx-get="{{ path('app_booking_date', {date: strNextWeek}) }}"
-	        hx-swap="innerHTML"
-	        hx-target="#booking-card">
-		>
-	</button>
+<div class="flex items-center uppercase mb-4 px-4"
+     hx-swap="innerHTML"
+     hx-target="#booking-card">
+	<div class="flex-grow text-center">
+		{{ current_date|format_datetime(locale=app.request.locale, pattern="MMMM Y") }}
+	</div>
+	<div class="flex gap-8">
+		<button class="btn"
+				{% if weekStart > strPrevWeek %} disabled {% endif %}
+				    hx-get="{{ path('app_booking_date', { date: strPrevWeek }) }}">
+			<
+		</button>
+		<button class="btn"
+		        hx-get="{{ path('app_booking_date', {date: strNextWeek}) }}">
+			>
+		</button>
+	</div>
 </div>
 
 
