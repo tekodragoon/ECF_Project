@@ -47,7 +47,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureG
     {
         // create reservations for one week
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             // create services for each day
             $noonService = new Service();
             $noonService->setNoon(true);
@@ -60,17 +60,17 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureG
                 $reservedTable = new ReservedTable();
                 $reservedTable->setTable($table);
                 $noonService->addReservedTable($reservedTable);
-                $eveningService->addReservedTable($reservedTable);
+                $eveningService->addReservedTable(clone $reservedTable);
             }
 
             // setting date
             $interval = DateInterval::createFromDateString($i . ' day');
-            $curDate = new DateTime('monday next week');
+            $curDate = new DateTime('monday this week');
             $curDate->add($interval);
             $noonService->setDate($curDate);
             $eveningService->setDate($curDate);
 
-            for ($j = 0; $j < 10; $j++) {
+            for ($j = 0; $j < 15; $j++) {
                 // create reservation and set date
                 $reservation = new Reservation();
                 $reservation->setDate(DateTimeImmutable::createFromMutable($curDate));
