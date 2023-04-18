@@ -1,0 +1,13 @@
+{% set current_date = '%s-%s-%s'|format(year, month, day) %}
+{% set weekStart = current_date|date_modify("monday this week")|date('Y-m-d') %}
+
+<button class="icon-btn"
+        hx-swap="innerHTML"
+        hx-target="#booking-card"
+        hx-get="{{ path('app_booking_date', {date: weekStart}) }}">
+	<span class="material-symbols-rounded">navigate_before</span>
+</button>
+
+<div class="text-lightText text-2xl text-center">
+	{{ current_date|format_datetime(locale=app.request.locale, pattern="EEEE dd MMMM")|capitalize }}
+</div>

@@ -81,6 +81,31 @@ class BookingController extends AbstractController
     }
 
     /**
+     * @throws NonUniqueResultException
+     */
+    #[Route('/booking/hours/{date}/{time}', name: 'app_booking_hours')]
+    public function chooseHours(string $date, string $time, RestaurantRepository $restaurantRepository): Response
+    {
+        $restaurant = $restaurantRepository->findRestaurant();
+        if (!$restaurant) {
+            throw $this->createNotFoundException(
+                'Restaurant\'s data can\'t be found. Contact support.'
+            );
+        }
+        $year = date('Y',strtotime($date));
+        $month = date('m',strtotime($date));
+        $day = date('d',strtotime($date));
+
+        return $this->render('booking/select-hours.html.twig', [
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'time' => $time,
+            'restaurant' => $restaurant,
+        ]);
+    }
+
+    /**
      * @param DateTimeImmutable $monday
      * @param array $reservations
      * @param Restaurant $restaurant
