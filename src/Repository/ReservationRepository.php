@@ -83,4 +83,7 @@ class ReservationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findRestaurant()
+    {
+    }
 }
