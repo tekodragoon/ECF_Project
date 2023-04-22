@@ -8,6 +8,31 @@
 	<span class="material-symbols-rounded">navigate_before</span>
 </button>
 
-<div class="text-lightText text-2xl text-center">
+<div class="text-lightText text-2xl text-center mb-6">
 	{{ current_date|format_datetime(locale=app.request.locale, pattern="EEEE dd MMMM")|capitalize }}
 </div>
+
+<div class="mb-4">
+	{% if service.getMaxSeatsAvailable > 0 %}
+		{{ 'message.maxPerson'|trans({'%value%': service.getMaxSeatsAvailable}) }}
+	{% else %}
+		{{ 'message.noPerson'|trans }}
+	{% endif %}
+</div>
+
+{% if service.getMaxSeatsAvailable > 0 %}
+	{% set startTime = noon ? openHour.noonStart : openHour.eveningStart %}
+	{% set endTime = noon ? openHour.noonEnd : openHour.eveningEnd %}
+	<div class="text-center underline underline-offset-4 mb-4">
+		{{ 'message.chooseHour'|trans }}
+	</div>
+	<div class="grid grid-cols-4">
+		{% set maxRange = (endTime|date('U') - startTime|date('U'))/900|round %}
+		{% for i in range(0, maxRange - 4) %}
+			{% set time = startTime|date_modify('+' ~ (i * 900) ~ ' seconds') %}
+			<button class="btn">
+				{{ time|date('H:i') }}
+			</button>
+		{% endfor %}
+	</div>
+{% endif %}

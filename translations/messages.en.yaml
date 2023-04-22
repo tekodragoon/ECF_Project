@@ -152,6 +152,9 @@ message:
     invalidToken: The token is invalid or has expired.
     welcome: Welcome
     admin: Administrator
+    maxPerson: There are still %value% seats available.
+    noPerson: There are no seats available.
+    chooseHour: Choose your arrival time.
 
 form:
     email: Email

@@ -45,20 +45,26 @@
 		<div class="flex"
 		     hx-swap="innerHTML"
 		     hx-target="#booking-card">
-			<button class="btn {{ services[i*2].getNonReservedTables|length == 0 ? 'btn-danger' : 'btn-valid' }}"
+			{% set color = 'btn-valid' %}
+			{% if services[i*2].getNonReservedTables|length == 0 %}
+				{% set color = 'btn-danger' %}
+			{% elseif services[i*2].getNonReservedTables|length <= (services[i*2].getAllReservedTables|length * 0.25)|round %}
+				{% set color = 'btn-careful' %}
+			{% endif %}
+			<button class="btn {{ color }}"
 					{% if not restaurant.openDays[i].isOpen or
 						not restaurant.openDays[i].isNoonService or
 						now > cur_date|date('Y-m-d') %}
 						disabled {% endif %}
-			hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1200}) }}">
+					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1200}) }}">
 				Midi
 			</button>
 			<button class="btn {{ services[(i*2)+1].getNonReservedTables|length == 0 ? 'btn-danger' : 'btn-valid' }}"
 					{% if not restaurant.openDays[i].isOpen or
 						not restaurant.openDays[i].isEveningService or
 						now > cur_date|date('Y-m-d') %}
-			disabled {% endif %}
-			hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1900}) }}">
+						disabled {% endif %}
+					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1900}) }}">
 				Soir
 			</button>
 		</div>

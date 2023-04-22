@@ -152,6 +152,9 @@ message:
     invalidToken: Le lien de réinitialisation de mot de passe est invalide ou a expiré.
     welcome: Bienvenue
     admin: Administrateur
+    maxPerson: Il reste encore %value% places disponibles.
+    noPerson: Il n'y a plus de places disponibles.
+    chooseHour: Choisissez votre heure d'arrivée.
 
 form:
     email: Email

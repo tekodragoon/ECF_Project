@@ -19,6 +19,7 @@ module.exports = {
 				"valid": "#63B56B",
 				"error": "#FF3426",
 				"warning": "#E13426",
+				"careful": "#FFA500",
 			},
 		},
 	},

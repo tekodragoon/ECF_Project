@@ -84,6 +84,11 @@
         hover:bg-valid hover:text-white hover:border-valid
     }
 
+    .btn-careful {
+        @apply border-careful
+        hover:bg-careful hover:text-white hover:border-careful
+    }
+
     .drag-over {
         @apply bg-valid text-white
     }

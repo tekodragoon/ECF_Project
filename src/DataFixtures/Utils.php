@@ -17,8 +17,8 @@ class Utils
 
     public function setIdentity($object): void
     {
-        $lastname = $this->faker->unique()->lastName();
-        $firstname = $this->faker->unique()->firstName();
+        $lastname = $this->faker->lastName();
+        $firstname = $this->faker->firstName();
         $l = $this->trans->transliterate(strtolower($lastname));
         $f = $this->trans->transliterate(strtolower($firstname));
         $email = $l . '-' . $f . '@example.com';

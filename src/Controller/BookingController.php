@@ -25,9 +25,9 @@ class BookingController extends AbstractController
     #[Route('/booking', name: 'app_booking')]
     public function index(ReservationRepository $repository, RestaurantRepository $restaurantRepository): Response
     {
-        $year = date('Y',strtotime('monday this week'));
-        $month = date('m',strtotime('monday this week'));
-        $day = date('d',strtotime('monday this week'));
+        $year = date('Y', strtotime('monday this week'));
+        $month = date('m', strtotime('monday this week'));
+        $day = date('d', strtotime('monday this week'));
 
         $monday = new DateTimeImmutable('monday this week');
         $reservations = $repository->findWeek(DateTime::createFromImmutable($monday));
@@ -52,14 +52,14 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/{date}', name: 'app_booking_date')]
-    public function indexDate(string $date,
+    public function indexDate(string                $date,
                               ReservationRepository $repository,
-                              RestaurantRepository $restaurantRepository,
+                              RestaurantRepository  $restaurantRepository,
     ): Response
     {
-        $year = date('Y',strtotime($date));
-        $month = date('m',strtotime($date));
-        $day = date('d',strtotime($date));
+        $year = date('Y', strtotime($date));
+        $month = date('m', strtotime($date));
+        $day = date('d', strtotime($date));
 
         $monday = new DateTimeImmutable($date);
         $reservations = $repository->findWeek(DateTime::createFromImmutable($monday));
@@ -82,26 +82,64 @@ class BookingController extends AbstractController
 
     /**
      * @throws NonUniqueResultException
+     * @throws Exception
      */
     #[Route('/booking/hours/{date}/{time}', name: 'app_booking_hours')]
-    public function chooseHours(string $date, string $time, RestaurantRepository $restaurantRepository): Response
+    public function chooseHours(string $date,
+                                string $time,
+                                RestaurantRepository $restaurantRepository,
+                                ReservationRepository $reservationRepository,
+    ): Response
     {
+        if ($time == 1200) {
+            $noon = true;
+        } elseif ($time == 1900) {
+            $noon = false;
+        } else {
+            throw $this->createNotFoundException(
+                'Parameter error.'
+            );
+        }
         $restaurant = $restaurantRepository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
                 'Restaurant\'s data can\'t be found. Contact support.'
             );
         }
-        $year = date('Y',strtotime($date));
-        $month = date('m',strtotime($date));
-        $day = date('d',strtotime($date));
+        $year = date('Y', strtotime($date));
+        $month = date('m', strtotime($date));
+        $day = date('d', strtotime($date));
+
+        $reservations = $reservationRepository->findService(DateTime::createFromImmutable(new DateTimeImmutable($date)), $noon);
+
+        // Create a service
+        $service = new Service();
+        $service->setNoon($noon);
+        // Add all tables to the service
+        $tables = $restaurant->getTables();
+        foreach ($tables as $table) {
+            $reservedTable = new ReservedTable();
+            $reservedTable->setTable($table);
+            $service->addReservedTable($reservedTable);
+        }
+        // Set all tables that are already reserved
+        foreach ($reservations as $reservation) {
+            $reservedTables = $reservation->getReservedTables();
+            foreach ($reservedTables as $reservedTable) {
+                $service->reserveTable($reservedTable);
+            }
+        }
+
+        $dayDate = date('N', strtotime($date)) - 1;
+        $openHour = $restaurant->getOpenHours()[$dayDate];
 
         return $this->render('booking/select-hours.html.twig', [
             'year' => $year,
             'month' => $month,
             'day' => $day,
-            'time' => $time,
-            'restaurant' => $restaurant,
+            'noon' => $noon,
+            'openHour' => $openHour,
+            'service' => $service,
         ]);
     }
 
@@ -142,7 +180,7 @@ class BookingController extends AbstractController
             $date = DateTime::createFromImmutable($reservation->getDate());
             $noon = $reservation->isNoonService();
             $tables = $reservation->getReservedTables();
-            $filter_func = function(Service $service) use ($date, $noon) {
+            $filter_func = function (Service $service) use ($date, $noon) {
                 return $service->getDate() == $date && $service->isNoon() === $noon;
             };
             $index = array_keys(array_filter($services, $filter_func))[0];

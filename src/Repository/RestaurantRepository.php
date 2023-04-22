@@ -47,6 +47,10 @@ class RestaurantRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
             ->orderBy('r.id', 'ASC')
+            ->leftJoin('r.openHours', 'oh')
+            ->addSelect('oh')
+            ->leftJoin('r.openDays', 'd')
+            ->addSelect('d')
             ->getQuery()
             ->getOneOrNullResult();
     }

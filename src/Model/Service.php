@@ -59,6 +59,16 @@ class Service
         return $this->reservedTables->filter(fn(ReservedTable $reservedTable) => !$reservedTable->isReserved());
     }
 
+    public function getMaxSeatsAvailable(): int
+    {
+        $nonReservedTables = $this->getNonReservedTables();
+        $count = 0;
+        foreach ($nonReservedTables as $nonReservedTable) {
+            $count += $nonReservedTable->getTable()->getSeats();
+        }
+        return $count;
+    }
+
     /**
      * @return ArrayCollection
      */

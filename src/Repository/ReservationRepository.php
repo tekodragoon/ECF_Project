@@ -40,7 +40,11 @@ class ReservationRepository extends ServiceEntityRepository
         }
     }
 
-    public function findWeek(DateTime $date): array
+    /**
+     * @param DateTime $date
+     * @return mixed
+     */
+    public function findWeek(DateTime $date): mixed
     {
         $start = $date->format('Y-m-d');
         $end = $date->modify('+6 days')->format('Y-m-d');
@@ -55,8 +59,49 @@ class ReservationRepository extends ServiceEntityRepository
             ->leftJoin('u.simpleGuests', 'g')
             ->addSelect('g')
             ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param DateTime $date
+     * @return mixed
+     */
+    public function findDay(DateTime $date): mixed
+    {
+        $dayToFound = $date->format('Y-m-d');
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.date = :day')
+            ->setParameter('day', $dayToFound)
+            ->leftJoin('r.simpleUser', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.simpleGuests', 'g')
+            ->addSelect('g')
+            ->getQuery()
             ->getResult()
         ;
+    }
+
+    /**
+     * @param DateTime $date
+     * @param $noon
+     * @return float|int|mixed|string
+     */
+    public function findService(DateTime $date, $noon): mixed
+    {
+        $dayToFound = $date->format('Y-m-d');
+
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.date = :day')
+            ->andWhere('r.noonService = :noonService')
+            ->setParameter('day', $dayToFound)
+            ->setParameter('noonService', $noon)
+            ->leftJoin('r.simpleUser', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.simpleGuests', 'g')
+            ->addSelect('g')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

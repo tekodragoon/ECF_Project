@@ -47,7 +47,7 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureG
     {
         // create reservations for one week
 
-        for ($i = 0; $i < 6; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             // create services for each day
             $noonService = new Service();
             $noonService->setNoon(true);
@@ -76,6 +76,10 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureG
                 $reservation->setDate(DateTimeImmutable::createFromMutable($curDate));
                 // randomly choose noon or evening service
                 $isNoonService = random_int(0, 100) > 50;
+                // if saturday or sunday, only evening service
+                if ($curDate->format('N') > 5) {
+                    $isNoonService = false;
+                }
                 // set number of guests
                 $numOfGuest = random_int(3, 10);
                 // create simple user
