@@ -23,6 +23,9 @@ plusButtons.forEach(button => {
 				if (input.valueAsNumber > maxvalue.innerText) {
 					input.value = maxvalue.innerText;
 				}
+				if (input.valueAsNumber < input.min) {
+					input.value = input.min;
+				}
 			}
 		})
 	})
