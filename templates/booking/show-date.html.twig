@@ -32,6 +32,7 @@
 	</div>
 </div>
 
+{% set carefulValue = (services[0].getAllReservedTables|length * 0.25)|round %}
 
 {% for i in 0..6 %}
 	{% set cur_date = current_date|date_modify("+#{i} day") %}
@@ -48,7 +49,7 @@
 			{% set color = 'btn-valid' %}
 			{% if services[i*2].getNonReservedTables|length == 0 %}
 				{% set color = 'btn-danger' %}
-			{% elseif services[i*2].getNonReservedTables|length <= (services[i*2].getAllReservedTables|length * 0.25)|round %}
+			{% elseif services[i*2].getNonReservedTables|length <= carefulValue %}
 				{% set color = 'btn-careful' %}
 			{% endif %}
 			<button class="btn {{ color }}"
@@ -59,7 +60,13 @@
 					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1200}) }}">
 				Midi
 			</button>
-			<button class="btn {{ services[(i*2)+1].getNonReservedTables|length == 0 ? 'btn-danger' : 'btn-valid' }}"
+			{% set color = 'btn-valid' %}
+			{% if services[i*2].getNonReservedTables|length == 0 %}
+				{% set color = 'btn-danger' %}
+			{% elseif services[(i*2)+1].getNonReservedTables|length <= carefulValue %}
+				{% set color = 'btn-careful' %}
+			{% endif %}
+			<button class="btn {{ color }}"
 					{% if not restaurant.openDays[i].isOpen or
 						not restaurant.openDays[i].isEveningService or
 						now > cur_date|date('Y-m-d') %}

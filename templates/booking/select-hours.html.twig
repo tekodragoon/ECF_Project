@@ -12,6 +12,8 @@
 	{{ current_date|format_datetime(locale=app.request.locale, pattern="EEEE dd MMMM")|capitalize }}
 </div>
 
+{{ dump(service.getNonReservedTables|length) }}
+
 <div class="mb-4">
 	{% if service.getMaxSeatsAvailable > 0 %}
 		{{ 'message.maxPerson'|trans({'%value%': service.getMaxSeatsAvailable}) }}
