@@ -18,6 +18,13 @@ plusButtons.forEach(button => {
 				input.valueAsNumber += 1;
 			}
 		}
+		input.addEventListener('change', () => {
+			if (maxvalue) {
+				if (input.valueAsNumber > maxvalue.innerText) {
+					input.value = maxvalue.innerText;
+				}
+			}
+		})
 	})
 })
 
