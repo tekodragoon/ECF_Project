@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Restaurant;
+use App\Form\BasicBookingType;
+use App\Model\BasicBooking;
 use App\Model\ReservedTable;
 use App\Model\Service;
 use App\Repository\ReservationRepository;
@@ -13,6 +15,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -85,10 +88,11 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/hours/{date}/{time}', name: 'app_booking_hours')]
-    public function chooseHours(string $date,
-                                string $time,
-                                RestaurantRepository $restaurantRepository,
+    public function chooseHours(string                $date,
+                                string                $time,
+                                RestaurantRepository  $restaurantRepository,
                                 ReservationRepository $reservationRepository,
+                                Request               $request,
     ): Response
     {
         if ($time == 1200) {
@@ -133,6 +137,17 @@ class BookingController extends AbstractController
         $dayDate = date('N', strtotime($date)) - 1;
         $openHour = $restaurant->getOpenHours()[$dayDate];
 
+        $booking = new BasicBooking();
+        $form = $this->createForm(BasicBookingType::class, $booking);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('app_booking_guests', [
+                'guests' => $booking->getNumGuests(),
+                'date' => $booking->getHour(),
+            ]);
+        }
+
         return $this->render('booking/select-hours.html.twig', [
             'year' => $year,
             'month' => $month,
@@ -140,6 +155,16 @@ class BookingController extends AbstractController
             'noon' => $noon,
             'openHour' => $openHour,
             'service' => $service,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/booking/guests/{guests}-{date}', name: 'app_booking_guests')]
+    public function selectGuests(string $date, string $guests): Response
+    {
+        return $this->render('booking/select-guests.html.twig', [
+            'date' => $date,
+            'guests' => $guests,
         ]);
     }
 

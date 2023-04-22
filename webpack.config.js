@@ -36,6 +36,7 @@ Encore
     .addEntry('upload', './assets/upload-file.js')
     .addEntry('cursor', './assets/cursor.js')
     .addEntry('navmenu', './assets/navmenu.js')
+    .addEntry('hourSelect', './assets/hourSelect.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

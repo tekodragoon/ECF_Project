@@ -1,3 +1,8 @@
+{% block javascripts %}
+	{{ encore_entry_script_tags('numberInput') }}
+	{{ encore_entry_script_tags('hourSelect') }}
+{% endblock %}
+
 {% set current_date = '%s-%s-%s'|format(year, month, day) %}
 {% set weekStart = current_date|date_modify("monday this week")|date('Y-m-d') %}
 
@@ -21,18 +26,45 @@
 </div>
 
 {% if service.getMaxSeatsAvailable > 0 %}
-	{% set startTime = noon ? openHour.noonStart : openHour.eveningStart %}
-	{% set endTime = noon ? openHour.noonEnd : openHour.eveningEnd %}
-	<div class="text-center underline underline-offset-4 mb-4">
-		{{ 'message.chooseHour'|trans }}
-	</div>
-	<div class="grid grid-cols-4">
-		{% set maxRange = (endTime|date('U') - startTime|date('U'))/900|round %}
-		{% for i in range(0, maxRange - 4) %}
-			{% set time = startTime|date_modify('+' ~ (i * 900) ~ ' seconds') %}
-			<button class="btn">
-				{{ time|date('H:i') }}
+	<form hx-swap="innerHTML"
+	      hx-target="#booking-card"
+	      hx-post="{{ path('app_booking_hours', {date: current_date|date('Y-m-d'), time: noon ? 1200 : 1900}) }}">
+		<div class="text-textColor p-2">
+			{{ form_start(form) }}
+			<div class="flex justify-center items-center gap-2 form-item">
+				<div class="number-input pt-1">
+					<span class="hidden number-maxvalue">{{ service.getMaxSeatsAvailable }}</span>
+					{{ form_widget(form.numGuests) }}
+					<button type="button" class="number-button number-plus text-lightText">+</button>
+					<button type="button" class="number-button number-minus text-lightText">-</button>
+					<span class="number-unit text-textColor">{{ 'message.seats'|trans }}</span>
+				</div>
+			</div>
+			<div>
+				{{ form_widget(form.hour,{'attr': {'class': 'hidden'}}) }}
+			</div>
+		</div>
+
+		{% set startTime = noon ? openHour.noonStart : openHour.eveningStart %}
+		{% set endTime = noon ? openHour.noonEnd : openHour.eveningEnd %}
+		<div class="text-center underline underline-offset-4 mb-4">
+			{{ 'message.chooseHour'|trans }}
+		</div>
+		<div class="grid grid-cols-4">
+			{% set maxRange = (endTime|date('U') - startTime|date('U'))/900|round %}
+			{% for i in range(0, maxRange - 4) %}
+				{% set time = startTime|date_modify('+' ~ (i * 900) ~ ' seconds') %}
+				<button type="button" class="btn btn-hour">
+					{{ time|date('H:i') }}
+				</button>
+			{% endfor %}
+		</div>
+
+		<div class="flex justify-end items-center">
+			<button type="submit" class="icon-btn btn-next" disabled>
+				<span class="material-symbols-rounded">navigate_next</span>
 			</button>
-		{% endfor %}
-	</div>
+		</div>
+		{{ form_end(form) }}
+	</form>
 {% endif %}

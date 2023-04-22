@@ -89,6 +89,11 @@
         hover:bg-careful hover:text-white hover:border-careful
     }
 
+    .btn-select {
+        @apply border-secondary bg-secondary
+        hover:bg-secondary hover:text-white hover:border-secondary
+    }
+
     .drag-over {
         @apply bg-valid text-white
     }
