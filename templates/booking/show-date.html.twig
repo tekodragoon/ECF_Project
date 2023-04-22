@@ -61,7 +61,7 @@
 				Midi
 			</button>
 			{% set color = 'btn-valid' %}
-			{% if services[i*2].getNonReservedTables|length == 0 %}
+			{% if services[(i*2)+1].getNonReservedTables|length == 0 %}
 				{% set color = 'btn-danger' %}
 			{% elseif services[(i*2)+1].getNonReservedTables|length <= carefulValue %}
 				{% set color = 'btn-careful' %}
