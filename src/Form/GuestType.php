@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GuestType extends AbstractType
 {
+    // TODO: Add translated labels
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
