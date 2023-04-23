@@ -178,6 +178,9 @@ account:
     email: Email
     password: Password
     guest: Guests
+    allergy: Allergies
+    adult: Adult
+    child: Child
 
 password:
     old: Current Password

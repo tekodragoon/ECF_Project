@@ -178,6 +178,9 @@ account:
     email: Email
     password: Mot de passe
     guest: Convives
+    allergy: Allergies
+    adult: Adulte
+    child: Enfant
 
 password:
     old: Mot de passe actuel
