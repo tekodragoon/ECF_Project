@@ -1,5 +1,23 @@
-<div>Guests</div>
+<button class="icon-btn mb-2"
+        hx-swap="innerHTML"
+        hx-target="#booking-card"
+        hx-get="{{ path('app_booking_hours', {date: backDate|date('Y-m-d'), time: backTime}) }}">
+	<span class="material-symbols-rounded">navigate_before</span>
+</button>
 
-{{ dump(guests) }}
-
-{{ dump(date) }}
+<form>
+	<div class="text-textColor">
+		{{ form_start(reservationForm) }}
+		<div class="bg-primary rounded p-2 mb-4">
+			<span>Vos informations</span>
+			{{ form_widget(reservationForm.simpleUser) }}
+		</div>
+		{% for guestForm in reservationForm.simpleGuests %}
+			<div class="bg-primary rounded p-2 mb-4">
+				<span>Informations Invité n°{{ loop.index }}</span>
+				{{ form_widget(guestForm) }}
+			</div>
+		{% endfor %}
+		{{ form_end(reservationForm) }}
+	</div>
+</form>

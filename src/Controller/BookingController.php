@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Restaurant;
+use App\Entity\SimpleGuest;
+use App\Entity\SimpleUser;
 use App\Form\BasicBookingType;
+use App\Form\ReservationGroupType;
+use App\Form\SimpleUserType;
 use App\Model\BasicBooking;
+use App\Model\ReservationGroup;
 use App\Model\ReservedTable;
 use App\Model\Service;
 use App\Repository\ReservationRepository;
@@ -87,7 +92,7 @@ class BookingController extends AbstractController
      * @throws NonUniqueResultException
      * @throws Exception
      */
-    #[Route('/booking/hours/{date}/{time}', name: 'app_booking_hours')]
+    #[Route('/booking/hours/{date}?{time}', name: 'app_booking_hours')]
     public function chooseHours(string                $date,
                                 string                $time,
                                 RestaurantRepository  $restaurantRepository,
@@ -144,7 +149,9 @@ class BookingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->redirectToRoute('app_booking_guests', [
                 'guests' => $booking->getNumGuests(),
-                'date' => $booking->getHour(),
+                'time' => $booking->getHour(),
+                'backDate' => $date,
+                'backTime' => $time,
             ]);
         }
 
@@ -159,12 +166,34 @@ class BookingController extends AbstractController
         ]);
     }
 
-    #[Route('/booking/guests/{guests}-{date}', name: 'app_booking_guests')]
-    public function selectGuests(string $date, string $guests): Response
+    #[Route('/booking/guests/{guests}?{time}?{backDate}?{backTime}', name: 'app_booking_guests')]
+    public function selectGuests(string  $time,
+                                 string  $guests,
+                                 Request $request,
+                                 string  $backDate,
+                                 string  $backTime,
+    ): Response
     {
+        // Create a Reservation Group Model
+        $reservationGroup = new ReservationGroup();
+        // Create a simple user
+        $simpleUser = new SimpleUser();
+        $reservationGroup->setSimpleUser($simpleUser);
+        // add requested guests to the simple user
+        for ($i = 1; $i < $guests; $i++) {
+            $guest = new SimpleGuest();
+            $simpleUser->addSimpleGuest($guest);
+            $reservationGroup->addSimpleGuests($guest);
+        }
+        $reservationForm = $this->createForm(ReservationGroupType::class, $reservationGroup);
+        $reservationForm->handleRequest($request);
+
         return $this->render('booking/select-guests.html.twig', [
-            'date' => $date,
+            'backDate' => $backDate,
+            'backTime' => $backTime,
+            'time' => $time,
             'guests' => $guests,
+            'reservationForm' => $reservationForm->createView(),
         ]);
     }
 
