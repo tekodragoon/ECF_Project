@@ -1,4 +1,4 @@
-<button class="icon-btn mb-2"
+<button class="icon-btn"
         hx-swap="innerHTML"
         hx-target="#booking-card"
         hx-get="{{ path('app_booking_hours', {date: backDate|date('Y-m-d'), time: backTime}) }}">
@@ -6,15 +6,21 @@
 </button>
 
 <form>
+	<div class="text-lightText text-2xl text-center mb-6">
+		{{ backDate|format_datetime(locale=app.request.locale, pattern="EEEE dd MMMM")|capitalize }}
+	</div>
+	<div class="text-lightText text-2xl text-center mb-6">
+		{{ time|format_datetime(locale=app.request.locale, pattern="HH:mm") }}
+	</div>
 	<div class="text-textColor">
 		{{ form_start(reservationForm) }}
 		<div class="bg-primary rounded p-2 mb-4">
-			<span>Vos informations</span>
+			<span class="p-2 mb-2">Vos informations</span>
 			{{ form_widget(reservationForm.simpleUser) }}
 		</div>
 		{% for guestForm in reservationForm.simpleGuests %}
 			<div class="bg-primary rounded p-2 mb-4">
-				<span>Informations Invité n°{{ loop.index }}</span>
+				<span class="p-2 mb-2">Informations Invité n°{{ loop.index }}</span>
 				{{ form_widget(guestForm) }}
 			</div>
 		{% endfor %}
