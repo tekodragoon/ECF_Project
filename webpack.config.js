@@ -27,7 +27,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('cat', './assets/categoryDrag.js')
-    .addEntry('expand', './assets/recipeExpand.js')
+    .addEntry('expand', './assets/expand.js')
     .addEntry('formElem', './assets/formElement.js')
     .addEntry('gallery', './assets/gallery.js')
     .addEntry('open', './assets/open.js')

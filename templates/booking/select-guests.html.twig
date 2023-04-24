@@ -1,3 +1,7 @@
+{% block javascript %}
+{{ encore_entry_script_tags('expand') }}
+{% endblock %}
+
 <button class="icon-btn"
         hx-swap="innerHTML"
         hx-target="#booking-card"
@@ -15,13 +19,29 @@
 	<div class="text-textColor">
 		{{ form_start(reservationForm) }}
 		<div class="bg-primary rounded p-2 mb-4">
-			<span class="p-2 mb-2">Vos informations</span>
-			{{ form_widget(reservationForm.simpleUser) }}
+			<div class="flex justify-between items-center p-3 no-expand">
+				Vos informations
+				<button type="button" class="flex items-center p-1.5 border-2 border-lightText rounded expand hover:border-secondary
+					hover:bg-secondary">
+					<span class="material-symbols-outlined text-lightText">expand_less</span>
+				</button>
+			</div>
+			<div class="">
+				{{ form_widget(reservationForm.simpleUser) }}
+			</div>
 		</div>
 		{% for guestForm in reservationForm.simpleGuests %}
 			<div class="bg-primary rounded p-2 mb-4">
-				<span class="p-2 mb-2">Informations Invité n°{{ loop.index }}</span>
-				{{ form_widget(guestForm) }}
+				<div class="flex justify-between items-center p-3 no-expand">
+					Informations Invité n°{{ loop.index }}
+					<button type="button" class="flex items-center p-1.5 border-2 border-lightText rounded expand hover:border-secondary
+					hover:bg-secondary">
+						<span class="material-symbols-outlined text-lightText">expand_more</span>
+					</button>
+				</div>
+				<div class="hidden">
+					{{ form_widget(guestForm) }}
+				</div>
 			</div>
 		{% endfor %}
 		{{ form_end(reservationForm) }}
