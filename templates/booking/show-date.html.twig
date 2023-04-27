@@ -57,7 +57,7 @@
 						not restaurant.openDays[i].isNoonService or
 						now > cur_date|date('Y-m-d') %}
 						disabled {% endif %}
-					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1200}) }}">
+					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 'noon'}) }}">
 				Midi
 			</button>
 			{% set color = 'btn-valid' %}
@@ -71,7 +71,7 @@
 						not restaurant.openDays[i].isEveningService or
 						now > cur_date|date('Y-m-d') %}
 						disabled {% endif %}
-					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 1900}) }}">
+					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 'eve'}) }}">
 				Soir
 			</button>
 		</div>

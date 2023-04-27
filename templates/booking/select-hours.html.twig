@@ -28,7 +28,7 @@
 {% if service.getMaxSeatsAvailable > 0 %}
 	<form hx-swap="innerHTML"
 	      hx-target="#booking-card"
-	      hx-post="{{ path('app_booking_hours', {date: current_date|date('Y-m-d'), time: noon ? 1200 : 1900}) }}">
+	      hx-post="{{ path('app_booking_hours', {date: current_date|date('Y-m-d'), time: noon}) }}">
 		<div class="text-textColor p-2">
 			{{ form_start(form) }}
 			<div class="flex justify-center items-center gap-2 form-item">
@@ -45,8 +45,8 @@
 			</div>
 		</div>
 
-		{% set startTime = noon ? openHour.noonStart : openHour.eveningStart %}
-		{% set endTime = noon ? openHour.noonEnd : openHour.eveningEnd %}
+		{% set startTime = noon == 'noon' ? openHour.noonStart : openHour.eveningStart %}
+		{% set endTime = noon == 'noon' ? openHour.noonEnd : openHour.eveningEnd %}
 		<div class="text-center underline underline-offset-4 mb-4">
 			{{ 'message.chooseHour'|trans }}
 		</div>

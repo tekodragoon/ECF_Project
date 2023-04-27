@@ -9,7 +9,16 @@
 	<span class="material-symbols-rounded">navigate_before</span>
 </button>
 
-<form>
+<form hx-swap="innerHTML"
+      hx-target="#booking-card"
+      hx-post="{{ path('app_booking_guests', {
+	      'noon': noon,
+	      'guests': guests,
+	      'time': time|date('H:i'),
+	      'backDate': backDate|date('Y-m-d'),
+	      'backTime': backTime,
+      }) }}"
+>
 	<div class="text-lightText text-2xl text-center mb-6">
 		{{ backDate|format_datetime(locale=app.request.locale, pattern="EEEE dd MMMM")|capitalize }}
 	</div>
@@ -44,6 +53,9 @@
 				</div>
 			</div>
 		{% endfor %}
+		<div class="flex justify-end">
+			<button type="submit" class="btn">Réserver</button>
+		</div>
 		{{ form_end(reservationForm) }}
 	</div>
 </form>

@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
 use App\Entity\Restaurant;
 use App\Entity\SimpleGuest;
 use App\Entity\SimpleUser;
 use App\Form\BasicBookingType;
 use App\Form\ReservationGroupType;
-use App\Form\SimpleUserType;
 use App\Model\BasicBooking;
 use App\Model\ReservationGroup;
 use App\Model\ReservedTable;
 use App\Model\Service;
 use App\Repository\ReservationRepository;
 use App\Repository\RestaurantRepository;
+use App\Repository\SimpleGuestRepository;
+use App\Repository\SimpleUserRepository;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
@@ -56,14 +58,23 @@ class BookingController extends AbstractController
         ]);
     }
 
+    #[Route('/booking/confirm/{id}', name: 'app_booking_confirm')]
+    public function confirmBooking(Reservation $reservation, SimpleGuestRepository $guestRepository): Response
+    {
+        $user = $reservation->getSimpleUser();
+        $simpleGuests = $guestRepository->findBy(['simpleUser' => $user]);
+
+        return $this->render('booking/confirm.html.twig', [
+            'user' => $user,
+            'simpleGuests' => $simpleGuests,
+        ]);
+    }
+
     /**
      * @throws Exception
      */
     #[Route('/booking/{date}', name: 'app_booking_date')]
-    public function indexDate(string                $date,
-                              ReservationRepository $repository,
-                              RestaurantRepository  $restaurantRepository,
-    ): Response
+    public function indexDate(string $date, ReservationRepository $repository, RestaurantRepository $restaurantRepository): Response
     {
         $year = date('Y', strtotime($date));
         $month = date('m', strtotime($date));
@@ -93,22 +104,8 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/hours/{date}?{time}', name: 'app_booking_hours')]
-    public function chooseHours(string                $date,
-                                string                $time,
-                                RestaurantRepository  $restaurantRepository,
-                                ReservationRepository $reservationRepository,
-                                Request               $request,
-    ): Response
+    public function chooseHours(string $date, string $time, RestaurantRepository $restaurantRepository, ReservationRepository $reservationRepository, Request $request): Response
     {
-        if ($time == 1200) {
-            $noon = true;
-        } elseif ($time == 1900) {
-            $noon = false;
-        } else {
-            throw $this->createNotFoundException(
-                'Parameter error.'
-            );
-        }
         $restaurant = $restaurantRepository->findRestaurant();
         if (!$restaurant) {
             throw $this->createNotFoundException(
@@ -119,25 +116,10 @@ class BookingController extends AbstractController
         $month = date('m', strtotime($date));
         $day = date('d', strtotime($date));
 
-        $reservations = $reservationRepository->findService(DateTime::createFromImmutable(new DateTimeImmutable($date)), $noon);
+        $reservations = $this->getReservations(DateTime::createFromImmutable(new DateTimeImmutable($date)), $time === 'noon', $reservationRepository);
 
         // Create a service
-        $service = new Service();
-        $service->setNoon($noon);
-        // Add all tables to the service
-        $tables = $restaurant->getTables();
-        foreach ($tables as $table) {
-            $reservedTable = new ReservedTable();
-            $reservedTable->setTable($table);
-            $service->addReservedTable($reservedTable);
-        }
-        // Set all tables that are already reserved
-        foreach ($reservations as $reservation) {
-            $reservedTables = $reservation->getReservedTables();
-            foreach ($reservedTables as $reservedTable) {
-                $service->reserveTable($reservedTable);
-            }
-        }
+        $service = $this->createService($time === 'noon', $restaurant, $reservations);
 
         $dayDate = date('N', strtotime($date)) - 1;
         $openHour = $restaurant->getOpenHours()[$dayDate];
@@ -148,6 +130,7 @@ class BookingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->redirectToRoute('app_booking_guests', [
+                'noon' => $time,
                 'guests' => $booking->getNumGuests(),
                 'time' => $booking->getHour(),
                 'backDate' => $date,
@@ -159,20 +142,18 @@ class BookingController extends AbstractController
             'year' => $year,
             'month' => $month,
             'day' => $day,
-            'noon' => $noon,
+            'noon' => $time,
             'openHour' => $openHour,
             'service' => $service,
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/booking/guests/{guests}?{time}?{backDate}?{backTime}', name: 'app_booking_guests')]
-    public function selectGuests(string  $time,
-                                 string  $guests,
-                                 Request $request,
-                                 string  $backDate,
-                                 string  $backTime,
-    ): Response
+    /**
+     * @throws Exception
+     */
+    #[Route('/booking/guests/{noon}?{guests}?{time}?{backDate}?{backTime}', name: 'app_booking_guests')]
+    public function selectGuests(string $noon, string $time, string $guests, Request $request, string $backDate, string $backTime, SimpleUserRepository $suRepo, SimpleGuestRepository $sgRepo, ReservationRepository $reservationRepository, RestaurantRepository $restaurantRepository): Response
     {
         // Create a Reservation Group Model
         $reservationGroup = new ReservationGroup();
@@ -188,7 +169,56 @@ class BookingController extends AbstractController
         $reservationForm = $this->createForm(ReservationGroupType::class, $reservationGroup);
         $reservationForm->handleRequest($request);
 
+        if ($reservationForm->isSubmitted() && $reservationForm->isValid()) {
+            // Check if the reservation can be completed
+            $restaurant = $restaurantRepository->findRestaurant();
+            if (!$restaurant) {
+                throw $this->createNotFoundException(
+                    'Restaurant\'s data can\'t be found. Contact support.'
+                );
+            }
+            // get reservations
+            $reservations = $this->getReservations(DateTime::createFromImmutable(new DateTimeImmutable($backDate)), $noon === 'noon', $reservationRepository);
+            // Create a service
+            $service = $this->createService($noon === 'noon', $restaurant, $reservations);
+            // Get tables for the reservation
+            $tables = $service->getTableFor($reservationGroup->getNumGuests());
+            $success = true;
+            if ($tables) {
+                // check if all tables can be reserved
+                foreach ($tables as $table) {
+                    if (!$service->reserveTable($table)) {
+                        // problem with reservation cancel it
+                        $success = false;
+                        break;
+                    }
+                }
+            }
+            // if problem or no tables available
+            if (!$success || !$tables) {
+                $this->addFlash('error', 'Une erreur est survenue lors de la réservation. Veuillez réessayer.');
+                return $this->redirectToRoute('app_booking');
+            }
+            // data is valid, save it
+            $suRepo->save($simpleUser, true);
+            foreach ($reservationGroup->getSimpleGuests() as $simpleGuest) {
+                $sgRepo->save($simpleGuest, true);
+            }
+            $reservation = new Reservation();
+            $reservation->setDate(new DateTimeImmutable($backDate));
+            $reservation->setNoonService($noon === 'noon');
+            $reservation->setSimpleUser($simpleUser);
+            foreach ($tables as $table) {
+                $reservation->addReservedTables($table);
+            }
+            $reservationRepository->save($reservation, true);
+            return $this->redirectToRoute('app_booking_confirm', [
+                'id' => $reservation->getId(),
+            ]);
+        }
+
         return $this->render('booking/select-guests.html.twig', [
+            'noon' => $noon,
             'backDate' => $backDate,
             'backTime' => $backTime,
             'time' => $time,
@@ -245,5 +275,31 @@ class BookingController extends AbstractController
         }
 
         return $services;
+    }
+
+    private function getReservations(DateTime $date, bool $noon, ReservationRepository $reservationRepository): mixed
+    {
+        return $reservationRepository->findService($date, $noon);
+    }
+
+    private function createService(bool $noon, Restaurant $restaurant, mixed $reservations): Service
+    {
+        $service = new Service();
+        $service->setNoon($noon);
+        // Add all tables to the service
+        $tables = $restaurant->getTables();
+        foreach ($tables as $table) {
+            $reservedTable = new ReservedTable();
+            $reservedTable->setTable($table);
+            $service->addReservedTable($reservedTable);
+        }
+        // Set all tables that are already reserved
+        foreach ($reservations as $reservation) {
+            $reservedTables = $reservation->getReservedTables();
+            foreach ($reservedTables as $reservedTable) {
+                $service->reserveTable($reservedTable);
+            }
+        }
+        return $service;
     }
 }

@@ -61,4 +61,19 @@ class ReservationGroup
         }
         return $this;
     }
+
+    /**
+     * @param SimpleGuest|Collection $simpleGuests
+     * @return $this
+     */
+    public function setSimpleGuests(SimpleGuest|Collection $simpleGuests): ReservationGroup
+    {
+        $this->simpleGuests = $simpleGuests;
+        return $this;
+    }
+
+    public function getNumGuests(): int
+    {
+        return $this->simpleGuests->count() + 1;
+    }
 }
