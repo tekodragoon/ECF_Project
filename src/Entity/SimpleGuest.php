@@ -26,9 +26,15 @@ class SimpleGuest
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $allergies = null;
 
-    public function __construct()
+    public function __construct(?Guest $guest = null)
     {
         $this->adult = true;
+
+        if ($guest) {
+            $this->adult = $guest->isAdult();
+            $this->firstname = $guest->getFirstname();
+            $this->allergies = $guest->getAllergiesString();
+        }
     }
 
     public function getId(): ?int

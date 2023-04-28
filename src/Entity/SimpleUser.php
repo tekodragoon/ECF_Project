@@ -33,10 +33,16 @@ class SimpleUser
     #[ORM\OneToMany(mappedBy: 'simpleUser', targetEntity: SimpleGuest::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $simpleGuests;
 
-    public function __construct()
+    public function __construct(?User $user = null)
     {
         $this->isRegistered = false;
         $this->simpleGuests = new ArrayCollection();
+
+        if ($user) {
+            $this->firstname = $user->getFirstname();
+            $this->lastname = $user->getLastname();
+            $this->email = $user->getEmail();
+        }
     }
 
     public function getId(): ?int

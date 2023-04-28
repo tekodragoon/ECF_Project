@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\GuestRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: GuestRepository::class)]
@@ -81,6 +80,18 @@ class Guest
     public function getAllergies(): Collection
     {
         return $this->allergies;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAllergiesString(): string
+    {
+        $allergies = [];
+        foreach ($this->allergies as $allergy) {
+            $allergies[] = $allergy->getName();
+        }
+        return implode(', ', $allergies).'.';
     }
 
     public function addAllergy(Allergy $allergy): self

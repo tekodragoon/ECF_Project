@@ -50,22 +50,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $resetToken = null;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->guests = new ArrayCollection();
         $this->allergies = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -95,6 +108,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -110,6 +127,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -126,11 +147,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * @return string|null
+     */
     public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
+    /**
+     * @param string|null $lastname
+     * @return $this
+     */
     public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
@@ -138,11 +166,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
+    /**
+     * @param string|null $firstname
+     * @return $this
+     */
     public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
@@ -158,6 +193,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->guests;
     }
 
+    /**
+     * @param Guest $guest
+     * @return $this
+     */
     public function addGuest(Guest $guest): self
     {
         if (!$this->guests->contains($guest)) {
@@ -168,6 +207,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return int
+     */
+    public function getGuestsCount(): int
+    {
+        return $this->guests->count();
+    }
+
+    /**
+     * @param Guest $guest
+     * @return $this
+     */
     public function removeGuest(Guest $guest): self
     {
         if ($this->guests->removeElement($guest)) {
@@ -188,6 +239,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->allergies;
     }
 
+    /**
+     * @param Allergy $allergy
+     * @return $this
+     */
     public function addAllergy(Allergy $allergy): self
     {
         if (!$this->allergies->contains($allergy)) {
@@ -198,6 +253,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @param Allergy $allergy
+     * @return $this
+     */
     public function removeAllergy(Allergy $allergy): self
     {
         if ($this->allergies->removeElement($allergy)) {
@@ -210,6 +269,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isAdult(): bool
     {
         return true;

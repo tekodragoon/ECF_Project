@@ -16,12 +16,14 @@ use App\Repository\ReservationRepository;
 use App\Repository\RestaurantRepository;
 use App\Repository\SimpleGuestRepository;
 use App\Repository\SimpleUserRepository;
+use App\Repository\UserRepository;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,6 +31,10 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/{_locale}')]
 class BookingController extends AbstractController
 {
+    public function __construct(private readonly Security $security)
+    {
+    }
+
     /**
      * @throws NonUniqueResultException
      */
@@ -104,7 +110,7 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/hours/{date}?{time}', name: 'app_booking_hours')]
-    public function chooseHours(string $date, string $time, RestaurantRepository $restaurantRepository, ReservationRepository $reservationRepository, Request $request): Response
+    public function chooseHours(string $date, string $time, RestaurantRepository $restaurantRepository, ReservationRepository $reservationRepository, Request $request, UserRepository $userRepository): Response
     {
         $restaurant = $restaurantRepository->findRestaurant();
         if (!$restaurant) {
@@ -125,6 +131,14 @@ class BookingController extends AbstractController
         $openHour = $restaurant->getOpenHours()[$dayDate];
 
         $booking = new BasicBooking();
+
+        // if user is logged in, set the number of guests to the number of guests in the user's profile
+        $user = $this->security->getUser();
+        if ($user) {
+            $fullUser = $userRepository->findOneByEmail($user->getEmail());
+            $booking->setNumGuests($fullUser->getGuestsCount() + 1);
+        }
+
         $form = $this->createForm(BasicBookingType::class, $booking);
         $form->handleRequest($request);
 
@@ -153,16 +167,27 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/guests/{noon}?{guests}?{time}?{backDate}?{backTime}', name: 'app_booking_guests')]
-    public function selectGuests(string $noon, string $time, string $guests, Request $request, string $backDate, string $backTime, SimpleUserRepository $suRepo, SimpleGuestRepository $sgRepo, ReservationRepository $reservationRepository, RestaurantRepository $restaurantRepository): Response
+    public function selectGuests(string $noon, string $time, string $guests, Request $request, string $backDate, string $backTime, SimpleUserRepository $suRepo, SimpleGuestRepository $sgRepo, ReservationRepository $reservationRepository, RestaurantRepository $restaurantRepository, UserRepository $userRepository): Response
     {
+        // if user is logged in, set the number of guests to the number of guests in the user's profile
+        $user = $this->security->getUser();
+        $fullUser = null;
+        if ($user) {
+            $fullUser = $userRepository->findOneByEmail($user->getEmail());
+        }
+
         // Create a Reservation Group Model
         $reservationGroup = new ReservationGroup();
         // Create a simple user
-        $simpleUser = new SimpleUser();
+        $simpleUser = new SimpleUser($fullUser);
         $reservationGroup->setSimpleUser($simpleUser);
         // add requested guests to the simple user
         for ($i = 1; $i < $guests; $i++) {
-            $guest = new SimpleGuest();
+            if ($fullUser) {
+                $guest = new SimpleGuest($fullUser->getGuests()[$i - 1]);
+            } else {
+                $guest = new SimpleGuest();
+            }
             $simpleUser->addSimpleGuest($guest);
             $reservationGroup->addSimpleGuests($guest);
         }
