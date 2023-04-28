@@ -1,0 +1,54 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.css')) %}
+	<wrapper class="header" bgcolor="#2B262D">
+		<container>
+			<row class="collapse">
+				<columns align="center" valign="middle" bgcolor="#2B262D">
+					<img class="img-title" src="{{ email.image('@images/Logo.png') }}" alt="Logo">
+				</columns>
+			</row>
+		</container>
+	</wrapper>
+	<container>
+		<spacer size="16"></spacer>
+		<row>
+			<columns>
+				{% if locale == 'fr' %}
+					<h1>Bonjour, {{ name }}</h1>
+					<p>Nous avons bien reçu votre reservation.</p>
+				{% else %}
+					<h1>Hello, {{ name }}</h1>
+					<p>We have received your reservation.</p>
+				{% endif %}
+			</columns>
+		</row>
+		<spacer size="32"></spacer>
+		<row>
+			<columns>
+				{% if locale == 'fr' %}
+					<h3>Informations de réservation</h3>
+					<p>Date: {{ date|date('D d M Y') }}</p>
+					<p>Heure: {{ date|date('H:i') }}</p>
+					<p>Nombre de personnes: {{ people }}</p>
+				{% else %}
+					<h3>Reservation information</h3>
+					<p>Date: {{ date|date('D d M Y') }}</p>
+					<p>Time: {{ date|date('H:i') }}</p>
+					<p>Number of people: {{ people }}</p>
+				{% endif %}
+			</columns>
+		</row>
+		<spacer size="16"></spacer>
+		<row>
+			<columns>
+				{% if locale == 'fr' %}
+					<p class="text-right">À très bientôt,</p>
+					<p class="text-right">L'équipe du Quai Antique</p>
+				{% else %}
+					<p class="text-right">See you soon,</p>
+					<p class="text-right">The Quai Antique team</p>
+				{% endif %}
+			</columns>
+		</row>
+		<spacer size="16"></spacer>
+	</container>
+{% endapply %}

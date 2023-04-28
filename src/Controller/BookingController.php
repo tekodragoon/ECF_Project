@@ -22,11 +22,16 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Exception;
+use Psr\Log\LoggerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}')]
 class BookingController extends AbstractController
@@ -65,10 +70,29 @@ class BookingController extends AbstractController
     }
 
     #[Route('/booking/confirm/{id}', name: 'app_booking_confirm')]
-    public function confirmBooking(Reservation $reservation, SimpleGuestRepository $guestRepository): Response
+    public function confirmBooking(Request $request, MailerInterface $mailer, LoggerInterface $logger, Reservation $reservation, SimpleGuestRepository $guestRepository, TranslatorInterface $translator): Response
     {
         $user = $reservation->getSimpleUser();
         $simpleGuests = $guestRepository->findBy(['simpleUser' => $user]);
+
+        $email = (new TemplatedEmail())
+            ->to($user->getEmail())
+            ->subject($translator->trans('message.confirmReservation'))
+            ->htmlTemplate('contact/reservationConfirm.html.twig')
+            ->context([
+                'name' => $user->getFullname(),
+                'locale' => $request->getLocale(),
+                'date' => $reservation->getDate(),
+                'people' => $user->getSimpleGuests()->Count() + 1,
+            ]);
+
+        try {
+            $mailer->send($email);
+            $this->addFlash('success', $translator->trans('message.confirmReservationEmailSuccess'));
+        } catch (TransportExceptionInterface $e) {
+            $logger->error($e->getMessage());
+            $this->addFlash('error', $translator->trans('message.confirmReservationEmailError'));
+        }
 
         return $this->render('booking/confirm.html.twig', [
             'user' => $user,

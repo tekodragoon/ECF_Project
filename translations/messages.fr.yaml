@@ -155,6 +155,9 @@ message:
     maxPerson: Il reste encore %value% places disponibles.
     noPerson: Il n'y a plus de places disponibles.
     chooseHour: Choisissez votre heure d'arrivée.
+    confirmReservation: Réservation confirmée.
+    confirmReservationEmailSuccess: Le mail de confirmation a été envoyé.
+    confirmReservationEmailError: Le mail de confirmation n'a pas été envoyé. Contactez le support.
 
 form:
     email: Email

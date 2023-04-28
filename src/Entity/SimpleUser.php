@@ -42,6 +42,7 @@ class SimpleUser
             $this->firstname = $user->getFirstname();
             $this->lastname = $user->getLastname();
             $this->email = $user->getEmail();
+            $this->isRegistered = true;
         }
     }
 
