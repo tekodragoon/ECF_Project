@@ -100,42 +100,64 @@ class Restaurant
     public function today(): int
     {
         date_default_timezone_set('Europe/Paris');
-        return date('N') - 1;
+        return date('N');
+    }
+
+    public function todayOpenDay(int $index = null): ?OpeningDays
+    {
+        if (!$index) {
+            $index = $this->today();
+        }
+        $index--;
+        return $this->openDays->filter(fn(OpeningDays $day) => $day->getDayOfWeek() === $index)->first();
+    }
+
+    public function todayOpenHour(int $index = null): ?OpeningHours
+    {
+        if (!$index) {
+            $index = $this->today();
+        }
+        $index--;
+        return $this->openHours->filter(fn(OpeningHours $hour) => $hour->getDayOfWeek() === $index)->first();
     }
 
     public function isOpenToday(): bool
     {
-        return $this->openDays[$this->today()]->isOpen();
+        return $this->todayOpenDay()->isOpen();
     }
 
     public function isNoonServiceToday(): bool
     {
-        return $this->openDays[$this->today()]->isNoonService();
+        return $this->todayOpenDay()->isNoonService();
     }
 
-    public function getStartNoonServiceSchedule(): string
+    public function getStartNoonServiceSchedule(): ?string
     {
-        return $this->openHours[$this->today()]->getNoonStart()->format('H\hi');
+        $noonStart = $this->todayOpenHour()->getNoonStart();
+        return $noonStart?->format('H\hi');
     }
 
-    public function getEndNoonServiceSchedule(): string
+    public function getEndNoonServiceSchedule(): ?string
     {
-        return $this->openHours[$this->today()]->getNoonEnd()->format('H\hi');
+        $noonEnd = $this->todayOpenHour()->getNoonEnd();
+        return $noonEnd?->format('H\hi');
     }
 
     public function isEveningServiceToday(): bool
     {
-        return $this->openDays[$this->today()]->isEveningService();
+        return $this->todayOpenDay()->isEveningService();
     }
 
-    public function getStartEveningServiceSchedule(): string
+    public function getStartEveningServiceSchedule(): ?string
     {
-        return $this->openHours[$this->today()]->getEveningStart()->format('H\hi');
+        $eveningStart = $this->todayOpenHour()->getEveningStart();
+        return $eveningStart?->format('H\hi');
     }
 
-    public function getEndEveningServiceSchedule(): string
+    public function getEndEveningServiceSchedule(): ?string
     {
-        return $this->openHours[$this->today()]->getEveningEnd()->format('H\hi');
+        $eveningEnd = $this->todayOpenHour()->getEveningEnd();
+        return $eveningEnd?->format('H\hi');
     }
 
     /**

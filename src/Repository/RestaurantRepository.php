@@ -51,6 +51,7 @@ class RestaurantRepository extends ServiceEntityRepository
             ->addSelect('oh')
             ->leftJoin('r.openDays', 'd')
             ->addSelect('d')
+            ->orderBy('oh.dayOfWeek, d.dayOfWeek', 'ASC')
             ->getQuery()
             ->getOneOrNullResult();
     }
