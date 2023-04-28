@@ -6,8 +6,10 @@
 	{# GESTION DES HORAIRES  #}
 
 	<div class="card grid grid-cols-4 gap-2 text-lightText">
-		{% for openDay in restaurant.openDays %}
-			<div class="border border-2 border-lightBg rounded p-2">
+		{% for i in 1..7 %}
+			{% set openDay = restaurant.todayOpenDay(i) %}
+			{% set openHours = restaurant.todayOpenHour(i) %}
+			<div class="border-2 border-lightBg rounded p-2">
 				<div class="underline underline-offset-4">{{ openDay.dayOfWeek|dayOfWeek }}</div>
 				<div class="{{ openDay.open ? 'text-valid' : 'text-warning' }}">
 					{{ openDay.open ? 'message.open'|trans : 'message.closed'|trans }}
@@ -21,9 +23,9 @@
 					</div>
 					<div class="flex justify-evenly">
 						{% if openDay.noonService %}
-							<span>{{ restaurant.openHours[loop.index0].noonStart|format_datetime(pattern="HH:mm") }}</span>
+							<span>{{ openHours.noonStart|format_datetime(pattern="HH:mm") }}</span>
 							<span>{{ 'info.to'|trans }}</span>
-							<span>{{ restaurant.openHours[loop.index0].noonEnd|format_datetime(pattern="HH:mm") }}</span>
+							<span>{{ openHours.noonEnd|format_datetime(pattern="HH:mm") }}</span>
 						{% else %}
 							<span>-</span>
 						{% endif %}
@@ -36,9 +38,9 @@
 					</div>
 					<div class="flex justify-evenly">
 						{% if openDay.eveningService %}
-							<span>{{ restaurant.openHours[loop.index0].eveningStart|format_datetime(pattern="HH:mm") }}</span>
+							<span>{{ openHours.eveningStart|format_datetime(pattern="HH:mm") }}</span>
 							<span>{{ 'info.to'|trans }}</span>
-							<span>{{ restaurant.openHours[loop.index0].eveningEnd|format_datetime(pattern="HH:mm") }}</span>
+							<span>{{ openHours.eveningEnd|format_datetime(pattern="HH:mm") }}</span>
 						{% else %}
 							<span>-</span>
 						{% endif %}
