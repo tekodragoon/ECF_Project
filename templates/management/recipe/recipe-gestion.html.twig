@@ -2,6 +2,10 @@
 {{ encore_entry_script_tags('expand') }}
 {% endblock %}
 
+{% block stylesheets %}
+	{{ encore_entry_link_tags('input-select') }}
+{% endblock %}
+
 <div hx-target="this" hx-swap="outerHTML" id="recipe-gestion">
 	{{ include('_flash-message.html.twig') }}
 

@@ -63,7 +63,7 @@
 
     .drag-li {
         @apply w-2/3 mx-auto p-3 mb-2 rounded
-        border border-2 border-black
+        border-2 border-black
         text-textColor bg-white
         list-none cursor-move
         flex justify-between items-center
@@ -140,30 +140,6 @@ button {
     font-style: normal;
 }
 
-/* ----------------------------------------------------ARROW BUTTON ON SELECT*/
-
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    background-image:
-            linear-gradient(45deg, transparent 50%, rgb(6, 3, 22) 50%),
-            linear-gradient(135deg, rgb(6, 3, 22) 50%, transparent 50%),
-            linear-gradient(to right, rgb(166, 161, 152), rgb(166, 161, 152));
-    background-position:
-            calc(100% - 24px) calc(1em + 3px),
-            calc(100% - 14px) calc(1em + 3px),
-            100% 0;
-    background-size:
-            10px 10px,
-            10px 10px,
-            3em 3em;
-    background-repeat: no-repeat;
-}
-
  /* ---------------------------------------------------------GOOGLE FONT ICON*/
 
  .material-symbols-rounded {
@@ -198,91 +174,6 @@ select {
 .material-symbols-rounded.button-icon { font-size: 24px}
 .material-symbols-outlined.button-icon { font-size: 24px}
 
-/* -------------------------------------------------------------HOME VIGNETTE*/
-
-.hero {
-    min-height: 750px;
-    background-position: center;
-    background-size: cover;
-}
-
-.home-vignette {
-    height: 200px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-.home-vignette img {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-/* ----------------------------------------------------------GALLERY VIGNETTE*/
-
-.gallery {
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.gallery-image {
-    display: block;
-    width: fit-content;
-    border-radius: 0.75rem;
-    box-shadow: rgba(0, 0, 0, 0.07) 0 1px 1px,
-                rgba(0, 0, 0, 0.07) 0 2px 2px,
-                rgba(0, 0, 0, 0.07) 0 4px 4px,
-                rgba(0, 0, 0, 0.07) 0 8px 8px,
-                rgba(0, 0, 0, 0.07) 0 16px 16px;
-}
-
-.gallery-span {
-    position: absolute;
-    text-align: start;
-    width: fit-content;
-    max-width: 24rem;
-    bottom: 0.5rem;
-    left: 0.5rem;
-}
-
-.gallery > span {
-    display: none;
-}
-
-.gallery:hover > span {
-    display: block;
-}
-
-.g-zoom-bgrd {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(10,10,10,0.7);
-    z-index: 15;
-}
-
-.g-zoom {
-    position: fixed;
-    width: 60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -45%);
-}
-
-.zoom-close {
-    position: fixed;
-    top: 0;
-    right: 0;
-    transform: translate(50%, -50%);
-}
-
 /* ------------------------------------------------------------FLASH MESSAGE */
 
 .flash {
@@ -303,6 +194,13 @@ select {
     94% {
         top: 100px;
     }
+}
+
+/* -------------------------------------------------------------------NAVBAR */
+
+.flag {
+    height: 32px;
+    cursor: pointer;
 }
 
 /* -------------------------------------------------------------INPUT NUMBER */
@@ -351,28 +249,4 @@ select {
     position: absolute;
     right: 32px;
     top: 22px;
-}
-
-/* -------------------------------------------------------------------NAVBAR */
-
-.flag {
-    height: 32px;
-    cursor: pointer;
-}
-
-/* ---------------------------------------------------------------INPUT FILE */
-
-.hide-input {
-    width: 1px;
-    height: 1px;
-    z-index: -5;
-}
-
-.preview {
-    width: 100px;
-    max-height: 70px;
-}
-
-.preview img {
-    object-fit: contain;
 }

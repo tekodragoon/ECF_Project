@@ -2,6 +2,11 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('home') }}
+{% endblock %}
+
 {% block body %}
 	<div class="hero"
 	     style="background-image: url({{ asset('build/images/home-hero.jpg')|imagine_filter('hero') }});">

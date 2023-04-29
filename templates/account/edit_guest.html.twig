@@ -2,6 +2,10 @@
 	{{ encore_entry_script_tags('formElem') }}
 {% endblock %}
 
+{% block stylesheets %}
+	{{ encore_entry_link_tags('input-select') }}
+{% endblock %}
+
 <form
 		class="card"
 		hx-post="{{ path }}"

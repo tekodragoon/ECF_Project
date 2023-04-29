@@ -37,6 +37,10 @@ Encore
     .addEntry('cursor', './assets/cursor.js')
     .addEntry('navmenu', './assets/navmenu.js')
     .addEntry('hourSelect', './assets/hourSelect.js')
+    .addEntry('input-file', './assets/styles/input-file.css')
+    .addEntry('input-select', './assets/styles/input-select.css')
+    .addEntry('home', './assets/styles/home.css')
+    .addEntry('galleryStyle', './assets/styles/gallery.css')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

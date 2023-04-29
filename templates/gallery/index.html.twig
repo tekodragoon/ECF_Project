@@ -9,6 +9,11 @@
 	{{ encore_entry_script_tags('gallery') }}
 {% endblock %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('galleryStyle') }}
+{% endblock %}
+
 {% block body %}
 	<div class="g-zoom-bgrd hidden" id="gallery-zoom">
 		<div class="g-zoom">
