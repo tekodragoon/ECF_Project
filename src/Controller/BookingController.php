@@ -83,6 +83,7 @@ class BookingController extends AbstractController
                 'name' => $user->getFullname(),
                 'locale' => $request->getLocale(),
                 'date' => $reservation->getDate(),
+                'time' => $reservation->getTime(),
                 'people' => $user->getSimpleGuests()->Count() + 1,
             ]);
 
@@ -255,6 +256,7 @@ class BookingController extends AbstractController
             }
             $reservation = new Reservation();
             $reservation->setDate(new DateTimeImmutable($backDate));
+            $reservation->setTime(new DateTimeImmutable($time));
             $reservation->setNoonService($noon === 'noon');
             $reservation->setSimpleUser($simpleUser);
             foreach ($tables as $table) {

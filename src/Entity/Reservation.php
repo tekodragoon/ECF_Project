@@ -29,6 +29,9 @@ class Reservation
     #[ORM\Column(type: Types::SIMPLE_ARRAY)]
     private array $reservedTables = [];
 
+    #[ORM\Column(type: Types::TIME_IMMUTABLE)]
+    private ?DateTimeImmutable $time = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +83,18 @@ class Reservation
         if (!in_array($reservedTable, $this->reservedTables, true)) {
             $this->reservedTables[] = $reservedTable;
         }
+
+        return $this;
+    }
+
+    public function getTime(): ?DateTimeImmutable
+    {
+        return $this->time;
+    }
+
+    public function setTime(DateTimeImmutable $time): self
+    {
+        $this->time = $time;
 
         return $this;
     }

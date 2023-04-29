@@ -80,6 +80,14 @@ class AppFixtures extends Fixture implements DependentFixtureInterface, FixtureG
                 if ($curDate->format('N') > 5) {
                     $isNoonService = false;
                 }
+                // set time randomly
+                if ($isNoonService) {
+                    $time = new DateTime('11:30');
+                } else {
+                    $time = new DateTime('19:00');
+                }
+                $time->add(new DateInterval('PT' . (random_int(0, 10) * 15) . 'M'));
+                $reservation->setTime(DateTimeImmutable::createFromMutable($time));
                 // set number of guests
                 $numOfGuest = random_int(3, 10);
                 // create simple user
