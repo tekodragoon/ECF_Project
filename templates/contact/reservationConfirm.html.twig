@@ -26,13 +26,13 @@
 			<columns>
 				{% if locale == 'fr' %}
 					<h3>Informations de réservation</h3>
-					<p>Date: {{ date|date('D d M Y') }}</p>
-					<p>Heure: {{ date|date('H:i') }}</p>
+					<p>Date: {{ date|format_datetime('medium', 'none', locale='fr') }}</p>
+					<p>Heure: {{ time|date('H:i') }}</p>
 					<p>Nombre de personnes: {{ people }}</p>
 				{% else %}
 					<h3>Reservation information</h3>
-					<p>Date: {{ date|date('D d M Y') }}</p>
-					<p>Time: {{ date|date('H:i') }}</p>
+					<p>Date: {{ date|format_datetime('medium', 'none', locale='en') }}</p>
+					<p>Time: {{ time|date('H:i') }}</p>
 					<p>Number of people: {{ people }}</p>
 				{% endif %}
 			</columns>
