@@ -28,7 +28,7 @@
 		{{ form_start(reservationForm) }}
 		<div class="bg-primary rounded p-2 mb-4">
 			<div class="flex justify-between items-center p-3 no-expand">
-				Vos informations
+				{{ 'reservation.information'|trans }}
 				<button type="button" class="flex items-center p-1.5 border-2 border-lightText rounded expand hover:border-secondary
 					hover:bg-secondary">
 					<span class="material-symbols-outlined text-lightText">expand_less</span>
@@ -41,7 +41,7 @@
 		{% for guestForm in reservationForm.simpleGuests %}
 			<div class="bg-primary rounded p-2 mb-4">
 				<div class="flex justify-between items-center p-3 no-expand">
-					Informations Invité n°{{ loop.index }}
+					{{ 'reservation.guestInformation'|trans }} n°{{ loop.index }}
 					<button type="button" class="flex items-center p-1.5 border-2 border-lightText rounded expand hover:border-secondary
 					hover:bg-secondary">
 						<span class="material-symbols-outlined text-lightText">expand_more</span>

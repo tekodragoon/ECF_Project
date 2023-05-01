@@ -232,6 +232,8 @@ reservation:
     title: Your reservation is completed.
     text: "We send you a confirmation email at : "
     thanks: Thank you for your reservation.
+    information: Your informations
+    guestInformation: Informations guest
     with: with
     guests: guests
     at: Reservation at
