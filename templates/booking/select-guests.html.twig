@@ -1,6 +1,9 @@
 {% block javascript %}
 {{ encore_entry_script_tags('expand') }}
 {% endblock %}
+{% block stylesheets %}
+{{ encore_entry_link_tags('input-select') }}
+{% endblock %}
 
 <button class="icon-btn"
         hx-swap="innerHTML"
