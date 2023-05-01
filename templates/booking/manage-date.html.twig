@@ -10,6 +10,30 @@
 	</button>
 </div>
 
+<div class="bg-lightBg text-textColor p-2 mb-4 rounded">
+	{% if service.getMaxSeatsAvailable > 1 %}
+		{{ 'reservation.remains'|trans({'%value%': service.getMaxSeatsAvailable }) }}<br>
+	{% else %}
+		{{ 'reservation.remain'|trans({'%value%': service.getMaxSeatsAvailable }) }}<br>
+	{% endif %}
+	{% set nonReservedTables = [] %}
+	{% for table in tables %}
+		{% if table.id in service.nonReservedTablesId %}
+			{% set nonReservedTables = nonReservedTables|merge([table.seats]) %}
+		{% endif %}
+	{% endfor %}
+	<span class="underline underline-offset-4">{{ 'reservation.tableRemains'|trans }}:</span><br>
+	{% set items = countItems(nonReservedTables) %}
+	{% for key,value in items %}
+		{{ value }} {{ 'reservation.table'|trans }}{{ value > 1 ? 's' : '' }} {{ 'reservation.of'|trans }} {{ key }}
+		{{ 'reservation.seat'|trans }}{{ key > 1 ? 's' : '' }}.<br>
+	{% endfor %}
+</div>
+
+<div class="text-lightText text-2xl text-center mb-6">
+	{{ 'reservation.list'|trans }}
+</div>
+
 {% for reservation in reservations %}
 	<div class="bg-lightBg text-textColor p-2 mb-4 rounded">
 		{% set user = reservation.simpleUser %}
@@ -23,16 +47,17 @@
 		{{ 'reservation.with'|trans }} {{ user.simpleGuests|length }} {{ 'reservation.guests'|trans }}.<br>
 		{{ 'reservation.at'|trans }} {{ reservation.time|date('H:i') }}.<br>
 		{% if reservationTables|length == 1 %}
-			{{ 'reservation.table'|trans }} {{ reservationTables[0] }} {{ 'reservation.guests'|trans }}.<br>
+			{{ 'reservation.tableF'|trans }} {{ reservationTables[0] }} {{ 'reservation.guests'|trans }}.<br>
 		{% else %}
 			{% set joinAnd = 'reservation.and'|trans %}
-			{{ 'reservation.table'|trans }} {{ reservationTables|join(', ', " #{joinAnd} " ) }} {{ 'reservation.guests'|trans }}.<br>
+			{{ 'reservation.tableF'|trans }} {{ reservationTables|join(', ', " #{joinAnd} " ) }} {{ 'reservation.guests'|trans }}.
+			<br>
 		{% endif %}
 	</div>
 {% endfor %}
 
 {% if reservations|length == 0 %}
 	<div class="bg-lightBg text-textColor p-2 mb-4 rounded">
-		Aucune reservations pour ce service.
+		{{ 'reservation.noReservation'|trans }}
 	</div>
 {% endif %}

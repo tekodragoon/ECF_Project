@@ -283,7 +283,7 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/show/{date}?{time}', name: 'app_booking_manage')]
-    public function manageReservations(string $date, string $time, ReservationRepository $reservationRepository, TableRepository $tableRepository): Response
+    public function manageReservations(string $date, string $time, ReservationRepository $reservationRepository, TableRepository $tableRepository, RestaurantRepository $restaurantRepository): Response
     {
         $year = date('Y', strtotime($date));
         $month = date('m', strtotime($date));
@@ -292,11 +292,18 @@ class BookingController extends AbstractController
         $reservations = $this->getReservations(DateTime::createFromImmutable(new DateTimeImmutable($date)), $time === 'noon', $reservationRepository);
         $tables = [];
 
-        foreach ($reservations as $reservation) {
-            $reservedTables = $reservation->getReservedTables();
-            foreach ($reservedTables as $reservedTable) {
-                $tables[] = $tableRepository->findOneBy(['id' => $reservedTable]);
-            }
+        $restaurant = $restaurantRepository->findRestaurant();
+        if (!$restaurant) {
+            throw $this->createNotFoundException(
+                'Restaurant\'s data can\'t be found. Contact support.'
+            );
+        }
+
+        $service = $this->createService($time === 'noon', $restaurant, $reservations);
+
+        $restTables = $restaurant->getTables();
+        foreach ($restTables as $table) {
+            $tables[] = $table;
         }
 
         return $this->render('booking/manage-date.html.twig', [
@@ -305,6 +312,7 @@ class BookingController extends AbstractController
             'day' => $day,
             'reservations' => $reservations,
             'tables' => $tables,
+            'service' => $service,
         ]);
     }
 

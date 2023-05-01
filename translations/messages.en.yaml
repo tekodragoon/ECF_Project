@@ -235,7 +235,15 @@ reservation:
     with: with
     guests: guests
     at: Reservation at
-    table: Table for
+    tableF: Table for
     and: and
     noon: Noon
     eve: Evening
+    remain: Remains %value% seat available.
+    remains: Remains %value% seats available.
+    tableRemains: Remains tables
+    table: table
+    of: of
+    seat: seat
+    list: Reservation list
+    noReservation: No reservation for this service.
