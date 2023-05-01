@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Reservation;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -102,6 +103,22 @@ class ReservationRepository extends ServiceEntityRepository
             ->addSelect('g')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findById(int $id): mixed
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.id = :id')
+            ->setParameter('id', $id)
+            ->leftJoin('r.simpleUser', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.simpleGuests', 'g')
+            ->addSelect('g')
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
 //    /**

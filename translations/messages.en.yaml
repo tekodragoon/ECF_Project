@@ -184,6 +184,10 @@ account:
     allergy: Allergies
     adult: Adult
     child: Child
+    register: User is registered.
+    notRegister: User is not registered.
+    noAllergy: No allergy.
+    notFilled: Not filled.
 
 password:
     old: Current Password

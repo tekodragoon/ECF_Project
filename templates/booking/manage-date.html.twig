@@ -71,7 +71,8 @@
 		<div class="flex flex-col justify-between items-end">
 			<button class="icon-btn btn-valid"
 			        hx-swap="innerHTML"
-			        hx-target="#booking-card">
+			        hx-target="#booking-card"
+			        hx-get="{{ path('app_booking_show', {id: reservation.id}) }}">
 				<span class="material-symbols-outlined">info</span>
 			</button>
 			<button class="icon-btn btn-danger"

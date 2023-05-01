@@ -1,0 +1,48 @@
+{% set current_date = '%s-%s-%s'|format(year, month, day) %}
+{% set weekStart = current_date|date_modify("monday this week")|date('Y-m-d') %}
+
+<div class="flex items-center mb-4">
+	<button class="icon-btn"
+	        hx-swap="innerHTML"
+	        hx-target="#booking-card"
+	        hx-get="{{ path('app_booking_date', {date: weekStart}) }}">
+		<span class="material-symbols-rounded">navigate_before</span>
+	</button>
+</div>
+
+{% set user = reservation.simpleUser %}
+{% set guests = reservation.simpleUser.simpleGuests %}
+
+<div class="bg-lightBg text-textColor rounded mb-4 p-2">
+	<div class="mb-2">
+		<span class="underline underline-offset-4">{{ 'account.lastname'|trans }}:</span> {{ user.fullname }}
+	</div>
+	<div class="mb-2">
+		<span class="underline underline-offset-4">{{ 'account.email'|trans }}:</span> {{ user.email }}
+	</div>
+	<div class="mb-2">
+		{{ user.isRegistered ? 'account.register'|trans : 'account.notRegister'|trans }}
+	</div>
+	{% set allergies = user.allergies ? user.allergies : '' %}
+	<div class="mb-2">
+		<span class="underline underline-offset-4">{{ 'account.allergy'|trans }}:</span>
+		{{ allergies|length == 0 ? 'account.noAllergy'|trans : allergies }}
+	</div>
+</div>
+
+{% for guest in guests %}
+	<div class="bg-lightBg text-textColor rounded mb-4 p-2">
+		<div class="mb-2">
+			{% set name = guest.firstname ? guest.firstname : 'account.notFilled'|trans %}
+			<span class="underline underline-offset-4">{{ 'account.lastname'|trans }}:</span> {{ name }}
+		</div>
+		<div class="mb-2">
+			{{ guest.adult ? 'account.adult'|trans : 'account.child'|trans }}
+		</div>
+		{% set allergies = guest.allergies ? guest.allergies : '' %}
+		<div class="mb-2">
+			<span class="underline underline-offset-4">{{ 'account.allergy'|trans }}:</span>
+			{{ allergies|length == 0 ? 'account.noAllergy'|trans : allergies }}
+		</div>
+	</div>
+{% endfor %}

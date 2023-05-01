@@ -317,6 +317,26 @@ class BookingController extends AbstractController
     }
 
     /**
+     * @throws NonUniqueResultException
+     */
+    #[Route('/booking/show/{id}', name: 'app_booking_show')]
+    public function showReservation(int $id, ReservationRepository $repository):Response
+    {
+        $reservation = $repository->findById($id);
+
+        $year = $reservation->getDate()->format('Y');
+        $month = $reservation->getDate()->format('m');
+        $day = $reservation->getDate()->format('d');
+
+        return $this->render('booking/show-reservation.html.twig', [
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'reservation' => $reservation,
+        ]);
+    }
+
+    /**
      * @param DateTimeImmutable $monday
      * @param array $reservations
      * @param Restaurant $restaurant
