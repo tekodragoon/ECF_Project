@@ -11,23 +11,27 @@
 </div>
 
 <div class="bg-lightBg text-textColor p-2 mb-4 rounded">
-	{% if service.getMaxSeatsAvailable > 1 %}
-		{{ 'reservation.remains'|trans({'%value%': service.getMaxSeatsAvailable }) }}<br>
+	{% if service.getMaxSeatsAvailable == 0 %}
+		{{ 'reservation.noRemains'|trans }}<br>
 	{% else %}
-		{{ 'reservation.remain'|trans({'%value%': service.getMaxSeatsAvailable }) }}<br>
-	{% endif %}
-	{% set nonReservedTables = [] %}
-	{% for table in tables %}
-		{% if table.id in service.nonReservedTablesId %}
-			{% set nonReservedTables = nonReservedTables|merge([table.seats]) %}
+		{% if service.getMaxSeatsAvailable > 1 %}
+			{{ 'reservation.remains'|trans({'%value%': service.getMaxSeatsAvailable }) }}<br>
+		{% else %}
+			{{ 'reservation.remain'|trans({'%value%': service.getMaxSeatsAvailable }) }}<br>
 		{% endif %}
-	{% endfor %}
-	<span class="underline underline-offset-4">{{ 'reservation.tableRemains'|trans }}:</span><br>
-	{% set items = countItems(nonReservedTables) %}
-	{% for key,value in items %}
-		{{ value }} {{ 'reservation.table'|trans }}{{ value > 1 ? 's' : '' }} {{ 'reservation.of'|trans }} {{ key }}
-		{{ 'reservation.seat'|trans }}{{ key > 1 ? 's' : '' }}.<br>
-	{% endfor %}
+		{% set nonReservedTables = [] %}
+		{% for table in tables %}
+			{% if table.id in service.nonReservedTablesId %}
+				{% set nonReservedTables = nonReservedTables|merge([table.seats]) %}
+			{% endif %}
+		{% endfor %}
+		<span class="underline underline-offset-4">{{ 'reservation.tableRemains'|trans }}:</span><br>
+		{% set items = countItems(nonReservedTables) %}
+		{% for key,value in items %}
+			{{ value }} {{ 'reservation.table'|trans }}{{ value > 1 ? 's' : '' }} {{ 'reservation.of'|trans }} {{ key }}
+			{{ 'reservation.seat'|trans }}{{ key > 1 ? 's' : '' }}.<br>
+		{% endfor %}
+	{% endif %}
 </div>
 
 <div class="text-lightText text-2xl text-center mb-6">

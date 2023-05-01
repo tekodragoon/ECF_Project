@@ -243,6 +243,7 @@ reservation:
     eve: Evening
     remain: Remains %value% seat available.
     remains: Remains %value% seats available.
+    noRemains: No seat available.
     tableRemains: Remains tables
     table: table
     of: of
