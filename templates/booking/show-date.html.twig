@@ -40,7 +40,8 @@
 		<span class="w-full text-center py-2 rounded border-2 border-lightText
 					{{ now == cur_date|date('Y-m-d') ? 'bg-secondary' : '' }}
 					{{ now > cur_date|date('Y-m-d') ? 'bg-lightText text-gray-400' : '' }}">
-		{{ cur_date|format_datetime(locale=app.request.locale, pattern="EE dd MMMM")|capitalize }}
+			{% set ptn = app.request.locale == 'fr' ? "EE dd MMMM" : "E, d MMMM" %}
+		{{ cur_date|format_datetime(locale=app.request.locale, pattern=ptn)|capitalize }}
 		</span>
 		<div class="flex justify-center items-center gap-4"
 		     hx-swap="innerHTML"
