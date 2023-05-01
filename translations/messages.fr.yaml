@@ -255,3 +255,5 @@ reservation:
     seat: place
     list: Liste des réservations
     noReservation: Aucune réservation pour ce service.
+    validDelete: Supprimer la réservation de
+    confirmDeleted: La réservation a bien été supprimée.

@@ -283,7 +283,7 @@ class BookingController extends AbstractController
      * @throws Exception
      */
     #[Route('/booking/show/{date}?{time}', name: 'app_booking_manage')]
-    public function manageReservations(string $date, string $time, ReservationRepository $reservationRepository, TableRepository $tableRepository, RestaurantRepository $restaurantRepository): Response
+    public function manageReservations(string $date, string $time, ReservationRepository $reservationRepository, RestaurantRepository $restaurantRepository): Response
     {
         $year = date('Y', strtotime($date));
         $month = date('m', strtotime($date));
@@ -334,6 +334,36 @@ class BookingController extends AbstractController
             'day' => $day,
             'reservation' => $reservation,
         ]);
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    #[Route('/booking/valid-remove/{id}', name: 'app_booking_valid-remove')]
+    public function validRemoveReservation(int $id, ReservationRepository $repository):Response
+    {
+        $reservation = $repository->findById($id);
+
+        $year = $reservation->getDate()->format('Y');
+        $month = $reservation->getDate()->format('m');
+        $day = $reservation->getDate()->format('d');
+
+        return $this->render('booking/remove-reservation.html.twig', [
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'reservation' => $reservation,
+        ]);
+    }
+
+    #[Route('/booking/remove/{id}', name: 'app_booking_remove')]
+    public function removeReservation(Reservation $reservation, ReservationRepository $repository, TranslatorInterface $translator):Response
+    {
+        $repository->remove($reservation, true);
+
+        $this->addFlash('success', $translator->trans('reservation.confirmDeleted'));
+
+        return $this->redirectToRoute('app_booking');
     }
 
     /**

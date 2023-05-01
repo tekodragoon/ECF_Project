@@ -1,0 +1,30 @@
+{% set current_date = '%s-%s-%s'|format(year, month, day) %}
+
+<div class="flex items-center mb-4">
+	<button class="icon-btn"
+	        hx-swap="innerHTML"
+	        hx-target="#booking-card"
+	        hx-get="{{ path('app_booking_manage', {date: current_date, time: reservation.noonService ? 'noon' : 'eve'})
+	        }}">
+		<span class="material-symbols-rounded">navigate_before</span>
+	</button>
+</div>
+
+<div class="p-2 mb-4">
+	<div class="p-2 mb-4">
+		{{ 'reservation.validDelete'|trans }} {{ reservation.simpleUser.fullname }} ?
+	</div>
+	<div class="flex justify-center items-center gap-4">
+		<button class="btn btn-cancel w-28"
+		        hx-swap="innerHTML"
+		        hx-target="#booking-card"
+		        hx-get="{{ path('app_booking_manage', {date: current_date, time: reservation.noonService ? 'noon' : 'eve'})
+		        }}">
+			{{ 'button.no'|trans }}
+		</button>
+		<a class="btn btn-danger w-28 text-center"
+		        href="{{ path('app_booking_remove', {id: reservation.id}) }}">
+			{{ 'button.yes'|trans }}
+		</a>
+	</div>
+</div>

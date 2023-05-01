@@ -77,7 +77,8 @@
 			</button>
 			<button class="icon-btn btn-danger"
 			        hx-swap="innerHTML"
-			        hx-target="#booking-card">
+			        hx-target="#booking-card"
+			        hx-get="{{ path('app_booking_valid-remove', {id: reservation.id}) }}">
 				<span class="material-symbols-outlined">delete</span>
 			</button>
 		</div>
