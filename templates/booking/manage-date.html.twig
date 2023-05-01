@@ -48,24 +48,38 @@
 </div>
 
 {% for reservation in reservations %}
-	<div class="bg-lightBg text-textColor p-2 mb-4 rounded">
-		{% set user = reservation.simpleUser %}
-		{% set reservationTables = [] %}
-		{% for table in tables %}
-			{% if table.id in reservation.reservedTables %}
-				{% set reservationTables = reservationTables|merge([table.seats]) %}
+	<div class="grid grid-cols-4 bg-lightBg text-textColor p-2 mb-4 rounded">
+		<div class="col-span-3">
+			{% set user = reservation.simpleUser %}
+			{% set reservationTables = [] %}
+			{% for table in tables %}
+				{% if table.id in reservation.reservedTables %}
+					{% set reservationTables = reservationTables|merge([table.seats]) %}
+				{% endif %}
+			{% endfor %}
+			{{ user.fullname }} ({{ user.email }})<br>
+			{{ 'reservation.with'|trans }} {{ user.simpleGuests|length }} {{ 'reservation.guests'|trans }}.<br>
+			{{ 'reservation.at'|trans }} {{ reservation.time|date('H:i') }}.<br>
+			{% if reservationTables|length == 1 %}
+				{{ 'reservation.tableF'|trans }} {{ reservationTables[0] }} {{ 'reservation.guests'|trans }}.<br>
+			{% else %}
+				{% set joinAnd = 'reservation.and'|trans %}
+				{{ 'reservation.tableF'|trans }} {{ reservationTables|join(', ', " #{joinAnd} " ) }} {{ 'reservation.guests'|trans }}.
+				<br>
 			{% endif %}
-		{% endfor %}
-		{{ user.fullname }} ({{ user.email }})<br>
-		{{ 'reservation.with'|trans }} {{ user.simpleGuests|length }} {{ 'reservation.guests'|trans }}.<br>
-		{{ 'reservation.at'|trans }} {{ reservation.time|date('H:i') }}.<br>
-		{% if reservationTables|length == 1 %}
-			{{ 'reservation.tableF'|trans }} {{ reservationTables[0] }} {{ 'reservation.guests'|trans }}.<br>
-		{% else %}
-			{% set joinAnd = 'reservation.and'|trans %}
-			{{ 'reservation.tableF'|trans }} {{ reservationTables|join(', ', " #{joinAnd} " ) }} {{ 'reservation.guests'|trans }}.
-			<br>
-		{% endif %}
+		</div>
+		<div class="flex flex-col justify-between items-end">
+			<button class="icon-btn btn-valid"
+			        hx-swap="innerHTML"
+			        hx-target="#booking-card">
+				<span class="material-symbols-outlined">info</span>
+			</button>
+			<button class="icon-btn btn-danger"
+			        hx-swap="innerHTML"
+			        hx-target="#booking-card">
+				<span class="material-symbols-outlined">delete</span>
+			</button>
+		</div>
 	</div>
 {% endfor %}
 
