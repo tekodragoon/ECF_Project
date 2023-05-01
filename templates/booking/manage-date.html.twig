@@ -31,6 +31,15 @@
 			{{ value }} {{ 'reservation.table'|trans }}{{ value > 1 ? 's' : '' }} {{ 'reservation.of'|trans }} {{ key }}
 			{{ 'reservation.seat'|trans }}{{ key > 1 ? 's' : '' }}.<br>
 		{% endfor %}
+		<div class="flex justify-end">
+			<button class="icon-btn"
+			        hx-swap="innerHTML"
+			        hx-target="#booking-card"
+			        hx-get="{{ path('app_booking_hours',
+				        {date: current_date|date('Y-m-d'), time: service.noon ? 'noon' : 'eve'}) }}">
+				{{ 'reservation.book'|trans }}
+			</button>
+		</div>
 	{% endif %}
 </div>
 

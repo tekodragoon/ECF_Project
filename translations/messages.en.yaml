@@ -234,6 +234,7 @@ reservation:
     thanks: Thank you for your reservation.
     information: Your informations
     guestInformation: Informations guest
+    book: Make a reservation
     with: with
     guests: guests
     at: Reservation at
