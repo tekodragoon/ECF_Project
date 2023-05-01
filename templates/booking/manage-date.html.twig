@@ -20,12 +20,13 @@
 			{% endif %}
 		{% endfor %}
 		{{ user.fullname }} ({{ user.email }})<br>
-		avec {{ user.simpleGuests|length }} personnes.<br>
-		à {{ reservation.time|date('H:i') }}.<br>
+		{{ 'reservation.with'|trans }} {{ user.simpleGuests|length }} {{ 'reservation.guests'|trans }}.<br>
+		{{ 'reservation.at'|trans }} {{ reservation.time|date('H:i') }}.<br>
 		{% if reservationTables|length == 1 %}
-			Table de {{ reservationTables[0] }} personnes.<br>
+			{{ 'reservation.table'|trans }} {{ reservationTables[0] }} {{ 'reservation.guests'|trans }}.<br>
 		{% else %}
-			Tables de {{ reservationTables|join(', ', ' et ' ) }} personnes.<br>
+			{% set joinAnd = 'reservation.and'|trans %}
+			{{ 'reservation.table'|trans }} {{ reservationTables|join(', ', " #{joinAnd} " ) }} {{ 'reservation.guests'|trans }}.<br>
 		{% endif %}
 	</div>
 {% endfor %}

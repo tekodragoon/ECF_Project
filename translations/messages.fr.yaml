@@ -232,3 +232,10 @@ reservation:
     title: Votre reservation a bien été prise en compte.
     text: "Nous vous avons envoyé un email de confirmation à l'adresse suivante : "
     thanks: Merci de votre confiance.
+    with: avec
+    guests: personnes
+    at: Reservation à
+    table: Table pour
+    and: et
+    noon: Midi
+    eve: Soir
