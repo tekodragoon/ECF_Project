@@ -1,0 +1,37 @@
+{% set current_date = '%s-%s-%s'|format(year, month, day) %}
+{% set weekStart = current_date|date_modify("monday this week")|date('Y-m-d') %}
+
+<div class="flex items-center mb-4">
+	<button class="icon-btn"
+	        hx-swap="innerHTML"
+	        hx-target="#booking-card"
+	        hx-get="{{ path('app_booking_date', {date: weekStart}) }}">
+		<span class="material-symbols-rounded">navigate_before</span>
+	</button>
+</div>
+
+{% for reservation in reservations %}
+	<div class="bg-lightBg text-textColor p-2 mb-4 rounded">
+		{% set user = reservation.simpleUser %}
+		{% set reservationTables = [] %}
+		{% for table in tables %}
+			{% if table.id in reservation.reservedTables %}
+				{% set reservationTables = reservationTables|merge([table.seats]) %}
+			{% endif %}
+		{% endfor %}
+		{{ user.fullname }} ({{ user.email }})<br>
+		avec {{ user.simpleGuests|length }} personnes.<br>
+		à {{ reservation.time|date('H:i') }}.<br>
+		{% if reservationTables|length == 1 %}
+			Table de {{ reservationTables[0] }} personnes.<br>
+		{% else %}
+			Tables de {{ reservationTables|join(', ', ' et ' ) }} personnes.<br>
+		{% endif %}
+	</div>
+{% endfor %}
+
+{% if reservations|length == 0 %}
+	<div class="bg-lightBg text-textColor p-2 mb-4 rounded">
+		Aucune reservations pour ce service.
+	</div>
+{% endif %}

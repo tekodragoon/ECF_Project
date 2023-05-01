@@ -16,6 +16,7 @@ use App\Repository\ReservationRepository;
 use App\Repository\RestaurantRepository;
 use App\Repository\SimpleGuestRepository;
 use App\Repository\SimpleUserRepository;
+use App\Repository\TableRepository;
 use App\Repository\UserRepository;
 use DateInterval;
 use DateTime;
@@ -275,6 +276,35 @@ class BookingController extends AbstractController
             'time' => $time,
             'guests' => $guests,
             'reservationForm' => $reservationForm->createView(),
+        ]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[Route('/booking/show/{date}?{time}', name: 'app_booking_manage')]
+    public function manageReservations(string $date, string $time, ReservationRepository $reservationRepository, TableRepository $tableRepository): Response
+    {
+        $year = date('Y', strtotime($date));
+        $month = date('m', strtotime($date));
+        $day = date('d', strtotime($date));
+
+        $reservations = $this->getReservations(DateTime::createFromImmutable(new DateTimeImmutable($date)), $time === 'noon', $reservationRepository);
+        $tables = [];
+
+        foreach ($reservations as $reservation) {
+            $reservedTables = $reservation->getReservedTables();
+            foreach ($reservedTables as $reservedTable) {
+                $tables[] = $tableRepository->findOneBy(['id' => $reservedTable]);
+            }
+        }
+
+        return $this->render('booking/manage-date.html.twig', [
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'reservations' => $reservations,
+            'tables' => $tables,
         ]);
     }
 

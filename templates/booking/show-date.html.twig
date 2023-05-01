@@ -39,8 +39,7 @@
 	<div class="flex justify-evenly items-center gap-4 mb-4">
 		<span class="w-full text-center py-2 rounded border-2 border-lightText
 					{{ now == cur_date|date('Y-m-d') ? 'bg-secondary' : '' }}
-					{{ now > cur_date|date('Y-m-d') ? 'bg-lightText text-gray-400' : '' }}
-		">
+					{{ now > cur_date|date('Y-m-d') ? 'bg-lightText text-gray-400' : '' }}">
 		{{ cur_date|format_datetime(locale=app.request.locale, pattern="EE dd MMMM")|capitalize }}
 		</span>
 		<div class="flex"
@@ -52,28 +51,42 @@
 			{% elseif services[i*2].getNonReservedTables|length <= carefulValue %}
 				{% set color = 'btn-careful' %}
 			{% endif %}
-			<button class="btn {{ color }}"
-					{% if not restaurant.openDays[i].isOpen or
-						not restaurant.openDays[i].isNoonService or
-						now > cur_date|date('Y-m-d') %}
-						disabled {% endif %}
-					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 'noon'}) }}">
-				Midi
-			</button>
+			{% if is_granted('ROLE_ADMIN') %}
+				<button class="btn {{ color }}"
+				        hx-get="{{ path('app_booking_manage', {date: cur_date|date('Y-m-d'), time: 'noon'}) }}">
+					Midi
+				</button>
+			{% else %}
+				<button class="btn {{ color }}"
+						{% if not restaurant.openDays[i].isOpen or
+							not restaurant.openDays[i].isNoonService or
+							now > cur_date|date('Y-m-d') %}
+							disabled {% endif %}
+						    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 'noon'}) }}">
+					Midi
+				</button>
+			{% endif %}
 			{% set color = 'btn-valid' %}
 			{% if services[(i*2)+1].getNonReservedTables|length == 0 %}
 				{% set color = 'btn-danger' %}
 			{% elseif services[(i*2)+1].getNonReservedTables|length <= carefulValue %}
 				{% set color = 'btn-careful' %}
 			{% endif %}
-			<button class="btn {{ color }}"
-					{% if not restaurant.openDays[i].isOpen or
-						not restaurant.openDays[i].isEveningService or
-						now > cur_date|date('Y-m-d') %}
-						disabled {% endif %}
-					    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 'eve'}) }}">
-				Soir
-			</button>
+			{% if is_granted('ROLE_ADMIN') %}
+				<button class="btn {{ color }}"
+				        hx-get="{{ path('app_booking_manage', {date: cur_date|date('Y-m-d'), time:'eve'}) }}">
+					Soir
+				</button>
+			{% else %}
+				<button class="btn {{ color }}"
+						{% if not restaurant.openDays[i].isOpen or
+							not restaurant.openDays[i].isEveningService or
+							now > cur_date|date('Y-m-d') %}
+							disabled {% endif %}
+						    hx-get="{{ path('app_booking_hours', {date: cur_date|date('Y-m-d'), time: 'eve'}) }}">
+					Soir
+				</button>
+			{% endif %}
 		</div>
 	</div>
 {% endfor %}
