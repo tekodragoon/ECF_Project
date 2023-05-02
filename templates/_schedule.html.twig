@@ -1,4 +1,4 @@
-{{ "now"|format_datetime('medium', 'none') }}
+<p>{{ "now"|format_datetime('medium', 'none') }}</p>
 {% if restaurant.openToday %}
 	<p>{% trans %}info.open{% endtrans %}</p>
 	{% if restaurant.noonServiceToday and restaurant.eveningServiceToday %}
@@ -7,7 +7,7 @@
 			{{ restaurant.getStartNoonServiceSchedule }}
 			{% trans %}info.to{% endtrans %}
 			{{ restaurant.getEndNoonServiceSchedule }}
-			{% trans %}info.andf{% endtrans %}
+			{% trans %}info.andf{% endtrans %}<br class="lg:hidden">
 			{{ restaurant.getStartEveningServiceSchedule }}
 			{% trans %}info.to{% endtrans %}
 			{{ restaurant.getEndEveningServiceSchedule }}
