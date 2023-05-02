@@ -8,6 +8,9 @@ const images = document.querySelectorAll('.gallery');
 let currentIndex;
 Array.from(images).map((image, index) => {
 	image.addEventListener('click', () => {
+		let w = window.innerWidth;
+		if (w < 640 ) return; // not on mobile
+		if (window.innerHeight < w * 0.65 && window.innerHeight < 900) return; // not enough height
 		if (zoom.classList.contains('hidden')) {
 			zoom.classList.remove('hidden');
 			currentIndex = index;
@@ -33,6 +36,10 @@ nextButton.addEventListener('click', () => {
 })
 
 closeButton.addEventListener('click', () => {
+	zoom.classList.add('hidden');
+})
+
+zoom.addEventListener('click', () => {
 	zoom.classList.add('hidden');
 })
 
