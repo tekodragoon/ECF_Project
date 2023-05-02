@@ -1,5 +1,5 @@
-<div class="grid grid-cols-3 items-center text-lightText">
-	{{ include('_deco.html.twig') }}
-	<span class="textH2">{{ title }}</span>
-	{{ include('_deco.html.twig') }}
+<div class="flex justify-evenly items-center text-lightText">
+	<div class="flex-grow">{{ include('_deco.html.twig') }}</div>
+	<span class="textH2 w-fit mx-4">{{ title }}</span>
+	<div class="flex-grow">{{ include('_deco.html.twig') }}</div>
 </div>
