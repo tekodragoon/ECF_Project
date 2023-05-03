@@ -3,6 +3,7 @@
 .gallery {
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -17,25 +18,10 @@
     rgba(0, 0, 0, 0.07) 0 16px 16px;
 }
 
-.gallery-span {
-    position: absolute;
-    text-align: start;
-    width: fit-content;
-    max-width: 24rem;
-    bottom: 0.5rem;
-    left: 0.5rem;
-}
+
 
 .gallery:hover {
     cursor: pointer;
-}
-
-.gallery > span {
-    display: none;
-}
-
-.gallery:hover > span {
-    display: block;
 }
 
 .g-zoom-bgrd {
@@ -73,4 +59,26 @@
 #prev-button,
 #next-button {
     z-index: 60;
+}
+
+@media screen and (min-width: 1024px) {
+    .gallery {
+        flex-direction: row;
+    }
+    .gallery-span {
+        position: absolute;
+        text-align: start;
+        width: fit-content;
+        max-width: 24rem;
+        bottom: 0.5rem;
+        left: 0.5rem;
+    }
+
+    .gallery > span {
+        display: none;
+    }
+
+    .gallery:hover > span {
+        display: block;
+    }
 }
