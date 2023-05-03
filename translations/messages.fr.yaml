@@ -182,6 +182,7 @@ account:
     password: Mot de passe
     guest: Convives
     allergy: Allergies
+    allergyName: Nom de l'allergie
     adult: Adulte
     child: Enfant
     register: Utilisateur enregistré.

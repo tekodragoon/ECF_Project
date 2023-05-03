@@ -17,14 +17,14 @@ class GuestType extends AbstractType
     {
         $builder
             ->add('firstname', TextType::class, [
-                'label' => 'Firstname',
+                'label' => 'account.firstname',
                 'required' => false,
             ])
             ->add('adult', ChoiceType::class, [
-                'label' => 'Adult',
+                'label' => 'account.adult',
                 'choices' => [
-                    'Adult' => true,
-                    'Child' => false,
+                    'account.adult' => true,
+                    'account.child' => false,
                 ],
                 'expanded' => false,
                 'multiple' => false,

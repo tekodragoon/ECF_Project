@@ -14,7 +14,7 @@ class AllergyType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Allergy name',
+                'label' => 'account.allergyName',
             ])
         ;
     }

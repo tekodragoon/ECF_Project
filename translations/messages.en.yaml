@@ -182,6 +182,7 @@ account:
     password: Password
     guest: Guests
     allergy: Allergies
+    allergyName: Allergy name
     adult: Adult
     child: Child
     register: User is registered.
