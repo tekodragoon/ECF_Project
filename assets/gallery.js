@@ -19,7 +19,8 @@ Array.from(images).map((image, index) => {
 	})
 })
 
-prevButton.addEventListener('click', () => {
+prevButton.addEventListener('click', (ev) => {
+	ev.stopPropagation();
 	currentIndex--;
 	if (currentIndex < 0) {
 		currentIndex = images.length - 1;
@@ -27,7 +28,8 @@ prevButton.addEventListener('click', () => {
 	changeImage();
 })
 
-nextButton.addEventListener('click', () => {
+nextButton.addEventListener('click', (ev) => {
+	ev.stopPropagation();
 	currentIndex++;
 	if (currentIndex === images.length) {
 		currentIndex = 0;
@@ -35,11 +37,14 @@ nextButton.addEventListener('click', () => {
 	changeImage();
 })
 
-closeButton.addEventListener('click', () => {
+closeButton.addEventListener('click', (ev) => {
+	ev.stopPropagation();
+	console.log('close zoom image with button');
 	zoom.classList.add('hidden');
 })
 
 zoom.addEventListener('click', () => {
+	console.log('close zoom image with bg');
 	zoom.classList.add('hidden');
 })
 
