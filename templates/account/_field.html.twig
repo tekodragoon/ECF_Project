@@ -1,9 +1,9 @@
-<div class="flex gap-4 items-center {% if not last %}mb-6{% endif %}">
+<div class="flex gap-1 md:gap-4 items-center {% if not last %}mb-6{% endif %}">
 	<div class="flex-grow border-2 border-secondary p-1.5 rounded bg-lightBg">
 		<div class="flex justify-between items-center">
-			<div class="flex text-textColor">
-				<div class="text-center font-bold w-28 border-b border-textColor">{{ field_name }}</div>
-				<div>: {{ field_value }}</div>
+			<div class="flex flex-col md:flex-row text-textColor">
+				<div class="text-center font-bold w-28 border-b border-textColor">{{ field_name }} :</div>
+				<div>{{ field_value }}</div>
 			</div>
 			<img src="{{ asset('build/images/oval.svg') }}" alt="loading" class="htmx-indicator">
 		</div>
