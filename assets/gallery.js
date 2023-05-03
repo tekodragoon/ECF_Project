@@ -39,12 +39,10 @@ nextButton.addEventListener('click', (ev) => {
 
 closeButton.addEventListener('click', (ev) => {
 	ev.stopPropagation();
-	console.log('close zoom image with button');
 	zoom.classList.add('hidden');
 })
 
 zoom.addEventListener('click', () => {
-	console.log('close zoom image with bg');
 	zoom.classList.add('hidden');
 })
 
