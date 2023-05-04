@@ -158,6 +158,7 @@ message:
     confirmReservation: Réservation confirmée.
     confirmReservationEmailSuccess: Le mail de confirmation a été envoyé.
     confirmReservationEmailError: Le mail de confirmation n'a pas été envoyé. Contactez le support.
+    userManageNotAllowed: La gestion des utilisateurs n'est pas disponible sur mobile.
 
 form:
     email: Email
