@@ -353,6 +353,9 @@
             "webpack.config.js"
         ]
     },
+    "tattali/mobile-detect-bundle": {
+        "version": "v2.2.6"
+    },
     "twig/extra-bundle": {
         "version": "v3.5.0"
     },

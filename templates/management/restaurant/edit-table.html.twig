@@ -23,7 +23,7 @@
 				.prototype})|e('html_attr') }}"
 				data-index="{{ form.tables|length > 0 ? form.tables|last.vars.name + 1 : 0 }}"
 		>
-			<div class="grid grid-cols-3 gap-4" id="table-holder">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="table-holder">
 				{% for table in form.tables %}
 					{{ include('management/restaurant/_edit-table.html.twig', {table: table}) }}
 				{% endfor %}

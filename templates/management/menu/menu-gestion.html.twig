@@ -51,21 +51,21 @@
 						<div class="w-28 inline-block underline underline-offset-4">
 							{{ 'menu.name'|trans }}:
 						</div>
-						<span class="mr-2">{{ menu.title }}</span>
+						<span class="block md:inline mr-2">{{ menu.title }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
 						<div class="w-28 inline-block underline underline-offset-4">
 							{{ 'menu.description'|trans }}:
 						</div>
-						<span class="mr-2">{{ menu.description }}</span>
+						<span class="block md:inline mr-2">{{ menu.description }}</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div class="mb-1">
 						<div class="w-28 inline-block underline underline-offset-4">
 							{{ 'menu.price'|trans }}:
 						</div>
-						<span class="mr-2">{{ menu.price }}€</span>
+						<span class="block md:inline mr-2">{{ menu.price }}€</span>
 					</div>
 					<hr class="h-px my-1 bg-secondary border-0">
 					<div>
@@ -73,7 +73,7 @@
 							{{ 'menu.formulas'|trans }}:
 						</span>
 						{% set forms = concatFormulas(menu.formulas) %}
-						<span>{{ forms }}</span>
+						<span class="block md:inline">{{ forms }}</span>
 					</div>
 				</div>
 				<div class="flex justify-end items-center">

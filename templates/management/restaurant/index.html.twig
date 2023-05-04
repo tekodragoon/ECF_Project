@@ -5,7 +5,7 @@
 
 	{# GESTION DES HORAIRES  #}
 
-	<div class="card grid grid-cols-4 gap-2 text-lightText">
+	<div class="card grid grid-cols-1 md:grid-cols-4 gap-2 text-lightText">
 		{% for i in 1..7 %}
 			{% set openDay = restaurant.todayOpenDay(i) %}
 			{% set openHours = restaurant.todayOpenHour(i) %}

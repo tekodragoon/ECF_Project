@@ -3,16 +3,22 @@
 
 	{{ include('_back-button.html.twig', {path: path('app_management_action')}) }}
 
-	<div class="card">
-		<div class="grid grid-cols-4 text-center uppercase text-xl items-center text-lightText p-2 rounded mb-4">
-			<span class="p-2 col-span-2">{{ 'userGestionTitle.email'|trans }}</span>
-			<span class="p-2">{{ 'userGestionTitle.role'|trans }}</span>
-			<span class="p-2">{{ 'userGestionTitle.action'|trans }}</span>
+	{% if is_mobile() and not is_tablet() %}
+		<div class="card">
+			<span class="text-lightText">La gestion des utilisateurs n'est pas disponible sur mobile.</span>
 		</div>
-		{% for user in users %}
-			<div class="{{ 'userId-%s'|format(user.id) }}">
-				{{ include('management/user/_user-information.html.twig', {user: user}) }}
+	{% else %}
+		<div class="card">
+			<div class="grid grid-cols-4 text-center uppercase text-xl items-center text-lightText p-2 rounded mb-4">
+				<span class="p-2 col-span-2">{{ 'userGestionTitle.email'|trans }}</span>
+				<span class="p-2">{{ 'userGestionTitle.role'|trans }}</span>
+				<span class="p-2">{{ 'userGestionTitle.action'|trans }}</span>
 			</div>
-		{% endfor %}
-	</div>
+			{% for user in users %}
+				<div class="{{ 'userId-%s'|format(user.id) }}">
+					{{ include('management/user/_user-information.html.twig', {user: user}) }}
+				</div>
+			{% endfor %}
+		</div>
+	{% endif %}
 </div>

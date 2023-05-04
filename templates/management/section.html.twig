@@ -1,10 +1,10 @@
 {{ include('_flash-message.html.twig') }}
 
 <div
-		class="card grid grid-cols-2 gap-4"
+		class="card flex flex-col md:grid md:grid-cols-2 md:gap-4"
 		hx-target="this"
 		hx-swap="outerHTML">
-	<div class="col-span-2 text-lightText p-2">
+	<div class="md:col-span-2 text-lightText p-2">
 		{% if app.user.firstname and app.user.lastname %}
 			{{ 'message.welcome'|trans }} {{ app.user.firstname }} {{ app.user.lastname }}
 		{% elseif app.user.firstname %}
