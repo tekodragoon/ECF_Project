@@ -54,7 +54,8 @@
 			{% for image in images %}
 				<div class="home-vignette">
 					<img src="{{ asset("build/images/gallery/#{image.filename}")|imagine_filter('miniature') }}"
-					     alt="{{ image.name }}">
+					     alt="{{ image.name }}"
+					     title="{{ image.name }}">
 				</div>
 			{% endfor %}
 		</div>
