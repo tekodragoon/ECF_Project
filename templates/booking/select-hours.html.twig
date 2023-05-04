@@ -50,7 +50,7 @@
 		<div class="text-center underline underline-offset-4 mb-4">
 			{{ 'message.chooseHour'|trans }}
 		</div>
-		<div class="grid grid-cols-4">
+		<div class="grid grid-cols-3 md:grid-cols-4">
 			{% set maxRange = (endTime|date('U') - startTime|date('U'))/900|round %}
 			{% for i in range(0, maxRange - 4) %}
 				{% set time = startTime|date_modify('+' ~ (i * 900) ~ ' seconds') %}

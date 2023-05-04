@@ -19,7 +19,7 @@
 	<div class="flex-grow text-center">
 		{{ current_date|format_datetime(locale=app.request.locale, pattern="MMMM Y") }}
 	</div>
-	<div class="flex gap-8">
+	<div class="flex gap-4 md:gap-8">
 		{% if is_granted('ROLE_ADMIN') %}
 			<button class="btn"
 			        hx-get="{{ path('app_booking_date', { date: strPrevWeek }) }}">
@@ -43,14 +43,14 @@
 
 {% for i in 0..6 %}
 	{% set cur_date = current_date|date_modify("+#{i} day") %}
-	<div class="grid grid-cols-2 justify-center items-center gap-4 mb-4">
+	<div class="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-1 md:gap-4 mb-4">
 		<span class="w-full text-center py-2 rounded border-2 border-lightText
 					{{ now == cur_date|date('Y-m-d') ? 'bg-secondary' : '' }}
 					{{ now > cur_date|date('Y-m-d') ? 'bg-lightText text-gray-400' : '' }}">
 			{% set ptn = app.request.locale == 'fr' ? "EE dd MMMM" : "E, d MMMM" %}
 			{{ cur_date|format_datetime(locale=app.request.locale, pattern=ptn)|capitalize }}
 		</span>
-		<div class="flex justify-center items-center gap-4"
+		<div class="flex justify-center items-center md:gap-4"
 		     hx-swap="innerHTML"
 		     hx-target="#booking-card">
 			{% set color = 'btn-valid' %}
