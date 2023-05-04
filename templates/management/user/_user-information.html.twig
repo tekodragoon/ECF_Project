@@ -8,8 +8,9 @@
 	<div class="flex justify-evenly items-center">
 
 		<button class="icon-btn btn-valid"
-		     hx-target="{{ '#userId-%s'|format(user.id) }}"
-		     hx-get="{{ path('app_management_update-user-role', {id: user.id}) }}">
+		        {% if app.user.id == user.id %}disabled{% endif %}
+		        hx-target="{{ '#userId-%s'|format(user.id) }}"
+		        hx-get="{{ path('app_management_update-user-role', {id: user.id}) }}">
 			<span class="material-symbols-rounded">edit</span>
 		</button>
 
