@@ -7,7 +7,7 @@
 		{% endif %}
 	</p>
 	<p class="text-white">{{ firstname }}</p>
-	<p class="text-white">{{ adult ? 'Adult' : 'Child' }}</p>
+	<p class="text-white">{{ adult ? 'account.adult'|trans : 'account.child'|trans }}</p>
 	{% set all = concatAllergies(allergies) %}
 	<p class="text-white">
 		{{ all }}
