@@ -633,7 +633,7 @@ class ManagementController extends AbstractController
      * @throws NonUniqueResultException
      */
     #[Route('/manage-seats', name: 'app_management_manage-seats-restaurant')]
-    public function manageSeatsRestaurant(Request $request, RestaurantRepository $repository):Response
+    public function manageSeatsRestaurant(Request $request, RestaurantRepository $repository, TranslatorInterface $translator):Response
     {
         $restaurant = $repository->findRestaurant();
         if (!$restaurant) {
@@ -646,7 +646,7 @@ class ManagementController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $repository->save($restaurant, true);
-            $this->addFlash('success', 'Table\'s informations updated.');
+            $this->addFlash('success', $translator->trans('message.tableUpdated'));
             return $this->redirectToRoute('app_management_manage-restaurant');
         }
 

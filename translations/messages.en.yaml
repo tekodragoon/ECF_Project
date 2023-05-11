@@ -159,6 +159,7 @@ message:
     confirmReservationEmailSuccess: Confirmation email has been sent.
     confirmReservationEmailError: Confirmation email has not been sent. Contact support.
     userManageNotAllowed: User management is not available on mobile.
+    tableUpdated: Restaurant tables have been updated.
 
 form:
     email: Email
