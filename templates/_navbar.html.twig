@@ -3,9 +3,13 @@
 {{ encore_entry_script_tags('navmenu') }}
 {% endblock %}
 
-{% set route = app.request.attributes.get('_route') %}
+{% set route = app.request.attributes.get('_route') ?? 'app_home' %}
 {% set route_params = app.request.attributes.get('_route_params') %}
-{% set params = route_params|merge(app.request.query.all) %}
+{% if app.request.query.all|length > 0 %}
+	{% set params = route_params|merge(app.request.query.all) %}
+{% else %}
+	{% set params = route_params %}
+{% endif %}
 
 {% set lang = app.request.locale == 'fr' ? 'fr.png' : 'en.png' %}
 {% set img = 'build/images/%s'|format(lang) %}
@@ -24,12 +28,22 @@
 				</a>
 				<div class="flex flex-col gap-1">
 					<img class="flag" src="{{ asset(img) }}" alt="{{ flag }}" id="cur-flag">
-					<a class="hidden" href="{{ path(route, params|merge({ _locale: 'en' })) }}" id="en-flag">
+					{% if params|length > 0 %}
+						{% set prms = params|merge({ _locale: 'en' }) %}
+					{% else %}
+						{% set prms = { _locale: 'en' } %}
+					{% endif %}
+					<a class="hidden" href="{{ path(route, prms) }}" id="en-flag">
 						<img class="flag"
 						     src="{{ asset('build/images/en.png') }}"
 						     alt="english flag">
 					</a>
-					<a class="hidden" href="{{ path(route, params|merge({ _locale: 'fr' })) }}" id="fr-flag">
+					{% if params|length > 0 %}
+						{% set prms = params|merge({ _locale: 'fr' }) %}
+					{% else %}
+						{% set prms = { _locale: 'fr' } %}
+					{% endif %}
+					<a class="hidden" href="{{ path(route, prms) }}" id="fr-flag">
 						<img class="flag"
 						     src="{{ asset('build/images/fr.png') }}"
 						     alt="drapeau français" id="fr-flag">
