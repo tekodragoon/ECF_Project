@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="max-w-3xl mx-auto p-8 sm:p-7 md:p-6 lg:p-4">
+
+		<div class="w-fit mx-auto text-center mb-8">
+			<span class="material-symbols-outlined title-icon text-warning">bookmark</span>
+			<h1 class="textH1">
+				An error occurred
+			</h1>
+		</div>
+
+		<div class="card border-2 border-warning text-lightText">
+			<div class="mb-2">Oops! Something went wrong.</div>
+			<div class="mb-2">We're sorry, but an error occurred while processing your request.<br>
+				Our team has been notified of the issue, and we're working diligently to resolve it.</div>
+			<div class="mb-2">Please try again later, or contact us if the problem persists.</div>
+			<a class="textLink" href="{{ path('app_home') }}">return to the homepage</a>.
+		</div>
+
+	</div>
+{% endblock %}
