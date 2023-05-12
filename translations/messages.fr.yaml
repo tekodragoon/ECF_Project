@@ -160,6 +160,7 @@ message:
     confirmReservationEmailError: Le mail de confirmation n'a pas été envoyé. Contactez le support.
     userManageNotAllowed: La gestion des utilisateurs n'est pas disponible sur mobile.
     tableUpdated: Les tables du restaurant ont été mises à jour.
+    scheduleUpdated: Les horaires du restaurant ont été mises à jour.
 
 form:
     email: Email
