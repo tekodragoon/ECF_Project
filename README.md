@@ -24,6 +24,9 @@ I made this project with Symfony 6.2.6.
 * Create the tables with `php bin/console doctrine:migrations:migrate`
 * Load the fixtures with `php bin/console doctrine:fixtures:load`
 * Run the server with `symfony server:start`
+* Run "npm run watch" to start webpack-encore.
+* Run "php bin/console messenger:consume liip_imagine --time-limit=3600 --memory-limit=256M"
+  for running liip-imagine worker.
 * Go to `localhost:8000` in your browser
 * Enjoy !
 
